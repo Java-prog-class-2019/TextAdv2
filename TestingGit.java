@@ -7,5 +7,10 @@ public class TestingGit {
 
 		printout(x);  //Gene writes this
 	}
+	
+	static int getRandom() {
+		int a=(int)(Math.random()*100);
+		return a;
+	}
 
 }
