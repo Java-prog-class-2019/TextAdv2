@@ -19,8 +19,10 @@ public class Item {
     Type type;
 
     public Item() {
+
         chooseType();
         chooseRarity();
+        genStats();
 
     }
 
@@ -48,6 +50,24 @@ public class Item {
     }
 
     public void genStats() {
+
+        /* TODO:
+            Add stat generation based on rarity. Make sure to
+            generate stats for weapons and armour differently
+            ( i.e. armour should't give power and weapons
+            shouldn't give armour )
+        */
+
+        if (type == Type.WEAPON) {
+
+
+
+
+        }
+
+        if (type == Type.ARMOUR) {
+
+        }
 
     }
 
