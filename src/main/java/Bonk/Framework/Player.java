@@ -7,8 +7,16 @@ public class Player {
     String name;
     HashMap<String, Item> inv;
 
-    public Player() {
+    // Stats (1-10 [Inclusive])
+    int dmg;
+    int def;
 
+    int dodge;
+    int crit;
+
+
+
+    public Player() {
 
     }
 
@@ -17,11 +25,13 @@ public class Player {
         applyStats(item);
     }
 
-    public void removeItem() {
+    public void removeItem(Item item) {
+        inv.remove(item.name, item);
+        removeStats(item);
 
     }
 
     public void applyStats(Item item) {}
 
-    public void removeStats() {}
+    public void removeStats(Item item) {}
 }
