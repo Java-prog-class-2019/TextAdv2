@@ -12,7 +12,7 @@ public class Player {
     int armour;
 
     //Soft Stats
-    double dodgeChance
+    double dodgeChance;
     double critChance;
 
 
