@@ -14,5 +14,10 @@ public class TestingGit {
 		System.out.print(x);
 		
 	}
+	
+	static int getRandom() {
+		int a=(int)(Math.random()*100);
+		return a;
+	}
 
 }
