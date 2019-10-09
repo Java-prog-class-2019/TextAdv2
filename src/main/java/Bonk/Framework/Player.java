@@ -7,12 +7,13 @@ public class Player {
     String name;
     HashMap<String, Item> inv;
 
-    // Stats (1-10 [Inclusive])
-    int dmg;
-    int def;
+    // Hard Stats
+    int power;
+    int armour;
 
-    int dodge;
-    int crit;
+    //Soft Stats
+    double dodgeChance
+    double critChance;
 
 
 
@@ -31,7 +32,19 @@ public class Player {
 
     }
 
-    public void applyStats(Item item) {}
+    public void applyStats(Item item) {
+        dodgeChance += item.dodgeChance;
+        critChance += item.critChance;
+        power += item.power;
+        armour += item.power;
 
-    public void removeStats(Item item) {}
+    }
+
+    public void removeStats(Item item) {
+        dodgeChance -= item.dodgeChance;
+        critChance -= item.critChance;
+        power -= item.power;
+        armour -= item.armour;
+
+    }
 }
