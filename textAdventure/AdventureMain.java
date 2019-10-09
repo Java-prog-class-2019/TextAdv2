@@ -11,7 +11,6 @@ public class AdventureMain {
 	//ArrayList<Room> roomList = new ArrayList<Room>();
 	HashMap<String,Room> roomList = new HashMap<String,Room>();
 	HashMap<String, Item> itemList = new HashMap<String,Item>(); //list of all item objects
-	ArrayList<String> inventory = new ArrayList<String>();
 	String currentRoom;
 	Player player;
 	
@@ -51,6 +50,8 @@ public class AdventureMain {
 		Room.setupRooms(roomList);
 		// ... more stuff ...
 		currentRoom = "clearing";
+		//Debug
+		Room.listAllRooms(roomList);
 	}
 
 	String getCommand() {
