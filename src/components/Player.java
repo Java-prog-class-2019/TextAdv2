@@ -14,6 +14,7 @@ public class Player {
     // Hard Stats
     int power;
     int armour;
+    int bonusHealth;
 
     //Soft Stats
     double dodgeChance;
@@ -48,7 +49,7 @@ public class Player {
         dodgeChance -= item.dodgeChance;
         critChance -= item.critChance;
         power -= item.power;
-        armour -= item.armour;
+        armour -= item.defence;
 
     }
 
