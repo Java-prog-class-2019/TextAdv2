@@ -104,7 +104,7 @@ public class Item {
 				if(Math.random()>=0.5) {
 					dodgeChance = (Math.random()*0.3)+0.2;
 					defence = defence -1;
-					bonusHealth = bonusHealth -3;
+					bonusHealth = bonusHealth -2;
 				}
 			}
 
