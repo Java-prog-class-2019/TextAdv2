@@ -1,0 +1,9 @@
+# Bonk Text Adventure
+
+### To-Do List
+
+- Make the system output room information.
+- Every system turn, the current room should display its current Descriptor.
+- Put items inside a room once they are generated.
+- Generate rooms with a for loop.
+- 
