@@ -16,26 +16,21 @@ public class Room {
 	public Room() {		//Constructor
 		
 		description=randomDescriptor();
+		number = 1;
 		
 		if(number<=6)roomType = "great hall";
-		if(number<=6)roomType = "kitchen";
-		if(number<=6)roomType = "backyard";
+		if(number<=12 && number >=7)roomType = "kitchen";
+		if(number<=18 && number >=13)roomType = "backyard";
 		
 		if(number%6==0)item=true;
 		else item=false;
 	}
-	
-	Room r1 = new Room();
-	
-	
-	
-	
 
 	private String randomDescriptor() {
 		String[] adjectives1 = {"dusty","musty","creepy","dark","dingy","bright","living","mediocre","bloody","dangerous","dirty","nutty","horrible","lovely","nasty","repulsive","terrible","wicked"};
 		String[] adjectives2 = {"depressing","dull","drab","misty","grotesque","smelly","stinky","damp","dry","ugly","putrid","swank","filthy","muddy","shining","foggy","sparkling","crusty"};
 
-		String s = "You find yourself in a " + adjectives1[(int)(Math.random()*adjectives1.length)] + " " + adjectives2[(int)(Math.random()*adjectives2.length)] + "section of the " + roomType + ".";
+		String s = "You find yourself in a " + adjectives1[(int)(Math.random()*adjectives1.length)] + " " + adjectives2[(int)(Math.random()*adjectives2.length)] + " section of the " + roomType + ".";
 		return s;
 		
 		

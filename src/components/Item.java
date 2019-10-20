@@ -5,7 +5,6 @@ import java.util.Random;
 
 public class Item {
 
-
 	String CWeapon [] = {"Dull Crayon", "Paper Machet Sword", "Twin Blades", "Scythe of Bad Fortune", "Old Water Bottle","Rusty Sword", "Caveman's Club"};
 	String RWeapon [] = {"Shadow Blade", "Powerful Scythe", "Slightly Glimmering Daggers", "Sir Cashwes Nutty Axe", "Prince Farnsword's Sabre", "Serrated Dirk"};
 	String LWeapon [] = {"Stick", "Sharp Crayon", "Draathar Rapier", "Astoundingly Apt African Assegai", "Spiteful Super Sabre", "Steel Toed Boot", "Havoc-inducing Halberd", "Razor Scooter" };
@@ -14,6 +13,9 @@ public class Item {
 	String RArmour [] = {"Plate Mail", "Jarvan IV's Helm", "Sturdy Helm", "Clunky Boots", "Grayscale Teddy Fresh Colour Block Hoodie" };
 	String LArmour [] = {"Kayle's Shining Armor", "Garens Great Garish Garments", "Crazy Zany Wavy Platey Mail", "Glistening Boots", "Shadow Mail"};
 
+	String WNames [] = {"Of Powerful Strikes", "Of Great Strikes", "Of Great Power", "Of Critical Damage" };
+	String ANames [] = {"Of Swiftness", "Of Speed", "With Dodging Capabilities", "Of Great Speed"};
+	
 	int power;
 	int defence;
 	int bonusHealth;
@@ -34,48 +36,6 @@ public class Item {
 		genStats();
 		makeName();
 	}
-	
-	public void makeName() {
-		String WNames [] = {"Of Powerful Strikes", "Of Great Strikes", "Of Great Power", "Of Critical Damage" };
-		String ANames [] = {"Of Swiftness", "Of Speed", "With Dodging Capabilities", "Of Great Speed"};
-		if (type == Type.WEAPON) {
-			if(rarity==Rarity.COMMON) {
-				name = CWeapon[(int)(Math.random()*CWeapon.length)];
-			}
-			if(rarity==Rarity.RARE&& critChance ==0) {
-				name = RWeapon[(int)(Math.random()*RWeapon.length)];		
-			}
-			if(rarity==Rarity.RARE&& critChance > 0) {
-				name = RWeapon[(int)(Math.random()*RWeapon.length)] + WNames[(int)(Math.random()*WNames.length)];
-				
-			}
-			if(rarity==Rarity.LEGENDARY&& critChance ==0) {
-				name = RWeapon[(int)(Math.random()*LWeapon.length)];		
-			}
-			if(rarity==Rarity.LEGENDARY&& critChance > 0) {
-				name = RWeapon[(int)(Math.random()*LWeapon.length)] + WNames[(int)(Math.random()*WNames.length)];
-				
-			}
-		}
-		if (type == Type.ARMOUR) {
-			if(rarity==Rarity.COMMON) {
-				name = CArmour[(int)(Math.random()*CArmour.length)];
-			}
-			if(rarity==Rarity.RARE&& dodgeChance ==0) {
-				name = RArmour[(int)(Math.random()*RArmour.length)] ;
-			}
-			if(rarity==Rarity.RARE&& dodgeChance > 0) {
-				name = RArmour[(int)(Math.random()*RArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
-			}
-			if(rarity==Rarity.LEGENDARY&& dodgeChance ==0) {
-				name = RArmour[(int)(Math.random()*LArmour.length)] ;
-			}
-			if(rarity==Rarity.LEGENDARY&& dodgeChance > 0) {
-				name = RArmour[(int)(Math.random()*LArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
-			}
-		}
-	}
-
 	public void chooseType() {
 		if (random.nextDouble() >= 0.5) {
 			type = Type.WEAPON;
@@ -84,21 +44,21 @@ public class Item {
 		}
 	}
 
+
 	public void chooseRarity() {
 
 		double chance = random.nextDouble();
 
 		if(chance < 1) {
-			rarity = Rarity.COMMON;
+			rarity = Rarity.LEGENDARY;
 			if (chance < 0.5) {
 				rarity = Rarity.RARE;
 				if (chance < 0.15) {
-					rarity = Rarity.LEGENDARY;
+					rarity = Rarity.COMMON;
 				}
 			}
 		}
 	}
-
 	public void genStats() {
 
 		/* TODO:
@@ -152,6 +112,49 @@ public class Item {
 
 	}
 
+	public void makeName() {
+		
+		if (type == Type.WEAPON) {
+			if(rarity==Rarity.COMMON) {
+				name = CWeapon[(int)(Math.random()*CWeapon.length)];
+			}
+			if(rarity==Rarity.RARE&& critChance ==0) {
+				name = RWeapon[(int)(Math.random()*RWeapon.length)];		
+			}
+			if(rarity==Rarity.RARE&& critChance > 0) {
+				name = RWeapon[(int)(Math.random()*RWeapon.length)] + WNames[(int)(Math.random()*WNames.length)];
+
+			}
+			if(rarity==Rarity.LEGENDARY&& critChance ==0) {
+				name = RWeapon[(int)(Math.random()*LWeapon.length)];		
+			}
+			if(rarity==Rarity.LEGENDARY&& critChance > 0) {
+				name = RWeapon[(int)(Math.random()*LWeapon.length)] + WNames[(int)(Math.random()*WNames.length)];
+
+			}
+		}
+		if (type == Type.ARMOUR) {
+			if(rarity==Rarity.COMMON) {
+				name = CArmour[(int)(Math.random()*CArmour.length)];
+			}
+			if(rarity==Rarity.RARE&& dodgeChance ==0) {
+				name = RArmour[(int)(Math.random()*RArmour.length)] ;
+			}
+			if(rarity==Rarity.RARE&& dodgeChance > 0) {
+				name = RArmour[(int)(Math.random()*RArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
+			}
+			if(rarity==Rarity.LEGENDARY&& dodgeChance ==0) {
+				name = RArmour[(int)(Math.random()*LArmour.length)] ;
+			}
+			if(rarity==Rarity.LEGENDARY&& dodgeChance > 0) {
+				name = RArmour[(int)(Math.random()*LArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
+			}
+		}
+	}
+
+
+
+
 	public enum Rarity {
 		COMMON,
 		RARE,
@@ -163,7 +166,7 @@ public class Item {
 		ARMOUR
 
 	}
-	
+
 
 
 
