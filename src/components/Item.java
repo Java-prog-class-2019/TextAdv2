@@ -126,10 +126,10 @@ public class Item {
 
 			}
 			if(rarity==Rarity.LEGENDARY&& critChance ==0) {
-				name = RWeapon[(int)(Math.random()*LWeapon.length)];		
+				name = LWeapon[(int)(Math.random()*LWeapon.length)];		
 			}
 			if(rarity==Rarity.LEGENDARY&& critChance > 0) {
-				name = RWeapon[(int)(Math.random()*LWeapon.length)] + WNames[(int)(Math.random()*WNames.length)];
+				name = LWeapon[(int)(Math.random()*LWeapon.length)] + WNames[(int)(Math.random()*WNames.length)];
 
 			}
 		}
@@ -144,10 +144,10 @@ public class Item {
 				name = RArmour[(int)(Math.random()*RArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
 			}
 			if(rarity==Rarity.LEGENDARY&& dodgeChance ==0) {
-				name = RArmour[(int)(Math.random()*LArmour.length)] ;
+				name = LArmour[(int)(Math.random()*LArmour.length)] ;
 			}
 			if(rarity==Rarity.LEGENDARY&& dodgeChance > 0) {
-				name = RArmour[(int)(Math.random()*LArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
+				name = LArmour[(int)(Math.random()*LArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
 			}
 		}
 	}
