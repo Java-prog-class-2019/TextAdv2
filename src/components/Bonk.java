@@ -35,7 +35,6 @@ public class Bonk {
 	}
 	
 	public void init() {
-		
 		System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
 		playerTurn = true;
 		systemTurn = false;
