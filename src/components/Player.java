@@ -96,6 +96,12 @@ public class Player {
                 move(word2);
             case ("inv"):
                 printInv();
+            case ("say"):
+            	System.out.println(word2);
+            case ("search"):
+            	
+            default: 
+            	System.out.println("What?!");
 
         }
         return false;
