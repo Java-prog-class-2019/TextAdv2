@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Player {
 
     String name;
-    ArrayList<Item> inv = new ArrayList<Item>();
+    HashMap<String, Item> inv;
     int roomId;
 
     // Hard Stats
@@ -27,12 +27,12 @@ public class Player {
     }
 
    public void addItem(Item item) {
-        inv.add(item);
+        inv.put(item.name, item);
         applyStats(item);
     }
 
     public void removeItem(Item item) {
-        inv.remove(item);
+        inv.remove(item.name, item);
         removeStats(item);
 
     }
@@ -86,6 +86,7 @@ public class Player {
         - pickup
         - search
          */
+        
 
         switch (word1) {
 
@@ -102,20 +103,12 @@ public class Player {
     }
 
     public void move(String dir) {
-    
-    	this.roomId++;
-    	    	
+
+
+
     }
 
     public void printInv() {
-    	
-    	if(inv.size() == 0) {
-    		System.out.println("Empty Inventory!");
-    	}
-    	
-    	for(int i = 0; i < inv.size(); i++) {
-    		System.out.printf("%s", inv.get(i).getName());
-    	}
 
     }
 }
