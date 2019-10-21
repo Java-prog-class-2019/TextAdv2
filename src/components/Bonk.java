@@ -1,5 +1,6 @@
 package components;
 
+
 public class Bonk {
 	
 	boolean playerTurn;
@@ -37,6 +38,12 @@ public class Bonk {
 		System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
 		playerTurn = true;
 		systemTurn = false;
+		// Setup Rooms/Map
+		for(int i = 0; i < 18; i++) {
+			
+			
+			
+		}
 		
 				
 	}
