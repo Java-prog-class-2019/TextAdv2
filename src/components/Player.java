@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Player {
 
     String name;
+    private int currentRoom;
     ArrayList<Item> inv = new ArrayList<Item>();
 	
     
@@ -114,9 +115,9 @@ public class Player {
     	switch(dir) {
     		
     		case("n"):
-    			if(Bonk.getCurrentRoom()%6!=0) {
+    			//if(Bonk.getCurrentRoom()%6!=0) {
     				
-    			}
+    		//	}
     		case("e"):
     			
     		case("s"):
@@ -143,5 +144,14 @@ public class Player {
     	
     	
     	
+    }
+    
+    
+    public void setCurrentRoom(int currentRoom) {
+    	this.currentRoom = currentRoom;
+    }
+    
+    public int getCurrentRoom(){
+    	return currentRoom;
     }
 }

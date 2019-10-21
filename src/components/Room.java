@@ -7,7 +7,7 @@ public class Room {
 	/***** Instance variables *****/
 	private String title;			//Title of the room
 	private String description;		//Message that displays when you enter a room
-	private boolean visited = false;	//Checks if the room has been visited (so player can't get more items)
+	private boolean visited = false;//Checks if the room has been visited (so player can't get more items)
 	private String roomType;		//Type of the room (3 types based on location)
 	private int number;				//Distinguishes different rooms on the map. Features are mostly based on number.
 	boolean item;					//Is it an item room?
@@ -28,8 +28,11 @@ public class Room {
 		if(number%6==0)item=true;
 		else item=false;
 		
+		title = randomTitle();
 		description=randomDescriptor();
+		
 		if(item && !visited) description+=" You spot an item glinting on the ground in front of you.";
+		
 		//Next few lines add available exits to the description
 		if(number%2==1 && number!=1 && number!=19) description+=" There are exits to the north, west, and south.";
 		if(number%6==0) description+=" There are exits to the east and south.";
