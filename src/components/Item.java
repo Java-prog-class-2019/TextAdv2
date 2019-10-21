@@ -146,7 +146,11 @@ public class Item {
 		ARMOUR
 
 	}
-
+	
+	
+	public String getName() {
+		return this.name;
+	}
 
 
 }

@@ -7,7 +7,7 @@ public class Room {
 	/***** Instance variables *****/
 	private String title;			//Title of the room
 	private String description;		//Message that displays when you enter a room
-	private boolean visited=false;	//Checks if the room has been visited (so player can't get more items)
+	private boolean visited = false;	//Checks if the room has been visited (so player can't get more items)
 	private String roomType;		//Type of the room (3 types based on location)
 	private int number;				//Distinguishes different rooms on the map. Features are mostly based on number.
 	boolean item;					//Is it an item room?
@@ -18,6 +18,7 @@ public class Room {
 	public Room(int number) {		//Constructor
 		
 		this.number = number;
+
 		
 		if(number<=6)roomType = "kitchen";
 		if(number>=7 && number<=12)roomType = "great hall";
@@ -38,9 +39,7 @@ public class Room {
 		
 		
 	}
-	
-	
-	
+
 	
 
 	private String randomDescriptor() {		//Creates a random description for each room, based on its pre-set parameters.
@@ -60,6 +59,7 @@ public class Room {
 		String[] byRooms = {"Flower Garden","Vegetable Patch","Shed","Koi Pond","Deck","Patio","Tennis Court","Basketball Court","Pool","Outhouse","Stone Path","Marble Path","Statue","Memorial","Courtyard","Poolhouse"};
 		String s="";
 		
+
 		if(roomType.equals("kitchen")) {
 			s = "KITCHEN: " + kRooms[(int)(Math.random()*kRooms.length)];
 		}
@@ -71,6 +71,7 @@ public class Room {
 		}
 		
 		return s;
+
 	}
 
 
