@@ -57,10 +57,7 @@ public class Bonk {
 	}
 
   public void itemStatTest() {
-		Room room = new Room();
-		String description = room.getDescription();
-		System.out.println(description);
-		Item item = new Item();
+	  	Item item = new Item();
 		System.out.println(item.type);
 		System.out.println(item.name);
 		System.out.println(item.rarity);
@@ -78,6 +75,7 @@ public class Bonk {
 		  System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
       
 		}
+  }
 	
 		
 }
