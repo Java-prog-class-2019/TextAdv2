@@ -17,18 +17,18 @@ public class Room {
 	
 	public Room(int number) {		//Constructor
 		
-		this.number = number;
 
-		
+		description=randomDescriptor();
+    
 		if(number<=6)roomType = "kitchen";
 		if(number>=7 && number<=12)roomType = "great hall";
 		if(number>=13 && number<=18)roomType = "backyard";
 		if(number==19)
+
 		
 		if(number%6==0)item=true;
 		else item=false;
 		
-		description=randomDescriptor();
 		if(item && !visited) description+=" You spot an item glinting on the ground in front of you.";
 		//Next few lines add available exits to the description
 		if(number%2==1 && number!=1 && number!=19) description+=" There are exits to the north, west, and south.";
@@ -39,8 +39,6 @@ public class Room {
 		
 		
 	}
-
-	
 
 	private String randomDescriptor() {		//Creates a random description for each room, based on its pre-set parameters.
 		String[] adjectives1 = {"dusty","musty","creepy","dark","dingy","bright","living","mediocre","bloody","dangerous","dirty","nutty","horrible","lovely","nasty","repulsive","terrible","wicked","hot"};
