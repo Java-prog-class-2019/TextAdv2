@@ -2,15 +2,14 @@ package components;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Player {
 
     String name;
-    HashMap<String, Item> inv;
-    int roomId;
-
+    ArrayList<Item> inv = new ArrayList<Item>();
+	
+    
     // Hard Stats
     int power;
     int armour;
@@ -26,14 +25,12 @@ public class Player {
 
     }
 
-   public void addItem(Item item) {
-        inv.put(item.name, item);
-        applyStats(item);
+   public void pickupItem(Item item) {
+        inv.add(item);
     }
 
-    public void removeItem(Item item) {
-        inv.remove(item.name, item);
-        removeStats(item);
+    public void dropItem(Item item) {
+        inv.remove(item);
 
     }
 
@@ -94,20 +91,44 @@ public class Player {
                 break;
             case ("move"):
                 move(word2);
+            	break;
             case ("inv"):
                 printInv();
+            	break;
+            case ("say"):
+            	System.out.println(word2);
+            	break;
+            case ("search"):
+            	searchRoom();
+            	break;
+            	
+            default: 
+            	System.out.println("What?!");
 
         }
         return false;
     }
 
     public void move(String dir) {
-
-
-
+    	    	
     }
 
     public void printInv() {
+    	
+    	if(inv.size() == 0) {
+    		System.out.println("Empty Inventory!");
+    	}
+    	
+    	for(int i = 0; i < inv.size(); i++) {
+    		System.out.printf("%s", inv.get(i).getName());
+    	}
 
+    }
+    
+    public void searchRoom() {
+    	
+    	
+    	
+    	
     }
 }
