@@ -20,10 +20,10 @@ public class Room {
 		this.number = number;
 
 		
-		if(number<=6)roomType = "kitchen";
-		if(number>=7 && number<=12)roomType = "great hall";
+		if(number<=6)roomType = "great hall";
+		if(number>=7 && number<=12)roomType = "";
 		if(number>=13 && number<=18)roomType = "backyard";
-		if(number==19)
+		if(number==19)roomType = "boss";
 		
 		if(number%6==0)item=true;
 		else item=false;

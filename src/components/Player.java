@@ -110,6 +110,19 @@ public class Player {
     }
 
     public void move(String dir) {
+    	
+    	switch(dir) {
+    		
+    		case("n"):
+    			if(Bonk.getCurrentRoom()%6!=0) {
+    				
+    			}
+    		case("e"):
+    			
+    		case("s"):
+    			
+    		case("w"):
+    	}
     	    	
     }
 
