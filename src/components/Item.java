@@ -33,6 +33,14 @@ public class Item {
 		genStats();
 		makeName();
 	}
+	public void chooseType() {
+		if (random.nextDouble() >= 0.5) {
+			type = Type.WEAPON;
+		} else {
+			type = Type.ARMOUR;
+		}
+	}
+
 	
 	public void makeName() {
 		if (type == Type.WEAPON) {
@@ -59,13 +67,6 @@ public class Item {
 		}
 	}
 
-	public void chooseType() {
-		if (random.nextDouble() >= 0.5) {
-			type = Type.WEAPON;
-		} else {
-			type = Type.ARMOUR;
-		}
-	}
 
 	public void chooseRarity() {
 
