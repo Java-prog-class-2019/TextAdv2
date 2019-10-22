@@ -51,10 +51,12 @@ public class Bonk {
 		playerTurn = true;
 		systemTurn = false;
 		
-		rooms.get((int)(Math.random()*5)).setItem();
-		rooms.get((int)(Math.random()*5)+6).setItem();
-		rooms.get((int)(Math.random()*5)+12).setItem();
-
+		rooms.get((int)(Math.random()*5)).setItem(true);
+		rooms.get((int)(Math.random()*5)+6).setItem(true);
+		rooms.get((int)(Math.random()*5)+12).setItem(true);
+		
+		
+		
 		
 		enterRoom();
 
@@ -70,11 +72,11 @@ public class Bonk {
 
 		String title = rooms.get(player.getCurrentRoom()).getTitle();
 		for(int i=0; i < title.length()+4; i++) {
-			System.out.print("¬");
+			System.out.print("-");
 		}
 		System.out.println("\n| "+title + " |");
 		for(int i=0; i < title.length()+4; i++) {
-			System.out.print("¬");
+			System.out.print("-");
 		}
 
 		System.out.println();

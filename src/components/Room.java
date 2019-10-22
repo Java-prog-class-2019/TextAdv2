@@ -32,7 +32,6 @@ public class Room {
 		if(number%6==5)shop=true;
 		
 		
-		if(item && !visited) description+=" You spot an item glinting on the ground in front of you.";
 		if(shop) description+=" You spot a wary shopkeeper!";
 		
 		
@@ -101,8 +100,9 @@ public class Room {
 		return title;
 	}
 	
-	public void setItem() {
-		item = true;
+	public void setItem(boolean item) {
+		this.item = item;
+		description+=" You spot an item glinting on the ground in front of you.";
 	}
 	
 	public void setVisited() {

@@ -120,40 +120,46 @@ public class Player {
     		case("n"): case("north"):
     			if(currentRoom%6==5) {
     				System.out.println("You can't go that way!");
+    				break;
     			}else {
     				currentRoom+=2;
     				Bonk.enterRoom();
+    				break;
     			}
-    			break;
     		
     		case("e"): case("east"):
     			if(currentRoom%2==0) {
     				System.out.println("You can't go that way!");
+    				break;
     			}else {
     				currentRoom--;
     				Bonk.enterRoom();
+    				break;
     			}
-    			break;
     			
     		case("s"): case("south"):
     			if(currentRoom%6==1 || currentRoom==0) {
-    				System.out.println("You can't go that way!");    				
+    				System.out.println("You can't go that way!");   
+    				break; 				
     			}else {
     				currentRoom-=2;
     				Bonk.enterRoom();
+    				break;
     			}
     			
     		case("w"): case("west"):
     			if(currentRoom%2==1) {
     				System.out.println("You can't go that way!");
+    				break;
     			}else {
     				currentRoom++;
     				Bonk.enterRoom();
+    				break;
     			}
-    			break;
     			
     		 default: 
              	System.out.println("What?!");	
+				break;
     	}
     	    	
     }
