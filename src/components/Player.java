@@ -60,7 +60,7 @@ public class Player {
 
     }
 
-    public boolean parseCommand(String text) {
+    public boolean parseCommand(String text) {	//Language parser
 
         text = text.toLowerCase().trim();
 
@@ -96,6 +96,8 @@ public class Player {
             case ("inv"):
                 printInv();
             	break;
+            case ("pickup"):
+            	pickup();
             case ("say"):
             	System.out.println(word2);
             	break;
@@ -113,6 +115,8 @@ public class Player {
         return false;
     }
 
+    
+    
     public void move(String dir) {
     	
     	switch(dir) {
@@ -178,8 +182,7 @@ public class Player {
     
     public void searchRoom() {
     	
-    	
-    	
+    	   	
     	
     }
     
@@ -188,7 +191,18 @@ public class Player {
     	this.currentRoom = currentRoom;
     }
     
-    public int getCurrentRoom(){
+    public Room getCurrentRoomObj() {
+    	return Bonk.rooms.get(currentRoom);
+    }
+    
+    public int getCurrentRoomInt() {
     	return currentRoom;
+    }
+    
+    public void pickup() {
+    	if ( getCurrentRoomObj().getIsItem() ) {
+    		pickupItem(getCurrentRoomObj().item);
+    		
+    	}
     }
 }

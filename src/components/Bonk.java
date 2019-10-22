@@ -70,7 +70,7 @@ public class Bonk {
 	static void enterRoom(){
 
 
-		String title = rooms.get(player.getCurrentRoom()).getTitle();
+		String title = rooms.get(player.getCurrentRoomInt()).getTitle();
 		for(int i=0; i < title.length()+4; i++) {
 			System.out.print("-");
 		}
@@ -80,12 +80,14 @@ public class Bonk {
 		}
 
 		System.out.println();
-		System.out.println(rooms.get(player.getCurrentRoom()).getDescription());
+		System.out.println(rooms.get(player.getCurrentRoomInt()).getDescription());
 	}
 	
 //	public Room getRoom() {
 //		return rooms<player.getCurrentRoom()>;
 //	}
+	
+	
 
 
 

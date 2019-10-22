@@ -10,9 +10,10 @@ public class Room {
 	private boolean visited = false;//Checks if the room has been visited (so player can't get more items)
 	private String roomType;		//Type of the room (3 types based on location)
 	private int number;				//Distinguishes different rooms on the map. Features are mostly based on number.
-	private boolean item=false;		//Is it an item room?
-	private boolean shop=false;		//Is it a shop room?
+	private boolean isItem=false;		//Is it an item room?
+	private boolean isShop=false;		//Is it a shop room?
 	private boolean enemy;			//Is it an enemy room?
+	Item item;
 	/*******************************/
 	
 	
@@ -29,10 +30,10 @@ public class Room {
 		title = randomTitle();
 		description = randomDescriptor() + exits();
 		
-		if(number%6==5)shop=true;
+		if(number%6==5)isShop=true;
 		
 		
-		if(shop) description+=" You spot a wary shopkeeper!";
+		if(isShop) description+=" You spot a wary shopkeeper!";
 		
 		
 		
@@ -100,13 +101,20 @@ public class Room {
 		return title;
 	}
 	
-	public void setItem(boolean item) {
-		this.item = item;
+	public void setItem(boolean isItem) {
+		this.isItem = isItem;
+		
+		item = new Item();
+
 		description+=" You spot an item glinting on the ground in front of you.";
 	}
 	
 	public void setVisited() {
 		visited = true;
+	}
+	
+	public boolean getIsItem() {
+		return isItem;
 	}
 /**************************************/
 
