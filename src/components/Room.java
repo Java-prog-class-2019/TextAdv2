@@ -10,8 +10,9 @@ public class Room {
 	private boolean visited = false;//Checks if the room has been visited (so player can't get more items)
 	private String roomType;		//Type of the room (3 types based on location)
 	private int number;				//Distinguishes different rooms on the map. Features are mostly based on number.
-	boolean item;					//Is it an item room?
-	boolean enemy;					//Is it an enemy room?
+	private boolean item=false;		//Is it an item room?
+	private boolean shop=false;		//Is it a shop room?
+	private boolean enemy;			//Is it an enemy room?
 	/*******************************/
 	
 	
@@ -20,25 +21,20 @@ public class Room {
 		this.number = number;
 
 		
-		if(number<=6)roomType = "great hall";
-		if(number>=7 && number<=12)roomType = "";
-		if(number>=13 && number<=18)roomType = "backyard";
-		if(number==19)roomType = "boss";
-		
-		if(number%6==0)item=true;
-		else item=false;
+		if(number<=5)roomType = "great hall";
+		if(number>=6 && number<=11)roomType = "kitchen";
+		if(number>=12 && number<=17)roomType = "backyard";
+		if(number==18)roomType = "boss";
 		
 		title = randomTitle();
-		description=randomDescriptor();
+		description = randomDescriptor() + exits();
+		
+		if(number%6==5)shop=true;
+		
 		
 		if(item && !visited) description+=" You spot an item glinting on the ground in front of you.";
+		if(shop) description+=" You spot a wary shopkeeper!";
 		
-		//Next few lines add available exits to the description
-		if(number%2==1 && number!=1 && number!=19) description+=" There are exits to the north, west, and south.";
-		if(number%6==0) description+=" There are exits to the east and south.";
-		if(number%6==2) description+=" There are exits to the north and east";
-		if(number%6==4) description+=" There are exits to the north, east, and south.";
-		if(number==1) description+=" There are exits to the north and west.";
 		
 		
 	}
@@ -76,6 +72,18 @@ public class Room {
 		return s;
 
 	}
+	
+	private String exits() {
+		String s="";
+		
+		if(number%2==0 && number!=0 && number!=18) s=" There are exits to the north, west, and south.";
+		if(number%6==5) s=" There are exits to the east and south.";
+		if(number%6==1) s=" There are exits to the north and east";
+		if(number%6==3) s=" There are exits to the north, east, and south.";
+		if(number==0) s=" There are exits to the north and west.";
+		
+		return s;
+	}
 
 
 /****Getters and Setters***************/
@@ -93,6 +101,9 @@ public class Room {
 		return title;
 	}
 	
+	public void setItem() {
+		item = true;
+	}
 	
 	public void setVisited() {
 		visited = true;

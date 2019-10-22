@@ -102,6 +102,9 @@ public class Player {
             case ("search"):
             	searchRoom();
             	break;
+            case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
+            	move(word1);
+            	break;
             	
             default: 
             	System.out.println("What?!");
@@ -114,15 +117,43 @@ public class Player {
     	
     	switch(dir) {
     		
-    		case("n"):
-    			//if(Bonk.getCurrentRoom()%6!=0) {
-    				
-    		//	}
-    		case("e"):
+    		case("n"): case("north"):
+    			if(currentRoom%6==5) {
+    				System.out.println("You can't go that way!");
+    			}else {
+    				currentRoom+=2;
+    				Bonk.enterRoom();
+    			}
+    			break;
+    		
+    		case("e"): case("east"):
+    			if(currentRoom%2==0) {
+    				System.out.println("You can't go that way!");
+    			}else {
+    				currentRoom--;
+    				Bonk.enterRoom();
+    			}
+    			break;
     			
-    		case("s"):
+    		case("s"): case("south"):
+    			if(currentRoom%6==1 || currentRoom==0) {
+    				System.out.println("You can't go that way!");    				
+    			}else {
+    				currentRoom-=2;
+    				Bonk.enterRoom();
+    			}
     			
-    		case("w"):
+    		case("w"): case("west"):
+    			if(currentRoom%2==1) {
+    				System.out.println("You can't go that way!");
+    			}else {
+    				currentRoom++;
+    				Bonk.enterRoom();
+    			}
+    			break;
+    			
+    		 default: 
+             	System.out.println("What?!");	
     	}
     	    	
     }
