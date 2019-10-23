@@ -81,13 +81,13 @@ public class Item {
 				critChance = 0;
 			}
 			if(rarity == Rarity.RARE) {
-				// Power for common weapons
+				// Power for rare weapons
 				// 2 - 5 Power and 5% - 20% Critical Hit Chance
 				power = (int)(Math.random()*5)+2;
 				critChance = (Math.random()*0.2) +0.05;
 			}
 			if(rarity == Rarity.LEGENDARY) {
-				// Power for common weapons
+				// Power for legendary weapons
 				// 3 - 7 Power and 25% - 50% Critical Hit Chance
 				power = (int)(Math.random()*7)+3;
 				critChance = (Math.random()*0.5) +0.25;
@@ -97,15 +97,18 @@ public class Item {
 		if (type == Type.ARMOUR) {
 			
 			if(rarity == Rarity.COMMON) {
+				// Defence and 
 				defence = (int)(Math.random()*1)+1;   
 				bonusHealth = (int) (Math.random()*3)+1;
 				dodgeChance =0;
 			}
 			
 			if(rarity == Rarity.RARE) {
+				
 				defence = (int)(Math.random()*3)+1;
 				bonusHealth = (int) (Math.random()*5)+2;
 				if(Math.random() >= 0.5){
+					
 					dodgeChance = (Math.random()*0.2)+0.1;
 					defence = defence - 1;
 					bonusHealth = bonusHealth -1;
@@ -113,8 +116,10 @@ public class Item {
 			}
 			
 			if(rarity == Rarity.LEGENDARY) {
+				
 				defence = (int)(Math.random()*4)+2;
 				bonusHealth = (int) (Math.random()*8)+3;
+				
 				if(Math.random()>=0.5) {
 					dodgeChance = (Math.random()*0.3)+0.2;
 					defence = defence -1;
