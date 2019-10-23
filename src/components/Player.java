@@ -171,6 +171,14 @@ public class Player {
     	}
     	    	
     }
+    
+    public void searchRoom() {
+    	
+    	
+    	
+    	
+    	
+    }
 
     public void printInv() {
     	
@@ -183,13 +191,6 @@ public class Player {
     	}
 
     }
-    
-    public void searchRoom() {
-    	
-    	   	
-    	
-    }
-    
     
     public void setCurrentRoom(int currentRoom) {
     	this.currentRoom = currentRoom;
@@ -204,17 +205,17 @@ public class Player {
     }
     
     public void pickup() {
+    	
     	if ( getCurrentRoomObj().getIsItem() ) {
     		
     		pickupItem(getCurrentRoomObj().item);
     		
-    		System.out.print("You pick up a");
+    		System.out.println("You pick up a");
     		char v=getCurrentRoomObj().item.name.charAt(0);
-    		if(v=='A' || v=='E' || v=='I' || v=='O' || v=='U') {
+    		if(v == 'A' || v == 'E' || v == 'I' || v == 'O' || v == 'U') {
     			System.out.print("n");
     		}
     		System.out.println(" " + getCurrentRoomObj().item.name);
-    		
     		getCurrentRoomObj().setItem(false);
     		
     	}else {

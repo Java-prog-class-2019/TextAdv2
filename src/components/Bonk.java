@@ -5,47 +5,47 @@ import java.util.ArrayList;
 
 
 public class Bonk {
+	
+	//Objects
+	static Player player = new Player();
+	public static ArrayList<Room> rooms = new ArrayList<Room>();
 
+	// Global Variables
 	boolean playerTurn;
 	boolean systemTurn;
 	boolean alive = true;
 	static boolean win = false;
-	static Player player = new Player();
 
-	public static ArrayList<Room> rooms = new ArrayList<Room>();
-
-	public static void main(String[] args) {
-
-		new Bonk();
-
-	}
+	public static void main(String[] args) { new Bonk(); }
 
 
-	Bonk() {	//Constructor
+	Bonk() {	// Constructor
 
 		init();
 		
-		while(alive && !win) {	//main game loop
+		// Main game loop
+		
+		while(true) {
 			while(playerTurn) {
 				String command = player.getCommand();
 				player.parseCommand(command);
-
+	
 			}
-
+	
 			while(systemTurn) {
-
-
+	
+	
 			}
-		}
-		
-		if(!alive) {	//death message
-			System.out.println("You died! :(\nGame Over");
-			System.exit(0);
-		}
-		
-		if(win) {	//win message
-			System.out.println("CONGRATULATIONS!\nYou have escaped and won the game!");
-			System.exit(0);
+			
+			if(!alive) {	// Death message
+				System.out.println("You died! :(\nGame Over");
+				System.exit(0);
+			}
+			
+			if(win) {	// Player 
+				System.out.println("CONGRATULATIONS!\nYou have escaped and won the game!");
+				System.exit(0);
+			}
 		}
 		
 	}
@@ -53,54 +53,50 @@ public class Bonk {
 	
 	public void init() {
 
-		for(int i=0; i<19;i++) {	//Creates the rooms and adds them to an ArrayList		
-			rooms.add(new Room(i));
-		}
-
+		setupRooms();
 		player.setCurrentRoom(0); //starting room
+		enterRoom();
+		
 		System.out.println("You have awoken in the great hall of a haunted mansion. You must explore and fight your way out!\nWelcome to Bonk! Type 'help' for a list of commands \n");
 		playerTurn = true;
 		systemTurn = false;
-		
-		rooms.get((int)(Math.random()*5)).setItem(true);
-		rooms.get((int)(Math.random()*5)+6).setItem(true);
-		rooms.get((int)(Math.random()*5)+12).setItem(true);
-		
-		
-		
-		
-		enterRoom();
-
-//				for(Room r:rooms) {
-//					System.out.println(r.getDescription());
-//				}
 
 	}
 
 
 	static void enterRoom(){
 
-
+		// Print Title of the entered room.
 		String title = rooms.get(player.getCurrentRoomInt()).getTitle();
+		
 		for(int i=0; i < title.length()+4; i++) {
+			
 			System.out.print("-");
+			
 		}
-		System.out.println("\n| "+title + " |");
+		
+		System.out.println("\n| "+ title + " |");
+		
 		for(int i=0; i < title.length()+4; i++) {
+			
 			System.out.print("-");
+			
 		}
-
-		System.out.println();
-		System.out.println(rooms.get(player.getCurrentRoomInt()).getDescription());
+		
+		System.out.println("\n"+rooms.get(player.getCurrentRoomInt()).getDescription());
+		
 	}
 	
-//	public Room getRoom() {
-//		return rooms<player.getCurrentRoom()>;
-//	}
+	public void setupRooms() {
+		
+		for(int i=0; i<19;i++) {	//Creates the rooms and adds them to an ArrayList		
+			rooms.add(new Room(i));
+		}
+		
+		rooms.get((int)(Math.random()*5)).setItem(true);
+		rooms.get((int)(Math.random()*5)+6).setItem(true);
+		rooms.get((int)(Math.random()*5)+12).setItem(true);
+		
+	}
 	
-	
-
-
-
-
 }
