@@ -1,8 +1,8 @@
 package components;
 
 
+import components.Item.Type;
 import java.util.ArrayList;
-
 
 public class Bonk {
 	
@@ -97,6 +97,27 @@ public class Bonk {
 		rooms.get((int)(Math.random()*5)+6).setItem(true);
 		rooms.get((int)(Math.random()*5)+12).setItem(true);
 		
+
 	}
-	
+
+  public void itemStatTest() {
+	  	Item item = new Item();
+		System.out.println(item.type);
+		System.out.println(item.name);
+		System.out.println(item.rarity);
+		if (item.type == Type.WEAPON) {
+      
+		  System.out.println("Power: " + item.power);
+		  System.out.println("Crit Chance: " + item.critChance);
+      
+		}
+		if (item.type == Type.ARMOUR) {
+      
+		  System.out.println("Bonus Health: " + item.bonusHealth);
+		  System.out.println("Defence: " + item.defence);
+		  System.out.println("Dodge Chance: " + item.dodgeChance);
+		  System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
+      
+		}
+  }
 }
