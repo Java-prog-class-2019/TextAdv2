@@ -5,13 +5,13 @@ import java.util.Random;
 
 public class Item {
 
-	String CWeapon [] = {"Dull Crayon", "Paper Machet Sword", "Twin Blades", "Scythe of Bad Fortune", "Old Water Bottle","Rusty Sword", "Caveman's Club"};
-	String RWeapon [] = {"Shadow Blade", "Scythe of Everlasting Power", "Slightly Glimmering Daggers", "Nutty Axe of Cashews", "Prince Farnsword's Sabre", "Serrated Dirk"};
-	String LWeapon [] = {"Stick", "Sharp Crayon", "Rapier of Drathaar", "Assault Assegai of Astounding Aptitude", "Super Sabre of Spite", "Steel Toed Boot", "Havoc-inducing Halberd", "Razor Scooter" };
+	String CWeapon [] = {"A Dull Crayon", "A Paper Machet Sword", "Twin Blades", "A Scythe of Bad Fortune", "An Old Water Bottle","A Rusty Sword", "A Caveman's Club"};
+	String RWeapon [] = {"The Shadow Blade", "The Scythe of Everlasting Power", "Slightly Glimmering Daggers", "A Nutty Axe of Cashews", "Prince Farnsword's Sabre", "A Serrated Dirk"};
+	String LWeapon [] = {"A Stick", "A Sharp Crayon", "The Rapier of Drathaar", "The Assault Assegai of Astounding Aptitude", "The Super Sabre of Spite", "A Steel-Toed Boot", "A Havoc-inducing Halberd", "A Razor Scooter" };
 
-	String CArmour [] = {"Chain Helmet", "Baseball Cap", "Old Hoodie", "Bear Mask", "Broken Chestplate", "Paper Bag"};
-	String RArmour [] = {"Plate Mail", "Jarvan IV's Helm", "Sturdy Helm", "Clunky Boots", "Grayscale Teddy Fresh Colour Block Hoodie" };
-	String LArmour [] = {"Kayle's Shining Armor", "Legendary Helm of Greatness", "Crazy Zany Wavy Platey Mail", "Glistening Boots", "Shadow Mail"};
+	String CArmour [] = {"A Chain Helmet", "A Baseball Cap", "An Old Hoodie", "A Bear Mask", "A Broken Chestplate", "A Brown Paper Bag"};
+	String RArmour [] = {"Plate Mail", "Jarvan IV's Helm", "A Sturdy Helm", "Clunky Boots", "A Grayscale Teddy Fresh Colour Block Hoodie" };
+	String LArmour [] = {"Kayle's Shining Armor", "The Legendary Helm of Greatness", "A Crazy Zany Wavy Plate", "Glistening Boots", "Shadow Mail"};
 
 	int power;
 	int defence;

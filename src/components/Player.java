@@ -201,7 +201,7 @@ public class Player {
     		
     		pickupItem(getCurrentRoomObj().item);	//adds item to inventory
     		
-    		System.out.println("You pick up a ");	//pickup message		
+    		System.out.print("You pick up ");	//pickup message		
     		System.out.println(getCurrentRoomObj().item.name);
     		
     		getCurrentRoomObj().setItem(false);		//removes the ite4m from the room	
