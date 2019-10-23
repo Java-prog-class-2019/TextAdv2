@@ -7,7 +7,7 @@ public class Item {
 
 	String CWeapon [] = {"Dull Crayon", "Paper Machet Sword", "Twin Blades", "Scythe of Bad Fortune", "Old Water Bottle","Rusty Sword", "Caveman's Club"};
 	String RWeapon [] = {"Shadow Blade", "Scythe of Everlasting Power", "Slightly Glimmering Daggers", "Nutty Axe of Cashews", "Prince Farnsword's Sabre", "Serrated Dirk"};
-	String LWeapon [] = {"Stick", "Sharp Crayon", "Rapier of Drathaar", "Assault Assegai of Astounding Aptitude", "Super Sabre of Spite", "Steel Toed Boot", "Havoc-inducing Halberd", "Razor Scooter" };
+	String LWeapon [] = {"Stick", "Sharp Crayon", "Rapier of Drathaar", "Assault Assegai of Astounding Aptitude", "Super Sabre of Spite", "Steel Toed Boot", "Havoc-inducing Halberd", "Razor Scooter", "Lightsabre" };
 
 	String CArmour [] = {"Chain Helmet", "Baseball Cap", "Old Hoodie", "Bear Mask", "Broken Chestplate", "Paper Bag"};
 	String RArmour [] = {"Plate Mail", "Jarvan IV's Helm", "Sturdy Helm", "Clunky Boots", "Grayscale Teddy Fresh Colour Block Hoodie" };
@@ -33,14 +33,6 @@ public class Item {
 		genStats();
 		makeName();
 	}
-	public void chooseType() {
-		if (random.nextDouble() >= 0.5) {
-			type = Type.WEAPON;
-		} else {
-			type = Type.ARMOUR;
-		}
-	}
-
 	
 	public void makeName() {
 		if (type == Type.WEAPON) {
@@ -67,6 +59,13 @@ public class Item {
 		}
 	}
 
+	public void chooseType() {
+		if (random.nextDouble() >= 0.5) {
+			type = Type.WEAPON;
+		} else {
+			type = Type.ARMOUR;
+		}
+	}
 
 	public void chooseRarity() {
 

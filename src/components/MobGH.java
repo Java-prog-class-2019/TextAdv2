@@ -17,6 +17,8 @@ class MobGH extends Mobs {
 	}
 	
 	void dropItems() {
-		
+		if (health <= 0) {
+			
+		}
 	}
 }
