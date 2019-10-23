@@ -41,7 +41,7 @@ public class Bonk {
 			Room r = new Room(i);
 			rooms.add(r);
 		}
-		System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
+		System.out.println("Welcome to Bonk! Type 'help' for a list of commands \n");
 		playerTurn = false;
 		systemTurn = true;
 

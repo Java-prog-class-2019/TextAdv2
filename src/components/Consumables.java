@@ -2,12 +2,14 @@ package components;
 
 public class Consumables {
 	
+	
 	Type type;
 	int health_bonus;
 	int power_bonus;
 	int crit_bonus;
 	int dodge_bonus;
 	
+	String[] s_names = 
 	
 	public Consumables() {
 		
@@ -17,9 +19,19 @@ public class Consumables {
 	public void consume() {
 		
 		
+	}
+	
+	public void chooseName() {
+		
 		
 	}
 	
+	public void chooseType() {
+		
+	}
+	
+	
+	// Enum for types/effects the consumable will create.
 	enum Type {
 		HEALTH,
 		FORTITUDE,
@@ -30,6 +42,7 @@ public class Consumables {
 		
 	}
 	
+	// Size of the consumable/potion.
 	enum Size {
 		SMALL,
 		MEDIUM,
