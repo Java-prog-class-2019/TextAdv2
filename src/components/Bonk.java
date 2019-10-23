@@ -16,8 +16,8 @@ public class Bonk {
 	public static void main(String[] args) {
 
 		new Bonk();
-
-  }
+	
+	}
 	
 	Bonk() {
 
@@ -57,16 +57,20 @@ public class Bonk {
 	}
 
   public void itemStatTest() {
+	  //Item 
 	  	Item item = new Item();
+	  	
 		System.out.println(item.type);
 		System.out.println(item.name);
 		System.out.println(item.rarity);
+		
 		if (item.type == Type.WEAPON) {
       
 		  System.out.println("Power: " + item.power);
 		  System.out.println("Crit Chance: " + item.critChance);
       
 		}
+		
 		if (item.type == Type.ARMOUR) {
       
 		  System.out.println("Bonus Health: " + item.bonusHealth);
@@ -75,7 +79,8 @@ public class Bonk {
 		  System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
       
 		}
-  }
+		
+  	}
 	
 		
 }
