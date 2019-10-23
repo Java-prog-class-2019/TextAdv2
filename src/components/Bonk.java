@@ -9,7 +9,7 @@ public class Bonk {
 	boolean playerTurn;
 	boolean systemTurn;
 	boolean alive = true;
-	boolean win = false;
+	static boolean win = false;
 	static Player player = new Player();
 
 	public static ArrayList<Room> rooms = new ArrayList<Room>();
@@ -25,7 +25,7 @@ public class Bonk {
 
 		init();
 		
-		while(alive && !win) {
+		while(alive && !win) {	//main game loop
 			while(playerTurn) {
 				String command = player.getCommand();
 				player.parseCommand(command);
@@ -37,6 +37,17 @@ public class Bonk {
 
 			}
 		}
+		
+		if(!alive) {	//death message
+			System.out.println("You died! :(\nGame Over");
+			System.exit(0);
+		}
+		
+		if(win) {	//win message
+			System.out.println("CONGRATULATIONS!\nYou have escaped and won the game!");
+			System.exit(0);
+		}
+		
 	}
 	
 	
@@ -47,7 +58,7 @@ public class Bonk {
 		}
 
 		player.setCurrentRoom(0); //starting room
-		System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
+		System.out.println("You have awoken in the great hall of a haunted mansion. You must explore and fight your way out!\nWelcome to Bonk! Type 'help' for a list of commands \n");
 		playerTurn = true;
 		systemTurn = false;
 		

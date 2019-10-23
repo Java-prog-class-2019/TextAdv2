@@ -5,14 +5,15 @@ import java.util.HashMap;
 public class Room {
 	
 	/***** Instance variables *****/
-	private String title;			//Title of the room
-	private String description;		//Message that displays when you enter a room
-	private boolean visited = false;//Checks if the room has been visited (so player can't get more items)
-	private String roomType;		//Type of the room (3 types based on location)
-	private int number;				//Distinguishes different rooms on the map. Features are mostly based on number.
-	private boolean isItem=false;		//Is it an item room?
-	private boolean isShop=false;		//Is it a shop room?
-	private boolean enemy;			//Is it an enemy room?
+	private String title;																	//Title of the room
+	private String description;																//Message that displays when you enter a room
+	private String descrItem=" You spot an item glinting on the ground in front of you.";	//Additional description exclusive to item rooms (this had to be separate from description so it could be removed if need be)
+	private boolean visited = false;														//Checks if the room has been visited (so player can't get more items)
+	private String roomType;																//Type of the room (3 types based on location)
+	private int number;																		//Distinguishes different rooms on the map. Features are mostly based on number.
+	private boolean isItem=false;															//Is it an item room?
+	private boolean isShop=false;															//Is it a shop room?
+	private boolean isEnemy;																//Is it an enemy room?
 	Item item;
 	/*******************************/
 	
@@ -93,6 +94,9 @@ public class Room {
 
 		
 	public String getDescription() {
+		if(isItem) {
+			return description + descrItem;
+		}
 		return description;
 	}
 	
@@ -104,9 +108,12 @@ public class Room {
 	public void setItem(boolean isItem) {
 		this.isItem = isItem;
 		
-		item = new Item();
-
-		description+=" You spot an item glinting on the ground in front of you.";
+		if(isItem) {
+			item = new Item();
+		}
+		if(!isItem) {
+			item = null;
+		}
 	}
 	
 	public void setVisited() {

@@ -93,7 +93,7 @@ public class Player {
             case ("move"):
                 move(word2);
             	break;
-            case ("inv"):
+            case ("inv"): case("i"): case("inventory"):
                 printInv();
             	break;
             case ("pickup"):
@@ -122,6 +122,10 @@ public class Player {
     	switch(dir) {
     		
     		case("n"): case("north"):
+    			if(currentRoom==18) {
+    				Bonk.win=true;
+    				break;
+    			}
     			if(currentRoom%6==5) {
     				System.out.println("You can't go that way!");
     				break;
@@ -175,7 +179,7 @@ public class Player {
     	}
     	
     	for(int i = 0; i < inv.size(); i++) {
-    		System.out.printf("%s", inv.get(i).getName());
+    		System.out.printf("- %s%n", inv.get(i).getName());
     	}
 
     }
@@ -201,8 +205,20 @@ public class Player {
     
     public void pickup() {
     	if ( getCurrentRoomObj().getIsItem() ) {
+    		
     		pickupItem(getCurrentRoomObj().item);
     		
+    		System.out.print("You pick up a");
+    		char v=getCurrentRoomObj().item.name.charAt(0);
+    		if(v=='A' || v=='E' || v=='I' || v=='O' || v=='U') {
+    			System.out.print("n");
+    		}
+    		System.out.println(" " + getCurrentRoomObj().item.name);
+    		
+    		getCurrentRoomObj().setItem(false);
+    		
+    	}else {
+    		System.out.println("There is nothing to pick up.");
     	}
     }
 }
