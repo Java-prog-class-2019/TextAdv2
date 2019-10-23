@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class Player {
 
     String name;
-    private int currentRoom;
-    ArrayList<Item> inv = new ArrayList<Item>();
+    private int currentRoom;						//integer value of the current room
+    ArrayList<Item> inv = new ArrayList<Item>();	//inventory
 	
     
     // Hard Stats
@@ -26,11 +26,11 @@ public class Player {
 
     }
 
-   public void pickupItem(Item item) {
+   public void pickupItem(Item item) {	//adds item to inventory
         inv.add(item);
     }
 
-    public void dropItem(Item item) {
+    public void dropItem(Item item) {	//removes item from inventory
         inv.remove(item);
 
     }
@@ -51,7 +51,7 @@ public class Player {
 
     }
 
-    public String getCommand() {
+    public String getCommand() {	//uses scanner to get command
 
         Scanner sc = new Scanner(System.in);
         String text = sc.nextLine();
@@ -117,7 +117,9 @@ public class Player {
 
     
     
-    public void move(String dir) {
+    public void move(String dir) {	
+    	//moves player. First checks if specified movement direction is possible,
+    	//then either changes the current room, or prints an error message
     	
     	switch(dir) {
     		
@@ -180,7 +182,7 @@ public class Player {
     	
     }
 
-    public void printInv() {
+    public void printInv() {	//prints out inventory as a vertical list
     	
     	if(inv.size() == 0) {
     		System.out.println("Empty Inventory!");
@@ -192,6 +194,23 @@ public class Player {
 
     }
     
+
+    public void pickup() {	//picks up item
+    	
+    	if ( getCurrentRoomObj().getIsItem() ) {	//makes sure room has an item
+    		
+    		pickupItem(getCurrentRoomObj().item);	//adds item to inventory
+    		
+    		System.out.println("You pick up a ");	//pickup message		
+    		System.out.println(getCurrentRoomObj().item.name);
+    		
+    		getCurrentRoomObj().setItem(false);		//removes the ite4m from the room	
+    	}else {
+    		System.out.println("There is nothing to pick up.");
+    	}
+    }
+    
+/*******getters and setters*************************/ 
     public void setCurrentRoom(int currentRoom) {
     	this.currentRoom = currentRoom;
     }
@@ -203,23 +222,5 @@ public class Player {
     public int getCurrentRoomInt() {
     	return currentRoom;
     }
-    
-    public void pickup() {
-    	
-    	if ( getCurrentRoomObj().getIsItem() ) {
-    		
-    		pickupItem(getCurrentRoomObj().item);
-    		
-    		System.out.println("You pick up a");
-    		char v=getCurrentRoomObj().item.name.charAt(0);
-    		if(v == 'A' || v == 'E' || v == 'I' || v == 'O' || v == 'U') {
-    			System.out.print("n");
-    		}
-    		System.out.println(" " + getCurrentRoomObj().item.name);
-    		getCurrentRoomObj().setItem(false);
-    		
-    	}else {
-    		System.out.println("There is nothing to pick up.");
-    	}
-    }
+/***************************************************/
 }

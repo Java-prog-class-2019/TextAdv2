@@ -55,9 +55,9 @@ public class Bonk {
 
 		setupRooms();
 		player.setCurrentRoom(0); //starting room
+		System.out.println("You have awoken in the great hall of a haunted mansion. You must explore and fight your way out!\n\nWelcome to Bonk! Type 'help' for a list of commands \n");
 		enterRoom();
 		
-		System.out.println("You have awoken in the great hall of a haunted mansion. You must explore and fight your way out!\nWelcome to Bonk! Type 'help' for a list of commands \n");
 		playerTurn = true;
 		systemTurn = false;
 
