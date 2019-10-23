@@ -76,14 +76,6 @@ public class Player {
             word2 = wordlist.get(1);
         }
 
-        /*
-        Word One Commands
-        - say
-        - move
-        - pickup
-        - search
-         */
-
         switch (word1) {
 
             case ("help"):
@@ -125,10 +117,7 @@ public class Player {
 
     }
     
-    public void searchRoom() {
-    	
-    	
-    	
+    public void searchRoom() {    	
     	
     }
 }
