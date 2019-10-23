@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class Player {
 
     String name;
-    ArrayList<Item> inv = new ArrayList<Item>();
+    private int currentRoom;						//integer value of the current room
+    ArrayList<Item> inv = new ArrayList<Item>();	//inventory
 	
     
     // Hard Stats
@@ -25,11 +26,11 @@ public class Player {
 
     }
 
-   public void pickupItem(Item item) {
+   public void pickupItem(Item item) {	//adds item to inventory
         inv.add(item);
     }
 
-    public void dropItem(Item item) {
+    public void dropItem(Item item) {	//removes item from inventory
         inv.remove(item);
 
     }
@@ -50,7 +51,7 @@ public class Player {
 
     }
 
-    public String getCommand() {
+    public String getCommand() {	//uses scanner to get command
 
         Scanner sc = new Scanner(System.in);
         String text = sc.nextLine();
@@ -59,7 +60,7 @@ public class Player {
 
     }
 
-    public boolean parseCommand(String text) {
+    public boolean parseCommand(String text) {	//Language parser
 
         text = text.toLowerCase().trim();
 
@@ -84,14 +85,19 @@ public class Player {
             case ("move"):
                 move(word2);
             	break;
-            case ("inv"):
+            case ("inv"): case("i"): case("inventory"):
                 printInv();
             	break;
+            case ("pickup"):
+            	pickup();
             case ("say"):
             	System.out.println(word2);
             	break;
             case ("search"):
             	searchRoom();
+            	break;
+            case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
+            	move(word1);
             	break;
             	
             default: 
@@ -101,23 +107,114 @@ public class Player {
         return false;
     }
 
-    public void move(String dir) {
+    
+    
+    public void move(String dir) {	
+    	//moves player. First checks if specified movement direction is possible,
+    	//then either changes the current room, or prints an error message
+    	
+    	switch(dir) {
+    		
+    		case("n"): case("north"):
+    			if(currentRoom==18) {
+    				Bonk.win=true;
+    				break;
+    			}
+    			if(currentRoom%6==5) {
+    				System.out.println("You can't go that way!");
+    				break;
+    			}else {
+    				currentRoom+=2;
+    				Bonk.enterRoom();
+    				break;
+    			}
+    		
+    		case("e"): case("east"):
+    			if(currentRoom%2==0) {
+    				System.out.println("You can't go that way!");
+    				break;
+    			}else {
+    				currentRoom--;
+    				Bonk.enterRoom();
+    				break;
+    			}
+    			
+    		case("s"): case("south"):
+    			if(currentRoom%6==1 || currentRoom==0) {
+    				System.out.println("You can't go that way!");   
+    				break; 				
+    			}else {
+    				currentRoom-=2;
+    				Bonk.enterRoom();
+    				break;
+    			}
+    			
+    		case("w"): case("west"):
+    			if(currentRoom%2==1) {
+    				System.out.println("You can't go that way!");
+    				break;
+    			}else {
+    				currentRoom++;
+    				Bonk.enterRoom();
+    				break;
+    			}
+    			
+    		 default: 
+             	System.out.println("What?!");	
+				break;
+    	}
     	    	
     }
+    
+    public void searchRoom() {
+    	
+    	
+    	
+    	
+    	
+    }
 
-    public void printInv() {
+    public void printInv() {	//prints out inventory as a vertical list
     	
     	if(inv.size() == 0) {
     		System.out.println("Empty Inventory!");
     	}
     	
     	for(int i = 0; i < inv.size(); i++) {
-    		System.out.printf("%s", inv.get(i).getName());
+    		System.out.printf("- %s%n", inv.get(i).getName());
     	}
 
     }
     
-    public void searchRoom() {    	
+
+  public void pickup() {	//picks up item
+
+
     	
+    	if ( getCurrentRoomObj().getIsItem() ) {	//makes sure room has an item
+    		
+    		pickupItem(getCurrentRoomObj().item);	//adds item to inventory
+    		
+    		System.out.print("You pick up ");	//pickup message		
+    		System.out.println(getCurrentRoomObj().item.name);
+    		
+    		getCurrentRoomObj().setItem(false);		//removes the ite4m from the room	
+    	}else {
+    		System.out.println("There is nothing to pick up.");
+    	}
     }
+    
+/*******getters and setters*************************/ 
+    public void setCurrentRoom(int currentRoom) {
+    	this.currentRoom = currentRoom;
+    }
+    
+    public Room getCurrentRoomObj() {
+    	return Bonk.rooms.get(currentRoom);
+    }
+    
+    public int getCurrentRoomInt() {
+    	return currentRoom;
+    }
+/***************************************************/
 }
