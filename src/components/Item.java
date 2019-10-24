@@ -59,11 +59,11 @@ public class Item {
 		double chance = random.nextDouble();
 
 		if(chance < 1) {
-			rarity = Rarity.LEGENDARY;
+			rarity = Rarity.COMMON;
 			if (chance < 0.5) {
 				rarity = Rarity.RARE;
 				if (chance < 0.15) {
-					rarity = Rarity.COMMON;
+					rarity = Rarity.LEGENDARY;
 				}
 			}
 		}
@@ -80,13 +80,13 @@ public class Item {
 			}
 			if(rarity == Rarity.RARE) {
 				// Power for rare weapons
-				// 2 - 5 Power and 5% - 20% Critical Hit Chance
+				// 2 - 5 Power and 5% - 25% Critical Hit Chance
 				power = (int)(Math.random()*5)+2;
 				critChance = (Math.random()*0.2) +0.05;
 			}
 			if(rarity == Rarity.LEGENDARY) {
 				// Power for legendary weapons
-				// 3 - 7 Power and 25% - 50% Critical Hit Chance
+				// 3 - 7 Power and 25% - 75% Critical Hit Chance
 				power = (int)(Math.random()*7)+3;
 				critChance = (Math.random()*0.5) +0.25;
 			}
@@ -95,7 +95,8 @@ public class Item {
 		if (type == Type.ARMOUR) {
 			
 			if(rarity == Rarity.COMMON) {
-				// Defence and 
+				// Defence and Bonus Health random set
+				// Make armour that has a dodge chance to have less of the other stats.
 				defence = (int)(Math.random()*1)+1;   
 				bonusHealth = (int) (Math.random()*3)+1;
 				dodgeChance =0;
@@ -129,6 +130,7 @@ public class Item {
 
 	public void makeName() {
 		
+		//set names for each item, making the name slightly different for each modification on it e.g. dodge or crit chance
 		if (type == Type.WEAPON) {
 			if(rarity==Rarity.COMMON) {
 				name = CWeapon[(int)(Math.random()*CWeapon.length)];
@@ -175,6 +177,8 @@ public class Item {
 			}
 		}
 	}
+	
+	//list of rarities in enum
 
 	public enum Rarity {
 		
@@ -184,6 +188,8 @@ public class Item {
 		
 	}
 
+	//list of types in enum not including coins or consumables which are in other classes
+	
 	public enum Type {
 		
 		WEAPON,
