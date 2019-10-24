@@ -54,7 +54,7 @@ public class Room {
 	private String randomTitle() {		//Creates a random title for each room, based on its location.
 		String[] kRooms = {"Oven Room","Cafe","Pantry","Grease Parlour","Microwave Room","Walk-in Refrigerator","Storage Room","Washroom","Walk-in Freezer","Cleanup Zone","Garbage Disposal","Chef's Pass","Dish Pit","Frying Room"};
 		String[] ghRooms = {"Dining Hall","Closet","Hall of Mirrors","Parlour","Sitting Room","Marble Hallway","Washroom","Bedroom","Guest Room","Coat Room","Storage Room","Jewellery Room","Children's Room","Studio","Hall of Treasure"};
-		String[] byRooms = {"Flower Garden","Vegetable Patch","Shed","Koi Pond","Deck","Patio","Tennis Court","Basketball Court","Pool","Outhouse","Stone Path","Marble Path","Statue","Memorial","Courtyard","Poolhouse"};
+		String[] byRooms = {"Flower Garden","Vegetable Patch","Shed","Koi Pond","Deck","Patio","Tennis Court","Basketball Court","Pool","Outhouse","Stone Path","Marble Path","Statue","Memorial","Courtyard","Poolhouse","Park","Baseball Diamond"};
 		String s="";
 		
 
