@@ -57,15 +57,24 @@ public class Item {
 	public void chooseRarity() {
 
 		double chance = random.nextDouble();
-
-		if(chance < 1) {
-			rarity = Rarity.COMMON;
-			if (chance < 0.5) {
-				rarity = Rarity.RARE;
-				if (chance < 0.15) {
-					rarity = Rarity.LEGENDARY;
-				}
+		
+		if (Bonk.player.getCurrentRoomObj().getTitle().equals("great hall")) {
+			if(chance >= 0.8) {
+				rarity = rarity.RARE;
 			}
+			else rarity = rarity.COMMON;
+		}
+		if (Bonk.player.getCurrentRoomObj().getTitle().equals("kitchen")) {
+			if(chance >= 0.2) {
+				rarity = rarity.RARE;
+			}
+			else rarity = rarity.LEGENDARY;
+		}
+		if (Bonk.player.getCurrentRoomObj().getTitle().equals("backyard")) {
+			if(chance >= 0.375) {
+				rarity = rarity.RARE;
+			}
+			else rarity = rarity.LEGENDARY;
 		}
 	}
 	public void genStats() {
