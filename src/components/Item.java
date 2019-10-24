@@ -1,6 +1,5 @@
 package components;
 
-import java.lang.reflect.Array;
 import java.util.Random;
 
 public class Item {

@@ -123,26 +123,7 @@ public class Room {
 	public boolean getIsItem() {
 		return isItem;
 	}
-/**************************************/
-
 	
-	
-/************For player class***********/
-	
-//	if(number%6==0) {
-//		
-//	}
-//	if(number%6==2) {
-//		
-//	}
-//	if(number==1) {
-//		
-//	}
-//	if(number==17) {
-//		
-//	}
-	
-/***************************************/
 	
 	
 }
