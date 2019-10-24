@@ -20,27 +20,25 @@ public class Room {
 	
 	public Room(int number) {		//Constructor
 		
-		this.number = number;
 
 		
 		if(number<=5)roomType = "great hall";
 		if(number>=6 && number<=11)roomType = "kitchen";
 		if(number>=12 && number<=17)roomType = "backyard";
 		if(number==18)roomType = "boss";
+		if(number%6==5)isShop=true;
+    
+		if(isShop) description+=" You spot a wary shopkeeper!";
+
 		
 		title = randomTitle();
 		description = randomDescriptor() + exits();
 		
-		if(number%6==5)isShop=true;
 		
-		
-		if(isShop) description+=" You spot a wary shopkeeper!";
 		
 		
 		
 	}
-
-	
 
 	private String randomDescriptor() {		//Creates a random description for each room, based on its pre-set parameters.
 		String[] adjectives1 = {"dusty","musty","creepy","dark","dingy","bright","living","mediocre","bloody","dangerous","dirty","nutty","horrible","lovely","nasty","repulsive","terrible","wicked","hot"};
