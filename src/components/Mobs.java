@@ -7,5 +7,7 @@ class Mobs {
 	double critChance;
 	String type = "";
 	
+	int bleed = 0;
+	int confusion = 0;
 	int poison = 0;
 }
