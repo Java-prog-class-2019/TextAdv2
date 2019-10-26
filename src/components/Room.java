@@ -92,8 +92,6 @@ public class Room {
 	public void setVisited() {
 		visited = true;
 	}
-/**************************************/
-
 	
 	
 /************For player class***********/

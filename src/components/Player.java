@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import items.Item;
+
 public class Player {
 
     String name;
@@ -35,24 +37,24 @@ public class Player {
     }
 
     public void applyStats(Item item) {
-        dodgeChance += item.dodgeChance;
-        critChance += item.critChance;
-        power += item.power;
-        armour += item.power;
+        dodgeChance += item.getDodgeChance();
+        critChance += item.getCritChance();
+        power += item.getPower();
+        armour += item.getDefence();
 
     }
 
     public void removeStats(Item item) {
-        dodgeChance -= item.dodgeChance;
-        critChance -= item.critChance;
-        power -= item.power;
-        armour -= item.defence;
+        dodgeChance -= item.getDodgeChance();
+        critChance -= item.getCritChance();
+        power -= item.getPower();
+        armour -= item.getDefence();
 
     }
 
     public String getCommand() {
 
-        Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
         String text = sc.nextLine();
         if(text.length() == 0) text = "QwErTy";
         return text;

@@ -1,6 +1,5 @@
-package components;
+package items;
 
-import java.lang.reflect.Array;
 import java.util.Random;
 
 public class Item {
@@ -36,6 +35,7 @@ public class Item {
 		genStats();
 		makeName();
 	}
+	
 	public void chooseType() {
 		if (random.nextDouble() >= 0.5) {
 			type = Type.WEAPON;
@@ -137,10 +137,10 @@ public class Item {
 			if(rarity==Rarity.COMMON) {
 				name = CArmour[(int)(Math.random()*CArmour.length)];
 			}
-			if(rarity==Rarity.RARE&& dodgeChance ==0) {
+			if(rarity==Rarity.RARE && dodgeChance ==0) {
 				name = RArmour[(int)(Math.random()*RArmour.length)] ;
 			}
-			if(rarity==Rarity.RARE&& dodgeChance > 0) {
+			if(rarity==Rarity.RARE && dodgeChance > 0) {
 				name = RArmour[(int)(Math.random()*RArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
 			}
 			if(rarity==Rarity.LEGENDARY&& dodgeChance ==0) {
@@ -164,7 +164,6 @@ public class Item {
 	public enum Type {
 		WEAPON,
 		ARMOUR
-
 	}
 	
 	
@@ -172,6 +171,62 @@ public class Item {
 		return this.name;
 	}
 
+	public int getPower() {
+		return power;
+	}
 
+	public void setPower(int power) {
+		this.power = power;
+	}
+
+	public int getDefence() {
+		return defence;
+	}
+
+	public void setDefence(int defence) {
+		this.defence = defence;
+	}
+
+	public int getBonusHealth() {
+		return bonusHealth;
+	}
+
+	public void setBonusHealth(int bonusHealth) {
+		this.bonusHealth = bonusHealth;
+	}
+
+	public double getCritChance() {
+		return critChance;
+	}
+
+	public void setCritChance(double critChance) {
+		this.critChance = critChance;
+	}
+
+	public double getDodgeChance() {
+		return dodgeChance;
+	}
+
+	public void setDodgeChance(double dodgeChance) {
+		this.dodgeChance = dodgeChance;
+	}
+
+	public Rarity getRarity() {
+		return rarity;
+	}
+
+	public void setRarity(Rarity rarity) {
+		this.rarity = rarity;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+	
+	
 
 }

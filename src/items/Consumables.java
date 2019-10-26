@@ -1,4 +1,4 @@
-package components;
+package items;
 
 public class Consumables {
 	
@@ -9,7 +9,9 @@ public class Consumables {
 	int crit_bonus;
 	int dodge_bonus;
 	
-	String[] s_names = 
+	String[] s_names;
+	String[] m_names;
+	String[] v_names;
 	
 	public Consumables() {
 		
@@ -22,7 +24,7 @@ public class Consumables {
 	}
 	
 	public void chooseName() {
-		
+				
 		
 	}
 	

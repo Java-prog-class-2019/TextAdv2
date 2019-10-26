@@ -1,8 +1,12 @@
-package components;
 
 
-import components.Item.Type;
+
 import java.util.ArrayList;
+
+import components.Player;
+import components.Room;
+import items.Item;
+import items.Item.Type;
 
 public class Bonk {
 
@@ -22,6 +26,8 @@ public class Bonk {
 	Bonk() {
 
 		init();
+		
+		itemStatTest();
 		
 		while(playerTurn) {
 			String command = player.getCommand();
@@ -60,22 +66,22 @@ public class Bonk {
 	  //Item 
 	  	Item item = new Item();
 	  	
-		System.out.println(item.type);
-		System.out.println(item.name);
-		System.out.println(item.rarity);
+		System.out.println(item.getType().toString());
+		System.out.println(item.getName());
+		System.out.println(item.getRarity().toString());
 		
-		if (item.type == Type.WEAPON) {
+		if (item.getType() == Type.WEAPON) {
       
-		  System.out.println("Power: " + item.power);
-		  System.out.println("Crit Chance: " + item.critChance);
+		  System.out.println("Power: " + item.getPower());
+		  System.out.println("Crit Chance: " + item.getCritChance());
       
 		}
 		
-		if (item.type == Type.ARMOUR) {
+		if (item.getType() == Type.ARMOUR) {
       
-		  System.out.println("Bonus Health: " + item.bonusHealth);
-		  System.out.println("Defence: " + item.defence);
-		  System.out.println("Dodge Chance: " + item.dodgeChance);
+		  System.out.println("Bonus Health: " + item.getBonusHealth());
+		  System.out.println("Defence: " + item.getDefence());
+		  System.out.println("Dodge Chance: " + item.getDodgeChance());
 		  System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
       
 		}
