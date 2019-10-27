@@ -18,7 +18,6 @@ class MobGH extends Mobs {
 	}
 
 	public void chooseName() {
-		type = names[Room.number];
-		}
+		type = names[Bonk.player.getCurrentRoomInt()];
 	}
 }

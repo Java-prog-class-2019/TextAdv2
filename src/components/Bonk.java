@@ -51,6 +51,7 @@ public class Bonk {
 	}
 	
 	
+	
 	public void init() {
 
 		setupRooms();
@@ -62,6 +63,16 @@ public class Bonk {
 		systemTurn = false;
 
 	}
+	
+
+	public void chooseAction() {
+		if (Bonk.playerTurn == true) {
+			
+		}
+
+	}
+	
+
 
 
 	static void enterRoom(){

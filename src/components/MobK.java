@@ -18,9 +18,8 @@ class MobK extends Mobs{
 	}
 
 	public void chooseName() {
-		for (int i=0; i<names.length; i++ ) {
-			type = names [i];
-		}
+		type = names[Bonk.player.getCurrentRoomInt()-6];
 	}
 }
+
 

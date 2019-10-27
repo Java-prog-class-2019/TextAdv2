@@ -10,14 +10,6 @@ public class Combat {
 		dropItems();
 		chooseAction();
 	}
-
-	public void chooseAction() {
-		if (Bonk.playerTurn == true) {
-			
-		}
-
-	}
-	
 	
 	public void damageCalc() {
 		
