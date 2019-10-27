@@ -67,8 +67,6 @@ public class Bonk {
 
 	public void chooseAction() {
 		if (playerTurn == true) {
-			//need to get a way to get it so that options are shown. 
-			// once they choose to attack we do this math --> Health = Enemy DMG - Ally Armor.
 			
 		}
 	}
