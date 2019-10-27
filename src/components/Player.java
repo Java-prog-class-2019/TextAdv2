@@ -9,6 +9,7 @@ public class Player {
     String name;
     private int currentRoom;						//integer value of the current room
     ArrayList<Item> inv = new ArrayList<Item>();	//inventory
+    private int coins = 0;
 	
     
     // Hard Stats
@@ -63,6 +64,7 @@ public class Player {
     public boolean parseCommand(String text) {	//Language parser
 
         text = text.toLowerCase().trim();
+        text.replace("pick up", "pickup");
 
         String words[] = text.split(" ");
 
@@ -82,6 +84,9 @@ public class Player {
             case ("help"):
                 System.out.println("List of commands: help, move <n, w, e, s>, pickup <item> and search");
                 break;
+            case ("shop"):
+            	Bonk.player.getCurrentRoomObj().shop.printShop();
+            	break;
             case ("move"):
                 move(word2);
             	break;
@@ -196,7 +201,8 @@ public class Player {
     		pickupItem(getCurrentRoomObj().item);	//adds item to inventory
     		
     		System.out.print("You pick up ");		//pickup message		
-    		System.out.println(getCurrentRoomObj().item.name);
+    		System.out.println(getCurrentRoomObj().item.name);	
+    		getCurrentRoomObj().item.printItem();
     		
     		getCurrentRoomObj().setItem(false);		//removes the ite4m from the room	
     	}else {
@@ -215,6 +221,14 @@ public class Player {
     
     public int getCurrentRoomInt() {
     	return currentRoom;
+    }
+    
+    public void setCoins(int coins) {
+    	this.coins=coins;
+    }
+    
+    public int getCoins() {
+    	return coins;
     }
 /***************************************************/
 }

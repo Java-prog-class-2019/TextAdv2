@@ -69,18 +69,15 @@ public class Bonk {
 		// Print Title of the entered room.
 		String title = rooms.get(player.getCurrentRoomInt()).getTitle();
 		
-		for(int i=0; i < title.length()+4; i++) {
-			
+		System.out.println();
+		for(int i=0; i < title.length()+4; i++) {			
 			System.out.print("-");
-			
 		}
 		
 		System.out.println("\n| "+ title + " |");
 		
-		for(int i=0; i < title.length()+4; i++) {
-			
-			System.out.print("-");
-			
+		for(int i=0; i < title.length()+4; i++) {			
+			System.out.print("-");			
 		}
 		
 		System.out.println("\n"+rooms.get(player.getCurrentRoomInt()).getDescription());

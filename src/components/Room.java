@@ -12,31 +12,31 @@ public class Room {
 	private String roomType;																//Type of the room (3 types based on location)
 	private int number;																		//Distinguishes different rooms on the map. Features are mostly based on number.
 	private boolean isItem=false;															//Is it an item room?
-	private boolean isShop=false;															//Is it a shop room?
+	boolean isShop=false;																	//Is it a shop room?
 	private boolean isEnemy;																//Is it an enemy room?
-	Item item;
+	Item item;																				//Item
+	Shop shop;																				//Shop
 	/*******************************/
 	
 	
 	public Room(int number) {		//Constructor
 		
-
+		this.number=number;
 		
 		if(number<=5)roomType = "great hall";
 		if(number>=6 && number<=11)roomType = "kitchen";
 		if(number>=12 && number<=17)roomType = "backyard";
 		if(number==18)roomType = "boss";
-		if(number%6==5)isShop=true;
+		if(number%6==5) {
+			isShop=true;
+			shop = new Shop();
+		}
     
-		if(isShop) description+=" You spot a wary shopkeeper!";
-
 		
 		title = randomTitle();
 		description = randomDescriptor() + exits();
-		
-		
-		
-		
+
+		if(isShop) description+=" You spot a wary shopkeeper! Type \"shop\" to shop.";
 		
 	}
 
@@ -122,25 +122,4 @@ public class Room {
 		return isItem;
 	}
 /**************************************/
-
-	
-	
-/************For player class***********/
-	
-//	if(number%6==0) {
-//		
-//	}
-//	if(number%6==2) {
-//		
-//	}
-//	if(number==1) {
-//		
-//	}
-//	if(number==17) {
-//		
-//	}
-	
-/***************************************/
-	
-	
 }
