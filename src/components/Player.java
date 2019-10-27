@@ -15,6 +15,7 @@ public class Player {
     int power;
     int armour;
     int bonusHealth;
+    int health;
 
     //Soft Stats
     double dodgeChance;
@@ -97,14 +98,19 @@ public class Player {
                 move(word2);
             case ("inv"):
                 printInv();
-
+            case ("attack"):
+            	
+            case ("use"):
+            	use(word2);
         }
         return false;
     }
 
+    public void use (String Consumable) {
+    	
+    }
+    
     public void move(String dir) {
-
-
 
     }
 

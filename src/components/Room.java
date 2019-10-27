@@ -7,18 +7,20 @@ public class Room {
 	/***** Instance variables *****/
 	private String title;			//Title of the room
 	private String description;		//Message that displays when you enter a room
-	private boolean visited = false;	//Checks if the room has been visited (so player can't get more items)
+	private boolean visited = false;//Checks if the room has been visited (so player can't get more items)
 	private String roomType;		//Type of the room (3 types based on location)
 	private int number;				//Distinguishes different rooms on the map. Features are mostly based on number.
 	boolean item;					//Is it an item room?
 	boolean enemy;					//Is it an enemy room?
+	Mobs mob; 						//Makes a Mob
+	private boolean isMob = true;	//Checks If Mob is Alive or not. 
 	/*******************************/
 	
 	
 	public Room(int number) {		//Constructor
 		
 		this.number = number;
-
+		
 		
 		if(number<=6)roomType = "kitchen";
 		if(number>=7 && number<=12)roomType = "great hall";
@@ -27,6 +29,8 @@ public class Room {
 		
 		if(number%6==0)item=true;
 		else item=false;
+		
+		makeMob();
 		
 		description=randomDescriptor();
 		if(item && !visited) description+=" You spot an item glinting on the ground in front of you.";
@@ -52,7 +56,17 @@ public class Room {
 		return s;
 	}
 	
-	
+	public void makeMob() {
+		if (roomType.equals ("backyard")) {
+			mob = new MobBY();
+		}
+		if (roomType.equals ("great hall")) {
+			mob = new MobGH();
+		}
+		if (roomType.equals ("kitchen")) {
+			mob = new MobK();
+		}
+	}
 	private String randomTitle() {		//Creates a random title for each room, based on its location.
 		String[] kRooms = {"Oven Room","Cafe","Pantry","Grease Parlour","Microwave Room","Walk-in Refrigerator","Storage Room","Washroom","Walk-in Freezer","Cleanup Zone","Garbage Disposal","Chef's Pass","Dish Pit","Frying Room"};
 		String[] ghRooms = {"Dining Hall","Closet","Hall of Mirrors","Parlour","Sitting Room","Marble Hallway","Washroom","Bedroom","Guest Room","Coat Room","Storage Room","Jewellery Room","Children's Room","Studio","Hall of Treasure"};
@@ -100,7 +114,7 @@ public class Room {
 	
 /************For player class***********/
 	
-//	if(number%6==0) {
+//	if(number%6==0) { 
 //		
 //	}
 //	if(number%6==2) {
