@@ -2,15 +2,15 @@ package components;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Player {
 
     String name;
-    private int currentRoom;						//integer value of the current room
-    ArrayList<Item> inv = new ArrayList<Item>();	//inventory
-	
-    
+    HashMap<String, Item> inv;
+    int roomId;
+
     // Hard Stats
     int power;
     int armour;
@@ -26,12 +26,14 @@ public class Player {
 
     }
 
-   public void pickupItem(Item item) {	//adds item to inventory
-        inv.add(item);
+   public void addItem(Item item) {
+        inv.put(item.name, item);
+        applyStats(item);
     }
 
-    public void dropItem(Item item) {	//removes item from inventory
-        inv.remove(item);
+    public void removeItem(Item item) {
+        inv.remove(item.name, item);
+        removeStats(item);
 
     }
 
@@ -51,7 +53,7 @@ public class Player {
 
     }
 
-    public String getCommand() {	//uses scanner to get command
+    public String getCommand() {
 
         Scanner sc = new Scanner(System.in);
         String text = sc.nextLine();
@@ -60,7 +62,7 @@ public class Player {
 
     }
 
-    public boolean parseCommand(String text) {	//Language parser
+    public boolean parseCommand(String text) {
 
         text = text.toLowerCase().trim();
 
@@ -77,6 +79,15 @@ public class Player {
             word2 = wordlist.get(1);
         }
 
+        /*
+        Word One Commands
+        - say
+        - move
+        - pickup
+        - search
+         */
+        
+
         switch (word1) {
 
             case ("help"):
@@ -84,137 +95,20 @@ public class Player {
                 break;
             case ("move"):
                 move(word2);
-            	break;
-            case ("inv"): case("i"): case("inventory"):
+            case ("inv"):
                 printInv();
-            	break;
-            case ("pickup"):
-            	pickup();
-            case ("say"):
-            	System.out.println(word2);
-            	break;
-            case ("search"):
-            	searchRoom();
-            	break;
-            case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
-            	move(word1);
-            	break;
-            	
-            default: 
-            	System.out.println("What?!");
 
         }
         return false;
     }
 
-    
-    
-    public void move(String dir) {	
-    	//moves player. First checks if specified movement direction is possible,
-    	//then either changes the current room, or prints an error message
-    	
-    	switch(dir) {
-    		
-    		case("n"): case("north"):
-    			if(currentRoom==18) {
-    				Bonk.win=true;
-    				break;
-    			}
-    			if(currentRoom%6==5) {
-    				System.out.println("You can't go that way!");
-    				break;
-    			}else {
-    				currentRoom+=2;
-    				Bonk.enterRoom();
-    				break;
-    			}
-    		
-    		case("e"): case("east"):
-    			if(currentRoom%2==0) {
-    				System.out.println("You can't go that way!");
-    				break;
-    			}else {
-    				currentRoom--;
-    				Bonk.enterRoom();
-    				break;
-    			}
-    			
-    		case("s"): case("south"):
-    			if(currentRoom%6==1 || currentRoom==0) {
-    				System.out.println("You can't go that way!");   
-    				break; 				
-    			}else {
-    				currentRoom-=2;
-    				Bonk.enterRoom();
-    				break;
-    			}
-    			
-    		case("w"): case("west"):
-    			if(currentRoom%2==1) {
-    				System.out.println("You can't go that way!");
-    				break;
-    			}else {
-    				currentRoom++;
-    				Bonk.enterRoom();
-    				break;
-    			}
-    			
-    		 default: 
-             	System.out.println("What?!");	
-				break;
-    	}
-    	    	
-    }
-    
-    public void searchRoom() {
-    	
-    	
-    	
-    	
-    	
-    }
-
-    public void printInv() {	//prints out inventory as a vertical list
-    	
-    	if(inv.size() == 0) {
-    		System.out.println("Empty Inventory!");
-    	}
-    	
-    	for(int i = 0; i < inv.size(); i++) {
-    		System.out.printf("- %s%n", inv.get(i).getName());
-    	}
-
-    }
-    
-
-  public void pickup() {	//picks up item
+    public void move(String dir) {
 
 
-    	
-    	if ( getCurrentRoomObj().getIsItem() ) {	//makes sure room has an item
-    		
-    		pickupItem(getCurrentRoomObj().item);	//adds item to inventory
-    		
-    		System.out.print("You pick up ");	//pickup message		
-    		System.out.println(getCurrentRoomObj().item.name);
-    		
-    		getCurrentRoomObj().setItem(false);		//removes the ite4m from the room	
-    	}else {
-    		System.out.println("There is nothing to pick up.");
-    	}
+
     }
-    
-/*******getters and setters*************************/ 
-    public void setCurrentRoom(int currentRoom) {
-    	this.currentRoom = currentRoom;
+
+    public void printInv() {
+
     }
-    
-    public Room getCurrentRoomObj() {
-    	return Bonk.rooms.get(currentRoom);
-    }
-    
-    public int getCurrentRoomInt() {
-    	return currentRoom;
-    }
-/***************************************************/
 }
