@@ -58,13 +58,13 @@ public class Shop {
 			setWeapon(weaponB);
 			c = new Buyable(weaponB);
 			shopItems.add(c);
-			
+
 			armourB = new Item();
 			setArmour(armourB);
 			d = new Buyable(armourB);
 			shopItems.add(d);
 		}else {
-			
+
 		}
 
 	}
@@ -142,46 +142,52 @@ public class Shop {
 	}
 
 	public void printShop() {
-		
-		System.out.println("\t\t\t\t\t\t\t\t\t\t ___         ___   ___");
-		System.out.println("\t\t\t\t\t\t\t\t\t\t/   \\ |   | /   \\ |   \\");
-		System.out.println("\t\t\t\t\t\t\t\t\t\t\\___  |___| |   | |___/");
-		System.out.println("\t\t\t\t\t\t\t\t\t\t    \\ |   | |   | |");
-		System.out.println("\t\t\t\t\t\t\t\t\t\t\\___/ |   | \\___/ |");
-		
-		
-		for(int i=0; i<184; i++) {
-			System.out.print("-");
-		}
 
-		System.out.printf("%n|%-60d|%-60d|%-60d|", 1, 2, 3);
+		if(shopItems.get(0)==null) {
+			System.out.println("There's nothing for sale.");
+		}else {
+
+			System.out.println("\t\t\t\t\t\t\t\t\t\t ___         ___   ___");
+			System.out.println("\t\t\t\t\t\t\t\t\t\t/   \\ |   | /   \\ |   \\");
+			System.out.println("\t\t\t\t\t\t\t\t\t\t\\___  |___| |   | |___/");
+			System.out.println("\t\t\t\t\t\t\t\t\t\t    \\ |   | |   | |");
+			System.out.println("\t\t\t\t\t\t\t\t\t\t\\___/ |   | \\___/ |");
 
 
-		System.out.printf("%n| %s %s:", a.item.rarity, a.item.type);
-		for(int i=0; i<57 - a.item.rarity.toString().length() - a.item.type.toString().length(); i++) {
-			System.out.print(" ");
-		}
-		System.out.printf("| %s %s:", b.item.rarity, b.item.type);
-		for(int i=0; i<57 - b.item.rarity.toString().length() - b.item.type.toString().length(); i++) {
-			System.out.print(" ");
-		}
-		System.out.println("|");
-		//		System.out.printf("| %s %s:", c.item.rarity.toString(), c.item.type.toString());
-		//		for(int i=0; i<60-c.item.rarity.toString().length() + c.item.type.toString().length(); i++) {
-		//			System.out.print(" ");
-		//		}
+			for(int i=0; i<184; i++) {
+				System.out.print("_");
+			}
+			
+
+			System.out.printf("%n|%-60d|%-60d|%-60d|", 1, 2, 3);
 
 
-		System.out.printf("%n%s",a.item.getName());
+			System.out.printf("%n| %s %s:", a.item.rarity, a.item.type);
+			for(int i=0; i<57 - a.item.rarity.toString().length() - a.item.type.toString().length(); i++) {
+				System.out.print(" ");
+			}
+			System.out.printf("| %s %s:", b.item.rarity, b.item.type);
+			for(int i=0; i<57 - b.item.rarity.toString().length() - b.item.type.toString().length(); i++) {
+				System.out.print(" ");
+			}
+			System.out.println("|");
+			//		System.out.printf("| %s %s:", c.item.rarity.toString(), c.item.type.toString());
+			//		for(int i=0; i<60-c.item.rarity.toString().length() + c.item.type.toString().length(); i++) {
+			//			System.out.print(" ");
+			//		}
 
-		System.out.println();
-		for(int i=0; i<184; i++) {
-			System.out.print("-");
-		}
 
-		System.out.println();
-		for(int i=0; i<184; i++) {
-			System.out.print("-");
+			System.out.printf("%n%s",a.item.getName());
+
+			System.out.println();
+			for(int i=0; i<184; i++) {
+				System.out.print("-");
+			}
+
+			System.out.println();
+			for(int i=0; i<184; i++) {
+				System.out.print("-");
+			}
 		}
 	}
 }

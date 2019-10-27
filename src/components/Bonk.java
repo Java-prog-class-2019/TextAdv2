@@ -13,6 +13,7 @@ public class Bonk {
 	// Global Variables
 	boolean playerTurn;
 	boolean systemTurn;
+	
 	boolean alive = true;
 	static boolean win = false;
 
