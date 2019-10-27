@@ -22,10 +22,10 @@ class MobGH extends Mobs {
 			if (chance <= 0.2) {
 				coin = (int)(Math.random()*3)+1;
 			}
-			else 
-				
-				//print an item that is pretty good 
-				//or print a consumable that is good
+//			else 
+//				
+//				//print an item that is pretty good 
+//				//or print a consumable that is good
 		}
 	}
 }
