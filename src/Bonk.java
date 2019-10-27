@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import components.Player;
 import components.Room;
+import items.Consumables;
 import items.Item;
 import items.Item.Type;
 
@@ -33,6 +34,7 @@ public class Bonk {
 			String command = player.getCommand();
 			player.parseCommand(command);
 			
+			
 		}
 		
 		while(systemTurn) {
@@ -54,7 +56,9 @@ public class Bonk {
 		for(Room r:rooms) {
 			System.out.println(r.getDescription());
 		}
-	
+		
+		Consumables thing = new Consumables();
+		System.out.println(thing.name);
 	}
 	
 	public void enterRoom(){
