@@ -85,7 +85,7 @@ public class Player {
 			System.out.println("List of commands: help, move <n, w, e, s>, pickup <item> and search");
 		break;
 		case ("shop"):
-			Bonk.player.getCurrentRoomObj().shop.printShop();
+		//	Bonk.player.getCurrentRoomObj().shop.printShop();
 		break;
 		case ("move"):
 			move(word2);
@@ -104,6 +104,8 @@ public class Player {
 		case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
 			move(word1);
 		break;
+//		case("attack"):
+//			attackEnemy();
 
 
 		default: 

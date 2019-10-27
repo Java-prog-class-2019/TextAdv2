@@ -15,6 +15,8 @@ public class Bonk {
 	boolean systemTurn;
 	boolean alive = true;
 	static boolean win = false;
+	boolean isMob = true;																	//Is there a (living) enemy in the room?
+	Mobs mob;	
 
 	public static void main(String[] args) { new Bonk(); }
 
@@ -97,15 +99,33 @@ public class Bonk {
 	public void setupRooms() {
 		
 		for(int i=0; i<19;i++) {	//Creates the rooms and adds them to an ArrayList		
-			rooms.add(new Room(i));
+			rooms.add(new Room(i));		
+			
+			if(rooms.get(i).roomType.equals("great hall")) {
+				mob = new MobGH();
+				mob.type = MobGH.names[i];
+				rooms.get(i).description += (" A " + mob.type + " is out to get you, what will you do?");			
+			}
+			if(rooms.get(i).roomType.equals("kitchen")) {
+				mob = new MobK();
+				mob.type = MobK.names[i-6];
+				rooms.get(i).description += (" A " + mob.type + " is out to get you, what will you do?");	
+
+			}
+			if(rooms.get(i).roomType.equals("backyard")) {
+				mob = new MobBY();
+				mob.type = MobBY.names[i-12];
+				rooms.get(i).description += (" A " + mob.type + " is out to get you, what will you do?");	
+			}
 		}
+		
 		
 		rooms.get((int)(Math.random()*5)).setItem(true);
 		rooms.get((int)(Math.random()*5)+6).setItem(true);
 		rooms.get((int)(Math.random()*5)+12).setItem(true);
-		
-
 	}
+		
+	
 
   public void itemStatTest() {
 	  	Item item = new Item();

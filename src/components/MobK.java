@@ -2,10 +2,9 @@ package components;
 
 class MobK extends Mobs{
 
-	private String names [] = {"Whisk","Faucet","Chef's Knife","Cheese Grater", "Bag of Frozen Peas","Cutting Board"};
+	public static String names [] = {"Whisk","Faucet","Chef's Knife","Cheese Grater", "Bag of Frozen Peas","Cutting Board"};
 	MobK () {
 		genStats();
-		chooseName();
 	}
 
 	public void genStats() {
@@ -15,10 +14,6 @@ class MobK extends Mobs{
 		defence = (int)(Math.random()*3);
 		critChance = 0;
 		dodgeChance = 0;
-	}
-
-	public void chooseName() {
-		type = names[Bonk.player.getCurrentRoomInt()-6];
 	}
 }
 

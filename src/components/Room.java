@@ -5,10 +5,10 @@ import java.util.HashMap;
 public class Room {
 	
 	/***** Instance variables *****/
-	private String title;																	//Title of the room
-	private String description;																//Message that displays when you enter a room
-	private String descrItem=" You spot an item glinting on the ground in front of you.";	//Additional description exclusive to item rooms (this had to be separate from description so it could be removed if need be)
-	private String roomType;																//Type of the room (3 types based on location)
+	public String title;																	//Title of the room
+	public String description;																//Message that displays when you enter a room
+	public String descrItem=" You spot an item glinting on the ground in front of you.";	//Additional description exclusive to item rooms (this had to be separate from description so it could be removed if need be)
+	public String roomType;																//Type of the room (3 types based on location)
 	private int number;																		//Distinguishes different rooms on the map. Features are mostly based on number.
 	private boolean isItem=false;															//Is it an item room?
 	boolean isShop=false;																	//Is it a shop room?
@@ -32,15 +32,15 @@ public class Room {
 			isShop=true;
 //			shop = new Shop();
 		}
-    
-		makeMob();
+//    
+//		makeMob();
 		
 		title = randomTitle();
 		description = randomDescriptor() + exits();
 
+
 		if(isShop) description+=" You spot a wary shopkeeper! Type \"shop\" to see deals.";
-		if(isMob) description+=" A " + mob.type + " is out to get you!";
-		
+
 	}
 
 	private String randomDescriptor() {		//Creates a random description for each room, based on its pre-set parameters.
@@ -74,20 +74,20 @@ public class Room {
 		return s;
 
 	}
-		private void makeMob() {
-		if(roomType.equals("great hall")) {
-			mob = new MobGH();
-
-		}
-		if(roomType.equals("kitchen")) {
-			mob = new MobK();
-
-		}
-		if(roomType.equals("backyard")) {
-			mob = new MobBY();
-
-		}
-	}
+//		private void makeMob() {
+//		if(roomType.equals("great hall")) {
+//			mob = new MobGH();
+//			System.out.println(" A " + mob.type + " is out to get you!");			
+//		}
+//		if(roomType.equals("kitchen")) {
+//			mob = new MobK();
+//
+//		}
+//		if(roomType.equals("backyard")) {
+//			mob = new MobBY();
+//
+//		}
+//	}
 	
 	private String exits() {
 		String s="";

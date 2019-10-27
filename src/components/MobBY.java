@@ -2,10 +2,10 @@ package components;
 
 class MobBY extends Mobs{
 
-	private String names [] = {"Old Tire Swing","LawnMower","Rake", "Baseball Bat","Shovel", "Wheelbarrow"};
+	public static String names [] = {"Old Tire Swing","LawnMower","Rake", "Baseball Bat","Shovel", "Wheelbarrow"};
 	MobBY () {
 		genStats();
-		chooseName();
+
 	}
 
 	public void genStats() {
@@ -14,10 +14,6 @@ class MobBY extends Mobs{
 		defence = (int)(Math.random()*3);
 		critChance = 0;
 		dodgeChance = 0;
-	}
-
-	public void chooseName() {
-		type = names[Bonk.player.getCurrentRoomInt()-12];
 	}
 }
 
