@@ -19,6 +19,7 @@ public class Player {
 	// Hard Stats
 	int power=3;
 	int armour=0;
+	int health=15;
 	int bonusHealth=0;
 
 	//Soft Stats
@@ -184,8 +185,20 @@ public class Player {
 
 	public void printInv() {	//prints out inventory as a vertical list
 
+		if(currentWeapon==null && currentArmour==null) {
+			System.out.println("Nothing Equipped.");
+		}
+		if(currentWeapon!=null) {
+			System.out.println("Current Weapon = " + currentWeapon.name);
+		}
+		if(currentArmour!=null) {
+			System.out.println("Current Armour = " + currentArmour.name);
+		}
+		
 		if(inv.size() == 0) {
-			System.out.println("Empty Inventory!");
+			System.out.println("\nEmpty Inventory.");
+		}else {
+			System.out.println("\nInventory:");
 		}
 
 		for(int i = 0; i < inv.size(); i++) {
@@ -215,25 +228,39 @@ public class Player {
 	
 	
 	public void equip(String item){
-		int index = (int)(item.charAt(0))-1;
+		int index = (int)(item.charAt(0))-49;
 		if(inv.size()>index) {
 			if(inv.get(index).type==Type.WEAPON) {
 				if(currentWeapon==null) {
+					System.out.println("You equipped " + inv.get(index).name + ".");
 					currentWeapon=inv.get(index);
-					
+					applyStats(currentWeapon);
+					inv.remove(inv.get(index));
 				}else {
-					
+					System.out.println("You equipped " + inv.get(index).name + ".");
+					removeStats(currentWeapon);
+					inv.add(currentWeapon);
+					currentWeapon=inv.get(index);
+					applyStats(currentWeapon);
+					inv.remove(inv.get(index));
 				}
-			}
-			if(inv.get(index).type==Type.ARMOUR) {
+			}else{
 				if(currentArmour==null) {
-					
+					System.out.println("You equipped " + inv.get(index).name + ".");
+					currentArmour=inv.get(index);
+					applyStats(currentArmour);
+					inv.remove(inv.get(index));
 				}else {
-					
+					System.out.println("You equipped " + inv.get(index).name + ".");
+					removeStats(currentArmour);
+					inv.add(currentArmour);
+					currentArmour=inv.get(index);
+					applyStats(currentArmour);
+					inv.remove(inv.get(index));
 				}
 			}
 		}else {
-			System.out.println("No such thing exists.");
+			System.out.println("You can't do that.");
 		}
 	}
 

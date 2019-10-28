@@ -53,7 +53,7 @@ public class Shop {
 		b = new Buyable(armourA);
 		shopItems.add(b);
 
-		if(Bonk.player.getCurrentRoomInt()==17) {
+		if(Bonk.player.getCurrentRoomInt()>=17) {
 			weaponB = new Item();
 			setWeapon(weaponB);
 			c = new Buyable(weaponB);
@@ -77,7 +77,7 @@ public class Shop {
 
 		if(Bonk.player.getCurrentRoomInt()==5) {
 			weapon.rarity = Rarity.COMMON;
-			if (chance < 0.3) {
+			if (chance < 0.5) {
 				weapon.rarity = Rarity.RARE;
 			}
 
@@ -141,9 +141,9 @@ public class Shop {
 		armour.makeName();
 	}
 
-	public void printShop() {
+	public void printShop() {	//Prints out the contents of the shop in a neat grid, line by line
 
-		if(shopItems.get(0)==null) {
+		if(shopItems.size()==0) {
 			System.out.println("There's nothing for sale.");
 		}else {
 
@@ -159,9 +159,135 @@ public class Shop {
 			}
 			
 
-			System.out.printf("%n|%-60d|%-60d|%-60d|", 1, 2, 3);
+			System.out.printf("%n|%-60d|%-60d|%-60d|\n", 1, 2, 3);	//Line 1
 
 
+			if(shopItems.get(0).item!=null) {	//Line 2
+				System.out.printf("| " + shopItems.get(0).item.rarity + " " + shopItems.get(0).item.type + ":");
+				for(int i=0; i<57-shopItems.get(0).item.rarity.toString().length()-shopItems.get(0).item.type.toString().length(); i++) {
+					System.out.print(" ");
+				}
+			}
+			if(shopItems.size()>1) {
+				if(shopItems.get(1).item!=null) {
+					System.out.printf("| " + shopItems.get(1).item.rarity + " " + shopItems.get(1).item.type + ":");
+					for(int i=0; i<57-shopItems.get(1).item.rarity.toString().length()-shopItems.get(1).item.type.toString().length(); i++) {
+						System.out.print(" ");
+					}
+				}else {
+					System.out.printf("%-61c", '|');
+				}
+			}else {
+				System.out.printf("%-61c", '|');
+			}
+			if(shopItems.size()>2) {
+				if(shopItems.get(2).item!=null) {
+					System.out.printf("| " + shopItems.get(2).item.rarity + " " + shopItems.get(2).item.type + ":");
+					for(int i=0; i<57-shopItems.get(2).item.rarity.toString().length()-shopItems.get(2).item.type.toString().length(); i++) {
+						System.out.print(" ");
+					}
+					System.out.println("|");
+				}else {
+					System.out.printf("%-61c|\n", '|');
+				}
+			}else {
+				System.out.printf("%-61c|\n", '|');
+			}
+			
+			
+			if(shopItems.get(0).item!=null) {	//Line 3
+				System.out.printf("| " + shopItems.get(0).item.name);
+				for(int i=0; i<59-shopItems.get(0).item.name.length(); i++) {
+					System.out.print(" ");
+				}
+			}
+			if(shopItems.size()>1) {
+				if(shopItems.get(1).item!=null) {
+					System.out.printf("| " + shopItems.get(1).item.name);
+					for(int i=0; i<59-shopItems.get(1).item.name.length(); i++) {
+						System.out.print(" ");
+					}
+				}else {
+					System.out.printf("%-61c", '|');
+				}
+			}else {
+				System.out.printf("%-61c", '|');
+			}
+			if(shopItems.size()>2) {
+				if(shopItems.get(2).item!=null) {
+					System.out.printf("| " + shopItems.get(2).item.name);
+					for(int i=0; i<59-shopItems.get(2).item.name.length(); i++) {
+						System.out.print(" ");
+					}
+					System.out.println("|");
+				}else {
+					System.out.printf("%-61c|\n", '|');
+				}
+			}else {
+				System.out.printf("%-61c|\n", '|');
+			}
+			
+			
+			if(shopItems.get(0).item!=null) {	//Line 4
+				if(shopItems.get(0).item.type==Type.WEAPON) {
+					System.out.printf("| Power: " + shopItems.get(0).item.power);
+					for(int i=0; i<52-String.valueOf(shopItems.get(0).item.power).length(); i++) {
+						System.out.print(" ");
+					}
+				}
+				if(shopItems.get(0).item.type==Type.ARMOUR) {
+					System.out.printf("| Defence: " + shopItems.get(0).item.defence);
+					for(int i=0; i<50-String.valueOf(shopItems.get(0).item.defence).length(); i++) {
+						System.out.print(" ");
+					}
+				}
+			}
+			if(shopItems.size()>1) {
+				if(shopItems.get(1).item!=null) {
+					if(shopItems.get(1).item.type==Type.WEAPON) {
+						System.out.printf("| Power: " + shopItems.get(1).item.power);
+						for(int i=0; i<52-String.valueOf(shopItems.get(1).item.power).length(); i++) {
+							System.out.print(" ");
+						}
+					}
+					if(shopItems.get(1).item.type==Type.ARMOUR) {
+						System.out.printf("| Defence: " + shopItems.get(1).item.defence);
+						for(int i=0; i<50-String.valueOf(shopItems.get(1).item.defence).length(); i++) {
+							System.out.print(" ");
+						}
+					}
+				}else {
+					System.out.printf("%-61c", '|');
+				}
+			}else {
+				System.out.printf("%-61c", '|');
+			}
+			if(shopItems.size()>2) {
+				if(shopItems.get(2).item!=null) {
+					if(shopItems.get(2).item.type==Type.WEAPON) {
+						System.out.printf("| Power: " + shopItems.get(2).item.power);
+						for(int i=0; i<52-String.valueOf(shopItems.get(2).item.power).length(); i++) {
+							System.out.print(" ");
+						}
+						System.out.println("|");
+					}
+					if(shopItems.get(2).item.type==Type.ARMOUR) {
+						System.out.printf("| Defence: " + shopItems.get(2).item.defence);
+						for(int i=0; i<50-String.valueOf(shopItems.get(2).item.defence).length(); i++) {
+							System.out.print(" ");
+						}
+						System.out.println("|");
+					}
+				}else {
+					System.out.printf("%-61c|\n", '|');
+				}
+			}else {
+				System.out.printf("%-61c|\n", '|');
+			}
+
+				
+				
+/*				
 			System.out.printf("%n| %s %s:", a.item.rarity, a.item.type);
 			for(int i=0; i<57 - a.item.rarity.toString().length() - a.item.type.toString().length(); i++) {
 				System.out.print(" ");
@@ -187,7 +313,7 @@ public class Shop {
 			System.out.println();
 			for(int i=0; i<184; i++) {
 				System.out.print("-");
-			}
+			}*/
 		}
 	}
 }
