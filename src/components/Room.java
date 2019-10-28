@@ -2,6 +2,8 @@ package components;
 
 import java.util.HashMap;
 
+import items.Item;
+
 public class Room {
 	
 	/***** Instance variables *****/

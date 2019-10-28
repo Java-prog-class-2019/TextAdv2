@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import items.Item;
+
 public class Player {
 
     String name;
@@ -36,18 +38,18 @@ public class Player {
     }
 
     public void applyStats(Item item) {
-        dodgeChance += item.dodgeChance;
-        critChance += item.critChance;
-        power += item.power;
-        armour += item.power;
+        dodgeChance += item.getDodgeChance();
+        critChance += item.getCritChance();
+        power += item.getPower();
+        armour += item.getDefence();
 
     }
 
     public void removeStats(Item item) {
-        dodgeChance -= item.dodgeChance;
-        critChance -= item.critChance;
-        power -= item.power;
-        armour -= item.defence;
+    	dodgeChance -= item.getDodgeChance();
+    	critChance -= item.getCritChance();
+    	power -= item.getPower();
+    	armour -= item.getDefence();
 
     }
 
@@ -186,6 +188,10 @@ public class Player {
 
     }
     
+    public Player getPlayer() {
+    	return this;
+    }
+    
 
   public void pickup() {	//picks up item
 
@@ -204,7 +210,6 @@ public class Player {
     	}
     }
     
-/*******getters and setters*************************/ 
     public void setCurrentRoom(int currentRoom) {
     	this.currentRoom = currentRoom;
     }
@@ -216,5 +221,5 @@ public class Player {
     public int getCurrentRoomInt() {
     	return currentRoom;
     }
-/***************************************************/
+
 }

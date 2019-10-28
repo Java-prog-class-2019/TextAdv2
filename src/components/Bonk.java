@@ -1,26 +1,30 @@
 package components;
 
 
-import components.Item.Type;
 import java.util.ArrayList;
 
+import items.Item;
+import items.Item.Type;
+
 public class Bonk {
-	
-	//Objects
-	static Player player = new Player();
-	public static ArrayList<Room> rooms = new ArrayList<Room>();
+
+	public Player player = new Player();
+	public ArrayList<Room> rooms = new ArrayList<Room>();
 
 	// Global Variables
 	boolean playerTurn;
 	boolean systemTurn;
 	boolean alive = true;
-	static boolean win = false;
+	boolean win = false;
+
 
 	public static void main(String[] args) { new Bonk(); }
 
 
-	Bonk() {	// Constructor
-
+	Bonk() {
+		// Constructor
+		//Objects
+		
 		init();
 		
 		// Main game loop
@@ -64,7 +68,7 @@ public class Bonk {
 	}
 
 
-	static void enterRoom(){
+	public void enterRoom(){
 
 		// Print Title of the entered room.
 		String title = rooms.get(player.getCurrentRoomInt()).getTitle();
@@ -102,22 +106,27 @@ public class Bonk {
 
   public void itemStatTest() {
 	  	Item item = new Item();
-		System.out.println(item.type);
-		System.out.println(item.name);
-		System.out.println(item.rarity);
-		if (item.type == Type.WEAPON) {
+		System.out.println(item.getType());
+		System.out.println(item.getName());
+		System.out.println(item.getRarity());
+		if (item.getType() == Type.WEAPON) {
       
-		  System.out.println("Power: " + item.power);
-		  System.out.println("Crit Chance: " + item.critChance);
+		  System.out.println("Power: " + item.getPower());
+		  System.out.println("Crit Chance: " + item.getCritChance());
       
 		}
-		if (item.type == Type.ARMOUR) {
+		if (item.getType() == Type.ARMOUR) {
       
-		  System.out.println("Bonus Health: " + item.bonusHealth);
-		  System.out.println("Defence: " + item.defence);
-		  System.out.println("Dodge Chance: " + item.dodgeChance);
+		  System.out.println("Bonus Health: " + item.getBonusHealth());
+		  System.out.println("Defence: " + item.getDefence());
+		  System.out.println("Dodge Chance: " + item.getDodgeChance());
 		  System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
       
 		}
+  }
+  
+  
+  public Bonk getGameClass() {
+	  return this;
   }
 }
