@@ -102,20 +102,23 @@ public class Bonk {
 			rooms.add(new Room(i));		
 			
 			if(rooms.get(i).roomType.equals("great hall")) {
+				playerTurn = true;
 				mob = new MobGH();
 				mob.type = MobGH.names[i];
-				rooms.get(i).description += (" A " + mob.type + " is out to get you, what will you do?");			
+				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");			
 			}
 			if(rooms.get(i).roomType.equals("kitchen")) {
+				playerTurn = true;
 				mob = new MobK();
 				mob.type = MobK.names[i-6];
-				rooms.get(i).description += (" A " + mob.type + " is out to get you, what will you do?");	
+				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");	
 
 			}
 			if(rooms.get(i).roomType.equals("backyard")) {
+				playerTurn = true;
 				mob = new MobBY();
 				mob.type = MobBY.names[i-12];
-				rooms.get(i).description += (" A " + mob.type + " is out to get you, what will you do?");	
+				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");	
 			}
 		}
 		

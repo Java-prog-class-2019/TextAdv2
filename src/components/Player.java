@@ -104,8 +104,16 @@ public class Player {
 		case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
 			move(word1);
 		break;
-//		case("attack"):
-//			attackEnemy();
+		case("attack"): case("strike"): case("hit"): case("smash"):
+			if (bonk.playerTurn == true) {
+				 attack();
+			}
+			break;
+			
+			
+//		case("use"):
+//			use(word2);
+
 
 
 		default: 
@@ -166,7 +174,7 @@ public class Player {
 				Bonk.enterRoom();
 				break;
 			}
-
+		
 		default: 
 			System.out.println("What?!");	
 			break;
