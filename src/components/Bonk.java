@@ -122,7 +122,6 @@ public class Bonk {
 			}
 		}
 		
-		
 		rooms.get((int)(Math.random()*5)).setItem(true);
 		rooms.get((int)(Math.random()*5)+6).setItem(true);
 		rooms.get((int)(Math.random()*5)+12).setItem(true);
