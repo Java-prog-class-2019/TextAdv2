@@ -30,7 +30,7 @@ public class Room {
 		if(number==18)roomType = "boss";
 		if(number%6==5) {
 			isShop=true;
-			shop = new Shop();
+			shop = new Shop(number);
 		}
     
 //		makeMob();
