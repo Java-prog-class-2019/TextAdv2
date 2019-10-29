@@ -11,7 +11,7 @@ class MobK extends Mobs{
 
 		power = (int)(Math.random()*3)+1;
 		health = (int)(Math.random()*6)+2;
-		defence = (int)(Math.random()*3);
+		armour = (int)(Math.random()*3);
 		critChance = 0;
 		dodgeChance = 0;
 	}

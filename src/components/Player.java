@@ -15,6 +15,7 @@ public class Player {
 	// Hard Stats
 	int power;
 	int armour;
+	int health = 15;
 	int bonusHealth;
 
 	//Soft Stats
@@ -85,8 +86,8 @@ public class Player {
 			System.out.println("List of commands: help, move <n, w, e, s>, pickup <item> and search");
 		break;
 		case ("shop"):
-		//	Bonk.player.getCurrentRoomObj().shop.printShop();
-		break;
+			//	Bonk.player.getCurrentRoomObj().shop.printShop();
+			break;
 		case ("move"):
 			move(word2);
 		break;
@@ -104,15 +105,18 @@ public class Player {
 		case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
 			move(word1);
 		break;
-		case("attack"): case("strike"): case("hit"): case("smash"):
-			if (bonk.playerTurn == true) {
-				 attack();
+		case("attack"): case("strike"): case("hit"): case("smash"):	
+			if (mobs.health > 0) {
+				attack();
+			}else {
+				System.out.println("There is no mob here to attack");
 			}
-			break;
-			
-			
-//		case("use"):
-//			use(word2);
+
+				break;
+
+
+		//		case("use"):
+		//			use(word2);
 
 
 
@@ -174,7 +178,7 @@ public class Player {
 				Bonk.enterRoom();
 				break;
 			}
-		
+
 		default: 
 			System.out.println("What?!");	
 			break;
@@ -200,6 +204,22 @@ public class Player {
 			System.out.printf("- %s%n", inv.get(i).getName());
 		}
 
+	}
+
+	public void attack() {
+		if (Bonk.playerTurn = true) {
+			if (Math.random() <= item.critChance) {
+			mobs.health = power*2 - mobs.armour;
+			System.out.println("The mob's health drops to" + mobs.health);
+			}
+			else {
+				mobs.health = power - mobs.armour;
+			}
+			if (mobs.health > 0) {
+				health = mobs.power - armour;
+				System.out.println("Your health drops to" + health);
+			}
+		}
 	}
 
 
