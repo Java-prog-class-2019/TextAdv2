@@ -105,7 +105,7 @@ public class Bonk {
 				mob = new MobGH();
 				mob.type = MobGH.names[i];
 				rooms.get(i).description += (" A " + mob.type + " is out to get you, what will you do?");			
-			}
+			}	
 			if(rooms.get(i).roomType.equals("kitchen")) {
 				mob = new MobK();
 				mob.type = MobK.names[i-6];
