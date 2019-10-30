@@ -1,7 +1,7 @@
 package components;
 class Mobs {
 	int power;
-	int defence;
+	int armour;
 	int health;
 	double dodgeChance;
 	double critChance;
