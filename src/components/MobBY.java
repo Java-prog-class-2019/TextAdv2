@@ -1,6 +1,6 @@
 package components;
 
-class MobBY extends Mobs{
+class MobBY extends Mob{
 
 	public static String names [] = {"Old Tire Swing","LawnMower","Rake", "Baseball Bat","Shovel", "Wheelbarrow"};
 	MobBY () {

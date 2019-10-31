@@ -1,6 +1,6 @@
 package components;
 
-class MobK extends Mobs{
+class MobK extends Mob{
 
 	public static String names [] = {"Whisk","Faucet","Chef's Knife","Cheese Grater", "Bag of Frozen Peas","Cutting Board"};
 	MobK () {

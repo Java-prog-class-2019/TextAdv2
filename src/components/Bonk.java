@@ -3,22 +3,27 @@ package components;
 
 import components.Item.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Bonk {
 	
 	//Objects
-	static Player player = new Player();
-	public static ArrayList<Room> rooms = new ArrayList<Room>();
+	Player player = new Player();
+	public ArrayList<Room> rooms = new ArrayList<Room>();
 
 	// Global Variables
 	boolean playerTurn;
 	boolean systemTurn;
+	private int currentRoom;	//integer value of the current room
 	boolean alive = true;
 	static boolean win = false;
 	boolean isMob = true;																	//Is there a (living) enemy in the room?
-	Mobs mob;	
+	Mob mob;	
 
-	public static void main(String[] args) { new Bonk(); }
+	public static void main(String[] args) { 
+		new Bonk(); 
+	}
 
 
 	Bonk() {	// Constructor
@@ -29,8 +34,8 @@ public class Bonk {
 		
 		while(true) {
 			while(playerTurn) {
-				String command = player.getCommand();
-				player.parseCommand(command);
+				String command = getCommand();
+				this.parseCommand(command);
 	
 			}
 	
@@ -57,7 +62,7 @@ public class Bonk {
 	public void init() {
 
 		setupRooms();
-		player.setCurrentRoom(0); //starting room
+		setCurrentRoom(0); //starting room
 		System.out.println("You have awoken in the great hall of a haunted mansion. You must explore and fight your way out!\n\nWelcome to Bonk! Type 'help' for a list of commands \n");
 		enterRoom();
 		
@@ -73,13 +78,178 @@ public class Bonk {
 		}
 	}
 	
+	public String getCommand() {	//uses scanner to get command
+
+		Scanner sc = new Scanner(System.in);
+		String text = sc.nextLine();
+		if(text.length() == 0) text = "QwErTy";
+		return text;
+
+	}
+	
+	public boolean parseCommand(String text) {	//Language parser
+
+		text = text.toLowerCase().trim();
+		text.replace("pick up", "pickup");
+
+		String words[] = text.split(" ");
+
+		ArrayList<String> wordlist = new ArrayList<String>(Arrays.asList(words));
+
+
+		String word1 = wordlist.get(0);
+		String word2 = "";
+
+
+		if (wordlist.size() > 1) {
+			word2 = wordlist.get(1);
+		}
+
+		switch (word1) {
+
+		case ("help"):
+			System.out.println("List of commands: help, move <n, w, e, s>, pickup <item> and search");
+		break;
+		case ("shop"):
+			//	Bonk.player.getCurrentRoomObj().shop.printShop();
+			break;
+		case ("move"):
+			move(word2);
+		break;
+		case ("inv"): case("i"): case("inventory"):
+			printInv();
+		break;
+		case ("pickup"):
+			pickup();
+		case ("say"):
+			System.out.println(word2);
+		break;
+		case ("search"):
+			searchRoom();
+		break;
+		case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
+			move(word1);
+		break;
+		case("attack"): case("strike"): case("hit"): case("smash"):	
+			if (mob.health > 0) {
+				player.attack(playerTurn, mob);
+			}else {
+				System.out.println("There is no mob here to attack");
+			}
+		break;
+
+
+		//		case("use"):
+		//			use(word2);
 
 
 
-	static void enterRoom(){
+		default: 
+			System.out.println("What?!");
+
+		}
+		return false;
+	}
+
+
+
+	public void move(String dir) {	
+		//moves player. First checks if specified movement direction is possible,
+		//then either changes the current room, or prints an error message
+
+		switch(dir) {
+
+		case("n"): case("north"):
+			if(currentRoom==18) {
+				Bonk.win=true;
+				break;
+			}
+		if(currentRoom%6==5) {
+			System.out.println("You can't go that way!");
+			break;
+		}else {
+			currentRoom+=2;
+			enterRoom();
+			break;
+		}
+
+		case("e"): case("east"):
+			if(currentRoom%2==0) {
+				System.out.println("You can't go that way!");
+				break;
+			}else {
+				currentRoom--;
+				enterRoom();
+				break;
+			}
+
+		case("s"): case("south"):
+			if(currentRoom%6==1 || currentRoom==0) {
+				System.out.println("You can't go that way!");   
+				break; 				
+			}else {
+				currentRoom-=2;
+				enterRoom();
+				break;
+			}
+
+		case("w"): case("west"):
+			if(currentRoom%2==1) {
+				System.out.println("You can't go that way!");
+				break;
+			}else {
+				currentRoom++;
+				enterRoom();
+				break;
+			}
+
+		default: 
+			System.out.println("What?!");	
+			break;
+		}
+
+	}
+
+	public void searchRoom() {
+
+
+
+
+
+	}
+
+	public void printInv() {	//prints out inventory as a vertical list
+
+		if(player.inv.size() == 0) {
+			System.out.println("Empty Inventory!");
+		}
+
+		for(int i = 0; i < player.inv.size(); i++) {
+			System.out.printf("- %s%n", player.inv.get(i).getName());
+		}
+
+	}
+
+	public void pickup() {	//picks up item
+		if ( getCurrentRoomObj().getIsItem() ) {	//makes sure room has an item
+
+			player.inv.add(getCurrentRoomObj().item);	//adds item to inventory
+
+			System.out.print("You pick up ");		//pickup message		
+			System.out.println(getCurrentRoomObj().item.name);	
+			getCurrentRoomObj().item.printItem();
+
+			getCurrentRoomObj().setItem(false);		//removes the ite4m from the room	
+		}else {
+			System.out.println("There is nothing to pick up.");
+		}
+	}
+	
+	//what calls this method?
+	void enterRoom(){
 
 		// Print Title of the entered room.
-		String title = rooms.get(player.getCurrentRoomInt()).getTitle();
+		String title = rooms.get(getCurrentRoomInt()).getTitle();
 		
 		System.out.println();
 		for(int i=0; i < title.length()+4; i++) {			
@@ -92,11 +262,25 @@ public class Bonk {
 			System.out.print("-");			
 		}
 		
-		System.out.println("\n"+rooms.get(player.getCurrentRoomInt()).getDescription());
+		System.out.println("\n"+rooms.get(getCurrentRoomInt()).getDescription());
 		
 	}
+
+	/*******getters and setters*************************/ 
+	public void setCurrentRoom(int currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+
+	public Room getCurrentRoomObj() {
+		return rooms.get(currentRoom);
+	}
+
+	public int getCurrentRoomInt() {
+		return currentRoom;
+	}
+
 	
-	public void setupRooms() {
+	void setupRooms() {
 		
 		for(int i=0; i<19;i++) {	//Creates the rooms and adds them to an ArrayList		
 			rooms.add(new Room(i));		
@@ -104,14 +288,10 @@ public class Bonk {
 			if(rooms.get(i).roomType.equals("great hall")) {
 				playerTurn = true;
 				mob = new MobGH();
-				mob.type = MobGH.names[i];
-<<<<<<< HEAD
-				rooms.get(i).description += (" A " + mob.type + " is out to get you, what will you do?");			
-			}	
-=======
+				mob.type = MobGH.names[i];				
 				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");			
 			}
->>>>>>> Mobs
+
 			if(rooms.get(i).roomType.equals("kitchen")) {
 				playerTurn = true;
 				mob = new MobK();

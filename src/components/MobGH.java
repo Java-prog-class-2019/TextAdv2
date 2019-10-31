@@ -1,5 +1,5 @@
 package components;
-class MobGH extends Mobs {
+class MobGH extends Mob {
 
 	public static String names [] = {"Spiderling","Clothes Hanger", "Dust Bunny", "Old Floorboard", "Cabinet Door","Carpet"};
 
@@ -11,8 +11,8 @@ class MobGH extends Mobs {
 
 	public void genStats() {
 		power = (int)(Math.random()*2)+1;
-		health = (int)(Math.random()*4)+2;
-		armour = (int)(Math.random()*2);
+		health = (int)(Math.random()*4)+123;
+		armour = (int)(Math.random());
 		critChance = 0;
 		dodgeChance = 0;
 	}

@@ -14,9 +14,8 @@ public class Room {
 	boolean isShop=false;																	//Is it a shop room?
 	private boolean isEnemy;																//Is it an enemy room?
 	Item item;																				//Item
-//	Shop shop;																				//Shop
-	boolean isMob = true;																	//Is there a (living) enemy in the room?
-	Mobs mob;																				//Mob
+//	Shop shop;
+	private boolean isMob;
 	/*******************************/
 	
 	
