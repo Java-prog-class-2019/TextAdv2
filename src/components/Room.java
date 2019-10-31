@@ -1,105 +1,103 @@
 package components;
 
-import java.util.HashMap;
-
-import items.Item;
-
 public class Room {
 	
-	/***** Instance variables *****/
-	private String title;																	//Title of the room
-	private String description;																//Message that displays when you enter a room
-	private String descrItem=" You spot an item glinting on the ground in front of you.";	//Additional description exclusive to item rooms (this had to be separate from description so it could be removed if need be)
-	private boolean visited = false;														//Checks if the room has been visited (so player can't get more items)
-	private String roomType;																//Type of the room (3 types based on location)
-	private int number;																		//Distinguishes different rooms on the map. Features are mostly based on number.
-	private boolean isItem=false;															//Is it an item room?
-	private boolean isShop=false;															//Is it a shop room?
-	private boolean isEnemy;																//Is it an enemy room?
-	Item item;
-	/*******************************/
+	private Exits[] exits;
+	private Type type;
 	
+	// Variable
+	private String title;
+	private String description;
+	private String roomType;
 	
-	public Room(int number) {		//Constructor
-		
+	private boolean isItem;
+	private boolean isShop;
+	private boolean isEnemy;
 
-		
-		if(number<=5)roomType = "great hall";
-		if(number>=6 && number<=11)roomType = "kitchen";
-		if(number>=12 && number<=17)roomType = "backyard";
-		if(number==18)roomType = "boss";
-		if(number%6==5)isShop=true;
+	// Room names
+	String[] kRooms = {"Oven Room","Cafe","Pantry","Grease Parlour","Microwave Room","Walk-in Refrigerator","Storage Room","Washroom","Walk-in Freezer","Cleanup Zone","Garbage Disposal","Chef's Pass","Dish Pit","Frying Room"};
+	String[] ghRooms = {"Dining Hall","Closet","Hall of Mirrors","Parlour","Sitting Room","Marble Hallway","Washroom","Bedroom","Guest Room","Coat Room","Storage Room","Jewellery Room","Children's Room","Studio","Hall of Treasure"};
+	String[] byRooms = {"Flower Garden","Vegetable Patch","Shed","Koi Pond","Deck","Patio","Tennis Court","Basketball Court","Pool","Outhouse","Stone Path","Marble Path","Statue","Memorial","Courtyard","Poolhouse"};
+	
+	// Random adjectives. 
+	String[] adjectives1 = {"dusty", "musty", "creepy", "dark", "dingy", "bright", "living", "mediocre", "bloody", "dangerous", "dirty",
+			"nutty", "horrible", "lovely", "nasty", "repulsive", "terrible", "wicked", "hot"};
+	String[] adjectives2 = {"depressing","dull","drab","misty","grotesque","smelly","stinky","damp","dry","ugly","putrid","swank","filthy","muddy","shining","foggy","sparkling","crusty","sticky"};
+	
+	
+	public Room() {
     
-		if(isShop) description+=" You spot a wary shopkeeper!";
+		
+		
+		if (isShop) {
+			description += " You spot a wary shopkeeper!";
+		}
 
-		
-		title = randomTitle();
-		description = randomDescriptor() + exits();
-		
-		
-		
-		
+		randomTitle();
+		randomDescriptor();
 		
 	}
 
-	private String randomDescriptor() {		//Creates a random description for each room, based on its pre-set parameters.
-		String[] adjectives1 = {"dusty","musty","creepy","dark","dingy","bright","living","mediocre","bloody","dangerous","dirty","nutty","horrible","lovely","nasty","repulsive","terrible","wicked","hot"};
-		String[] adjectives2 = {"depressing","dull","drab","misty","grotesque","smelly","stinky","damp","dry","ugly","putrid","swank","filthy","muddy","shining","foggy","sparkling","crusty","sticky"};
-		String s;
+	private void randomDescriptor() {
 		
-		s = "You find yourself in a " + adjectives1[(int)(Math.random()*adjectives1.length)] + " " + adjectives2[(int)(Math.random()*adjectives2.length)] + " section of the " + roomType + ".";
-	
-		return s;
+		description = "You find yourself in a " + adjectives1[(int)(Math.random()*adjectives1.length)] + " " + adjectives2[(int)(Math.random()*adjectives2.length)] + " section of the " + type.toString() + ".";
+		
+
 	}
 	
 	
-	private String randomTitle() {		//Creates a random title for each room, based on its location.
-		String[] kRooms = {"Oven Room","Cafe","Pantry","Grease Parlour","Microwave Room","Walk-in Refrigerator","Storage Room","Washroom","Walk-in Freezer","Cleanup Zone","Garbage Disposal","Chef's Pass","Dish Pit","Frying Room"};
-		String[] ghRooms = {"Dining Hall","Closet","Hall of Mirrors","Parlour","Sitting Room","Marble Hallway","Washroom","Bedroom","Guest Room","Coat Room","Storage Room","Jewellery Room","Children's Room","Studio","Hall of Treasure"};
-		String[] byRooms = {"Flower Garden","Vegetable Patch","Shed","Koi Pond","Deck","Patio","Tennis Court","Basketball Court","Pool","Outhouse","Stone Path","Marble Path","Statue","Memorial","Courtyard","Poolhouse"};
-		String s="";
+	private void randomTitle() {
 		
-
-		if(roomType.equals("kitchen")) {
-			s = "KITCHEN: " + kRooms[(int)(Math.random()*kRooms.length)];
-		}
-		if(roomType.equals("great hall")) {
-			s = "GREAT HALL: " + ghRooms[(int)(Math.random()*ghRooms.length)];
-		}
-		if(roomType.equals("backyard")) {
-			s = "BACKYARD: " + byRooms[(int)(Math.random()*byRooms.length)];
+		// Creates a random title for each of the rooms
+		// based on the type enum.
+		
+		if(type == Type.GREATHALL) {
+			title = "GREAT HALL: " + ghRooms[(int)(Math.random()*ghRooms.length)];
 		}
 		
-		return s;
-
+		if(type == Type.KITCHEN) {
+			title = "KITCHEN: " + kRooms[(int)(Math.random()*kRooms.length)];
+		}
+		
+		if(type == Type.BACKYARD) {
+			title = "BACKYARD: " + byRooms[(int)(Math.random()*byRooms.length)];
+		}
+		
 	}
 	
-	private String exits() {
-		String s="";
+	enum Type {
 		
-		if(number%2==0 && number!=0 && number!=18) s=" There are exits to the north, west, and south.";
-		if(number%6==5) s=" There are exits to the east and south.";
-		if(number%6==1) s=" There are exits to the north and east";
-		if(number%6==3) s=" There are exits to the north, east, and south.";
-		if(number==0) s=" There are exits to the north and west.";
+		// If the room is less than or equal too 5. It has the type Grand Hall.
+		// If the room is <= 11 and >= 6. It has the type of Kitchen.
+		// If the room is <= 17 and >= 12. It is a Backyard type.
+		// If the room is 18, it is the boss room. 
 		
-		return s;
+		BACKYARD,
+		KITCHEN,
+		GREATHALL,
+		BOSS,
+		
+	}
+	
+	enum Exits {
+		
+		// If a room is a multiple of 2 and is not 0 or 18. It has exits north, west and south 
+		// If a room has a remainder of 5 from 6, it is a east and south.
+		// If a room has a remainder of 3 from 6, it has exits north, east and south.
+		// If the number is zero, it will have exits north and west.
+		
+		NORTH,
+		SOUTH,
+		WEST,
+		EAST,
+		
 	}
 
-
-/****Getters and Setters***************/
+	// ~~~~ Getters and Setters ~~~~ \\
+	
 	public String getRoomType() {
 		return roomType;
 	}
-
-		
-	public String getDescription() {
-		if(isItem) {
-			return description + descrItem;
-		}
-		return description;
-	}
-	
 	
 	public String getTitle() {
 		return title;
@@ -107,42 +105,13 @@ public class Room {
 	
 	public void setItem(boolean isItem) {
 		this.isItem = isItem;
-		
-		if(isItem) {
-			item = new Item();
-		}
-		if(!isItem) {
-			item = null;
-		}
-	}
-	
-	public void setVisited() {
-		visited = true;
 	}
 	
 	public boolean getIsItem() {
 		return isItem;
 	}
-/**************************************/
-
 	
-	
-/************For player class***********/
-	
-//	if(number%6==0) {
-//		
-//	}
-//	if(number%6==2) {
-//		
-//	}
-//	if(number==1) {
-//		
-//	}
-//	if(number==17) {
-//		
-//	}
-	
-/***************************************/
-	
+	public void setExits() {
+	}
 	
 }

@@ -1,10 +1,9 @@
-package components;
-
-
 import java.util.ArrayList;
 
+import components.Room;
 import items.Item;
 import items.Item.Type;
+import util.Utility;
 
 public class Bonk {
 
@@ -58,43 +57,17 @@ public class Bonk {
 	public void init() {
 
 		setupRooms();
-		player.setCurrentRoom(0); //starting room
+		player.setCurrentRoom(1); // Starting room
 		System.out.println("You have awoken in the great hall of a haunted mansion. You must explore and fight your way out!\n\nWelcome to Bonk! Type 'help' for a list of commands \n");
-		enterRoom();
-		
 		playerTurn = true;
 		systemTurn = false;
 
-	}
-
-
-	public void enterRoom(){
-
-		// Print Title of the entered room.
-		String title = rooms.get(player.getCurrentRoomInt()).getTitle();
-		
-		for(int i=0; i < title.length()+4; i++) {
-			
-			System.out.print("-");
-			
-		}
-		
-		System.out.println("\n| "+ title + " |");
-		
-		for(int i=0; i < title.length()+4; i++) {
-			
-			System.out.print("-");
-			
-		}
-		
-		System.out.println("\n"+rooms.get(player.getCurrentRoomInt()).getDescription());
-		
 	}
 	
 	public void setupRooms() {
 		
 		for(int i=0; i<19;i++) {	//Creates the rooms and adds them to an ArrayList		
-			rooms.add(new Room(i));
+			rooms.add(new Room());
 		}
 		
 		rooms.get((int)(Math.random()*5)).setItem(true);
@@ -123,10 +96,5 @@ public class Bonk {
 		  System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
       
 		}
-  }
-  
-  
-  public Bonk getGameClass() {
-	  return this;
-  }
+  	}
 }

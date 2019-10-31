@@ -14,13 +14,13 @@ public class Armour extends Item{
 	
 	public Armour() {
 		
-		type = Type.ARMOUR;
-		chooseRarity();
+		setType(Type.ARMOUR);
 		genStats();
 		genName();
 	}
 	
 	
+	@Override
 	public void genName() {
 		
 		//Gene created this name generation.
@@ -45,6 +45,44 @@ public class Armour extends Item{
 		}
 	}
 	
-	
-
+	@Override
+	public void genStats() {
+		
+		if(rarity == Rarity.COMMON) {
+			
+			
+			defence = (int)(Math.random()*1)+1;   
+			bonusHealth = (int) (Math.random()*3)+1;
+			dodgeChance =0;
+			
+		}
+		
+		if(rarity == Rarity.RARE) {
+			
+			defence = (int)(Math.random() * 3 ) + 1;
+			bonusHealth = (int) (Math.random() * 5 ) + 2;
+			
+			if(Math.random() >= 0.5){
+				
+				dodgeChance = (Math.random() * 0.2 ) + 0.1;
+				defence = defence - 1;
+				bonusHealth = bonusHealth -1;
+				
+			}
+		}
+		
+		if(rarity == Rarity.LEGENDARY) {
+			
+			defence = (int)(Math.random() * 4 ) + 2;
+			bonusHealth = (int) (Math.random() * 8 ) + 3;
+			
+			if(Math.random() >= 0.5) {
+				
+				dodgeChance = (Math.random()* 0.3 ) + 0.2;
+				defence = defence - 1;
+				bonusHealth = bonusHealth - 3;
+				
+			}
+		}
+	}
 }
