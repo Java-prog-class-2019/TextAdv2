@@ -1,7 +1,7 @@
 package components;
 class MobGH extends Mob {
 
-	public static String names [] = {"Spiderling","Clothes Hanger", "Dust Bunny", "Old Floorboard", "Cabinet Door","Carpet"};
+	public static String names [] = {"Spiderling", "Clothes Hanger", "Dust Bunny", "Old Floorboard", "Cabinet Door", "Carpet"};
 
 	//all mob Great Hall Stats
 	MobGH () {

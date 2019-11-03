@@ -19,7 +19,7 @@ public class Bonk {
 	boolean alive = true;
 	static boolean win = false;
 	boolean isMob = true;																	//Is there a (living) enemy in the room?
-	Mob mob;	
+		
 
 	public static void main(String[] args) { 
 		new Bonk(); 
@@ -131,18 +131,13 @@ public class Bonk {
 			move(word1);
 		break;
 		case("attack"): case("strike"): case("hit"): case("smash"):
-			if (mob.health > 0) {
-				player.attack(playerTurn, mob);
+			if (getCurrentRoomObj().mob.health > 0) {
+				player.attack(playerTurn, rooms.get(getCurrentRoomInt()).mob);
 			}
 			else {
 				System.out.println("There is no mob here to attack");
 			}
 		break;
-
-
-		//		case("use"):
-		//			use(word2);
-
 
 
 		default: 
@@ -155,27 +150,27 @@ public class Bonk {
 
 
 	public void move(String dir) {	
-		//moves player. First checks if specified movement direction is possible,
-		//then either changes the current room, or prints an error message
+		// moves player. First checks if specified movement direction is possible,
+		// then either changes the current room, or prints an error message
 
 		switch(dir) {
 
 		case("n"): case("north"):
-			if(currentRoom==18) {
+			if(currentRoom == 18) {
 				Bonk.win=true;
 				break;
 			}
-		if(currentRoom%6==5) {
+		if(currentRoom % 6 == 5) {
 			System.out.println("You can't go that way!");
 			break;
 		}else {
-			currentRoom+=2;
+			currentRoom += 2;
 			enterRoom();
 			break;
 		}
 
 		case("e"): case("east"):
-			if(currentRoom%2==0) {
+			if(currentRoom % 2 == 0) {
 				System.out.println("You can't go that way!");
 				break;
 			}else {
@@ -185,17 +180,17 @@ public class Bonk {
 			}
 
 		case("s"): case("south"):
-			if(currentRoom%6==1 || currentRoom==0) {
+			if(currentRoom % 6 == 1 || currentRoom == 0) {
 				System.out.println("You can't go that way!");   
 				break; 				
 			}else {
-				currentRoom-=2;
+				currentRoom -= 2;
 				enterRoom();
 				break;
 			}
 
 		case("w"): case("west"):
-			if(currentRoom%2==1) {
+			if(currentRoom % 2 == 1) {
 				System.out.println("You can't go that way!");
 				break;
 			}else {
@@ -273,23 +268,23 @@ public class Bonk {
 
 			if(rooms.get(i).roomType.equals("great hall")) {
 				playerTurn = true;
-				mob = new MobGH();
-				mob.type = MobGH.names[i];				
-				rooms.get(i).description += ("\nA " + mob.type + " with " + mob.health + " health is out to get you, what will you do?");			
+				rooms.get(i).mob = new MobGH();
+				rooms.get(i).mob.type = MobGH.names[i];				
+				rooms.get(i).description += ("\nA " + rooms.get(i).mob.type + " with " + rooms.get(i).mob.health + " health is out to get you, what will you do?");			
 			}
 
 			if(rooms.get(i).roomType.equals("kitchen")) {
 				playerTurn = true;
-				mob = new MobK();
-				mob.type = MobK.names[i-6];
-				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");	
+				rooms.get(i).mob = new MobK();
+				rooms.get(i).mob.type = MobK.names[i-6];
+				rooms.get(i).description += ("\nA " + rooms.get(i).mob.type + " is out to get you, what will you do?");	
 			}
 			
 			if(rooms.get(i).roomType.equals("backyard")) {
 				playerTurn = true;
-				mob = new MobBY();
-				mob.type = MobBY.names[i-12];
-				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");	
+				rooms.get(i).mob = new MobBY();
+				rooms.get(i).mob.type = MobBY.names[i-12];
+				rooms.get(i).description += ("\nA " + rooms.get(i).mob.type + " is out to get you, what will you do?");	
 			}
 		}
 

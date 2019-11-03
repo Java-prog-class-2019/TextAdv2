@@ -16,6 +16,7 @@ public class Room {
 	Item item;																				//Item
 //	Shop shop;
 	private boolean isMob;
+	public Mob mob;
 	/*******************************/
 	
 	
