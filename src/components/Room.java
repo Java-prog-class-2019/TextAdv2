@@ -15,7 +15,6 @@ public class Room {
 	private boolean isEnemy;																//Is it an enemy room?
 	Item item;																				//Item
 //	Shop shop;
-	private boolean isMob;
 	public Mob mob;
 	/*******************************/
 	
@@ -74,21 +73,6 @@ public class Room {
 		return s;
 
 	}
-//		private void makeMob() {
-//		if(roomType.equals("great hall")) {
-//			mob = new MobGH();
-//			System.out.println(" A " + mob.type + " is out to get you!");			
-//		}
-//		if(roomType.equals("kitchen")) {
-//			mob = new MobK();
-//
-//		}
-//		if(roomType.equals("backyard")) {
-//			mob = new MobBY();
-//
-//		}
-//	}
-	
 	private String exits() {
 		String s="";
 		

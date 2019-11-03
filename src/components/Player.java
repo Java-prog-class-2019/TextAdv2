@@ -56,13 +56,17 @@ public class Player {
 				System.out.println("YOU CRITICALLY STRIKE THE MOB FOR " +  (power*2 - mob.armour) + " DAMAGE!");
 				System.out.println("The mob's health drops to " + mob.health);
 			}
+			
 			else {
 				mob.setHealth(power-mob.armour);
 				System.out.println("You hit the mob for " + (power - mob.armour) + " damage");
 				System.out.println("The mob's health drops to " + mob.health);
 			}
-			if (mob.health == 0) {
+			
+			if (mob.health <= 0) {
+				Bonk.isMob = false;
 				System.out.println("\nYou have successfully defeated the mob and can now advance to the next room.");
+				mob = null;
 			}
 		}
 	}

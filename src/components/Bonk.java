@@ -18,8 +18,8 @@ public class Bonk {
 	private int currentRoom;	//integer value of the current room
 	boolean alive = true;
 	static boolean win = false;
-	boolean isMob = true;																	//Is there a (living) enemy in the room?
-		
+	static boolean isMob = true;		//Is there a (living) enemy in the room?
+
 
 	public static void main(String[] args) { 
 		new Bonk(); 
@@ -114,7 +114,12 @@ public class Bonk {
 			//	Bonk.player.getCurrentRoomObj().shop.printShop();
 			break;
 		case ("move"):
-			move(word2);
+			if(isMob) {
+				System.out.println("Nah. Don't even try that on us, who do you think we are?");
+			}
+			else {
+				move(word2);
+			}
 		break;
 		case ("inv"): case("i"): case("inventory"):
 			printInv();
@@ -127,8 +132,14 @@ public class Bonk {
 		case ("search"):
 			searchRoom();
 		break;
+
 		case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
-			move(word1);
+			if(isMob) {
+				System.out.println("Nah. Don't even try that on us, who do you think we are?");
+			}
+			else {
+				move(word1);
+			}
 		break;
 		case("attack"): case("strike"): case("hit"): case("smash"):
 			if (getCurrentRoomObj().mob.health > 0) {
@@ -203,9 +214,11 @@ public class Bonk {
 			System.out.println("What?!");	
 			break;
 		}
-
+		if (Bonk.rooms.get(currentRoom).mob != null) {
+		isMob = true;
+		}
 	}
-
+	
 	public void searchRoom() {
 
 
@@ -243,6 +256,7 @@ public class Bonk {
 
 	//what calls this method?
 	void enterRoom(){
+		
 
 		// Print Title of the entered room.
 		String title = rooms.get(getCurrentRoomInt()).getTitle();
@@ -279,7 +293,7 @@ public class Bonk {
 				rooms.get(i).mob.type = MobK.names[i-6];
 				rooms.get(i).description += ("\nA " + rooms.get(i).mob.type + " is out to get you, what will you do?");	
 			}
-			
+
 			if(rooms.get(i).roomType.equals("backyard")) {
 				playerTurn = true;
 				rooms.get(i).mob = new MobBY();
@@ -306,4 +320,10 @@ public class Bonk {
 	public int getCurrentRoomInt() {
 		return currentRoom;
 	}
+	public boolean getIsMob() {
+		return isMob;
+	}
+//	public static void setIsMob(boolean isMob) {
+//		isMob = isMob;
+//	}
 }

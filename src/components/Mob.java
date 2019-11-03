@@ -10,6 +10,7 @@ class Mob {
 	int confusion = 0;
 	int poison = 0;
 	
+	
 	public int getPower() {
 		return power;
 	}
