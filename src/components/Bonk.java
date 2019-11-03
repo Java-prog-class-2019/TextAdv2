@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Bonk {
-	
+
 	//Objects
 	Player player = new Player();
 	public ArrayList<Room> rooms = new ArrayList<Room>();
@@ -29,55 +29,55 @@ public class Bonk {
 	Bonk() {	// Constructor
 
 		init();
-		
+
 		// Main game loop
-		
+
 		while(true) {
 			while(playerTurn) {
 				String command = getCommand();
 				this.parseCommand(command);
-	
+
 			}
-	
+
 			while(systemTurn) {
-	
-	
+
+
 			}
-			
+
 			if(!alive) {	// Death message
 				System.out.println("You died! :(\nGame Over");
 				System.exit(0);
 			}
-			
+
 			if(win) {	// Player 
 				System.out.println("CONGRATULATIONS!\nYou have escaped and won the game!");
 				System.exit(0);
 			}
 		}
-		
+
 	}
-	
-	
-	
+
+
+
 	public void init() {
 
 		setupRooms();
 		setCurrentRoom(0); //starting room
 		System.out.println("You have awoken in the great hall of a haunted mansion. You must explore and fight your way out!\n\nWelcome to Bonk! Type 'help' for a list of commands \n");
 		enterRoom();
-		
+
 		playerTurn = true;
 		systemTurn = false;
 
 	}
-	
+
 
 	public void chooseAction() {
 		if (playerTurn == true) {
-			
+
 		}
 	}
-	
+
 	public String getCommand() {	//uses scanner to get command
 
 		Scanner sc = new Scanner(System.in);
@@ -86,7 +86,7 @@ public class Bonk {
 		return text;
 
 	}
-	
+
 	public boolean parseCommand(String text) {	//Language parser
 
 		text = text.toLowerCase().trim();
@@ -244,27 +244,59 @@ public class Bonk {
 			System.out.println("There is nothing to pick up.");
 		}
 	}
-	
+
 	//what calls this method?
 	void enterRoom(){
 
 		// Print Title of the entered room.
 		String title = rooms.get(getCurrentRoomInt()).getTitle();
-		
+
 		System.out.println();
 		for(int i=0; i < title.length()+4; i++) {			
 			System.out.print("-");
 		}
-		
+
 		System.out.println("\n| "+ title + " |");
-		
+
 		for(int i=0; i < title.length()+4; i++) {			
 			System.out.print("-");			
 		}
-		
+
 		System.out.println("\n"+rooms.get(getCurrentRoomInt()).getDescription());
-		
+
 	}
+	void setupRooms() {
+
+		for(int i=0; i<19;i++) {	//Creates the rooms and adds them to an ArrayList		
+			rooms.add(new Room(i));		
+
+			if(rooms.get(i).roomType.equals("great hall")) {
+				playerTurn = true;
+				mob = new MobGH();
+				mob.type = MobGH.names[i];				
+				rooms.get(i).description += ("\nA " + mob.type + " with " + mob.health + " health is out to get you, what will you do?");			
+			}
+
+			if(rooms.get(i).roomType.equals("kitchen")) {
+				playerTurn = true;
+				mob = new MobK();
+				mob.type = MobK.names[i-6];
+				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");	
+			}
+			
+			if(rooms.get(i).roomType.equals("backyard")) {
+				playerTurn = true;
+				mob = new MobBY();
+				mob.type = MobBY.names[i-12];
+				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");	
+			}
+		}
+
+		rooms.get((int)(Math.random()*5)).setItem(true);
+		rooms.get((int)(Math.random()*5)+6).setItem(true);
+		rooms.get((int)(Math.random()*5)+12).setItem(true);
+	}
+
 
 	/*******getters and setters*************************/ 
 	public void setCurrentRoom(int currentRoom) {
@@ -279,59 +311,28 @@ public class Bonk {
 		return currentRoom;
 	}
 
-	
-	void setupRooms() {
-		
-		for(int i=0; i<19;i++) {	//Creates the rooms and adds them to an ArrayList		
-			rooms.add(new Room(i));		
-			
-			if(rooms.get(i).roomType.equals("great hall")) {
-				playerTurn = true;
-				mob = new MobGH();
-				mob.type = MobGH.names[i];				
-				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");			
-			}
 
-			if(rooms.get(i).roomType.equals("kitchen")) {
-				playerTurn = true;
-				mob = new MobK();
-				mob.type = MobK.names[i-6];
-				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");	
 
-			}
-			if(rooms.get(i).roomType.equals("backyard")) {
-				playerTurn = true;
-				mob = new MobBY();
-				mob.type = MobBY.names[i-12];
-				rooms.get(i).description += ("\nA " + mob.type + " is out to get you, what will you do?");	
-			}
-		}
-		
-		rooms.get((int)(Math.random()*5)).setItem(true);
-		rooms.get((int)(Math.random()*5)+6).setItem(true);
-		rooms.get((int)(Math.random()*5)+12).setItem(true);
-	}
-		
-	
 
-  public void itemStatTest() {
-	  	Item item = new Item();
+
+	public void itemStatTest() {
+		Item item = new Item();
 		System.out.println(item.type);
 		System.out.println(item.name);
 		System.out.println(item.rarity);
 		if (item.type == Type.WEAPON) {
-      
-		  System.out.println("Power: " + item.power);
-		  System.out.println("Crit Chance: " + item.critChance);
-      
+
+			System.out.println("Power: " + item.power);
+			System.out.println("Crit Chance: " + item.critChance);
+
 		}
 		if (item.type == Type.ARMOUR) {
-      
-		  System.out.println("Bonus Health: " + item.bonusHealth);
-		  System.out.println("Defence: " + item.defence);
-		  System.out.println("Dodge Chance: " + item.dodgeChance);
-		  System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
-      
+
+			System.out.println("Bonus Health: " + item.bonusHealth);
+			System.out.println("Defence: " + item.defence);
+			System.out.println("Dodge Chance: " + item.dodgeChance);
+			System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
+
 		}
-  }
+	}
 }

@@ -12,14 +12,14 @@ public class Player {
 
 
 	// Hard Stats
-	int power = 2;
+	int power = 5;
 	int armour;
 	int health = 15;
 	int bonusHealth;
 
 	//Soft Stats
 	double dodgeChance;
-	double critChance;
+	double critChance = 1;
 
 
 
@@ -50,14 +50,15 @@ public class Player {
 
 	public void attack(boolean playerTurn, Mob mob) {
 		if (playerTurn == true) {
-			System.out.println("You attack a " + mob.type + " with "+ mob.health + " health");
+			System.out.println("You attack a " + mob.type + " with "+ mob.getHealth() + " health");
 			if (Math.random() <= critChance) {
-				mob.setHealth(power*2 - mob.getArmour());
+				mob.setHealth(mob.health - power*2 + mob.armour );
+				System.out.println("YOU CRITICALLY STRIKE THE MOB FOR " +  (power*2 - mob.getArmour()) + " DAMAGE!");
 				System.out.println("The mob's health drops to " + mob.health);
 			}
 			else {
-				mob.setHealth(power - mob.getArmour());
-				System.out.println("The mob's health drops to " + mob.health);
+				mob.setHealth(mob.health - power + mob.getArmour());
+				System.out.println("The mob's health drops to " + mob.getHealth());
 			}
 		}
 	}
