@@ -130,10 +130,11 @@ public class Bonk {
 		case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
 			move(word1);
 		break;
-		case("attack"): case("strike"): case("hit"): case("smash"):	
+		case("attack"): case("strike"): case("hit"): case("smash"):
 			if (mob.health > 0) {
 				player.attack(playerTurn, mob);
-			}else {
+			}
+			else {
 				System.out.println("There is no mob here to attack");
 			}
 		break;
@@ -309,30 +310,5 @@ public class Bonk {
 
 	public int getCurrentRoomInt() {
 		return currentRoom;
-	}
-
-
-
-
-
-	public void itemStatTest() {
-		Item item = new Item();
-		System.out.println(item.type);
-		System.out.println(item.name);
-		System.out.println(item.rarity);
-		if (item.type == Type.WEAPON) {
-
-			System.out.println("Power: " + item.power);
-			System.out.println("Crit Chance: " + item.critChance);
-
-		}
-		if (item.type == Type.ARMOUR) {
-
-			System.out.println("Bonus Health: " + item.bonusHealth);
-			System.out.println("Defence: " + item.defence);
-			System.out.println("Dodge Chance: " + item.dodgeChance);
-			System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
-
-		}
 	}
 }

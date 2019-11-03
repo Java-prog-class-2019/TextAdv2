@@ -19,7 +19,7 @@ public class Player {
 
 	//Soft Stats
 	double dodgeChance;
-	double critChance = 1;
+	double critChance;
 
 
 
@@ -45,28 +45,32 @@ public class Player {
 		armour -= item.defence;
 	}
 
-	
+
 
 
 	public void attack(boolean playerTurn, Mob mob) {
 		if (playerTurn == true) {
-			System.out.println("You attack a " + mob.type + " with "+ mob.getHealth() + " health");
+			System.out.println("You attack a " + mob.type + " with "+ mob.health + " health");
 			if (Math.random() <= critChance) {
-				mob.setHealth(mob.health - power*2 + mob.armour );
-				System.out.println("YOU CRITICALLY STRIKE THE MOB FOR " +  (power*2 - mob.getArmour()) + " DAMAGE!");
+				mob.setHealth(power*2 - mob.armour);
+				System.out.println("YOU CRITICALLY STRIKE THE MOB FOR " +  (power*2 - mob.armour) + " DAMAGE!");
 				System.out.println("The mob's health drops to " + mob.health);
 			}
 			else {
-				mob.setHealth(mob.health - power + mob.getArmour());
-				System.out.println("The mob's health drops to " + mob.getHealth());
+				mob.setHealth(power-mob.armour);
+				System.out.println("You hit the mob for " + (power - mob.armour) + " damage");
+				System.out.println("The mob's health drops to " + mob.health);
+			}
+			if (mob.health == 0) {
+				System.out.println("\nYou have successfully defeated the mob and can now advance to the next room.");
 			}
 		}
 	}
 
 
-	
 
-	
+
+
 	public void setCoins(int coins) {
 		this.coins=coins;
 	}
