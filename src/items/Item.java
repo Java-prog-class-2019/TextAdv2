@@ -1,5 +1,7 @@
 package items;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Item {
@@ -15,11 +17,20 @@ public class Item {
 	String WNames [] = {"Of Powerful Strikes", "Of Great Strikes", "Of Great Power", "Of Critical Damage" };
 	String ANames [] = {"Of Swiftness", "Of Speed", "With Dodging Capabilities", "Of Great Speed"};
 	
+	String Container_Names [] = {"Apple", "Orange", "Mixture", "Elixir", "Brew", "Tupperware Container", "Remedy", "Draught", "Potion"};
+	
+	// Stats for weapons.
 	int power;
+	double critChance;
+
 	int defence;
 	int bonusHealth;
-	double critChance;
 	double dodgeChance;
+	
+	int health_bonus;
+	int power_bonus;
+	double crit_bonus;
+	double dodge_bonus;
 
 
 	Random random = new Random();
@@ -28,22 +39,58 @@ public class Item {
 
 	Rarity rarity;
 	Type type;
+	Size size;
+	ConsumableType con_type;
 
 	public Item() {
+		
 		chooseType();
 		chooseRarity();
-		genStats();
-		makeName();
-	}
-	
-	public void chooseType() {
-		if (random.nextDouble() >= 0.5) {
-			type = Type.WEAPON;
-		} else {
-			type = Type.ARMOUR;
+		
+		if(type == Type.CONSUMABLE) {
+			chooseSize();
+			genConsumeName();
+			genConsumableStats();
+			
+		}
+		if(type == Type.ARMOUR) {
+			genArmourName();
+			genStats();
+		}
+		if(type == Type.WEAPON) {
+			genWeaponName();
+			genStats();
 		}
 	}
+	
+	private void genConsumableStats() {
+		
+		if(size == Size.SMALL) {
+			
+		}
+		if(size == Size.MEDIUM) {
+			
+		}
+		if(size == Size.VENTI) {
+			
+		}
+		
+		
+	}
 
+	public void chooseType() {
+		double chance = random.nextDouble();
+		
+		if ( chance >= 0.333) {
+			type = Type.WEAPON;
+		}
+		if ( chance >= 0.666  && chance <= 0.333  ) {
+			type = Type.ARMOUR;
+		}
+		if ( chance < 0.666) {
+			type = Type.CONSUMABLE;
+		}
+	}
 
 	public void chooseRarity() {
 
@@ -59,45 +106,55 @@ public class Item {
 			}
 		}
 	}
+	
 	public void genStats() {
-
-		/* TODO:
-            Add stat generation based on rarity. Make sure to
-            generate stats for weapons and armour differently
-            ( i.e. armour should't give power and weapons
-            shouldn't give armour )
-		 */
 
 		if (type == Type.WEAPON) {
 			if (rarity == Rarity.COMMON) {
+				
 				power = (int)(Math.random()*3)+1;
-				critChance =0;
+				critChance = 0;
+				
 			}
 			if(rarity == Rarity.RARE) {
+				
 				power = (int)(Math.random()*5)+2;
+				
 				critChance = (Math.random()*0.2) +0.05;
+				
 			}
 			if(rarity == Rarity.LEGENDARY) {
+				
 				power = (int)(Math.random()*7)+3;
+				
 				critChance= (Math.random()*0.5) +0.25;
+				
 			}
 		}
 
 		if (type == Type.ARMOUR) {
 			if(rarity == Rarity.COMMON) {
+				
 				defence = (int)(Math.random()*1)+1;   
 				bonusHealth = (int) (Math.random()*3)+1;
-				dodgeChance=0;
+				dodgeChance = 0;
+				
 			}
+			
 			if(rarity == Rarity.RARE) {
+				
 				defence = (int)(Math.random()*3)+1;
 				bonusHealth = (int) (Math.random()*5)+2;
+				
 				if(Math.random()>=0.5){
+					
 					dodgeChance = (Math.random()*0.2)+0.1;
 					defence = defence - 1;
 					bonusHealth = bonusHealth -1;
+					
 				}
 			}
+			
 			if(rarity == Rarity.LEGENDARY) {
 				defence = (int)(Math.random()*4)+2;
 				bonusHealth = (int) (Math.random()*8)+3;
@@ -107,50 +164,129 @@ public class Item {
 					bonusHealth = bonusHealth -3;
 				}
 			}
-
 		}
-
 	}
 
-	public void makeName() {
+	public void genWeaponName() {
 		
-		if (type == Type.WEAPON) {
-			if(rarity==Rarity.COMMON) {
+			if(rarity == Rarity.COMMON) {
 				name = CWeapon[(int)(Math.random()*CWeapon.length)];
 			}
-			if(rarity==Rarity.RARE&& critChance ==0) {
+			if(rarity == Rarity.RARE && critChance ==0) {
 				name = RWeapon[(int)(Math.random()*RWeapon.length)];		
 			}
-			if(rarity==Rarity.RARE&& critChance > 0) {
+			if(rarity == Rarity.RARE && critChance > 0) {
 				name = RWeapon[(int)(Math.random()*RWeapon.length)] + WNames[(int)(Math.random()*WNames.length)];
 
 			}
-			if(rarity==Rarity.LEGENDARY&& critChance ==0) {
+			if(rarity == Rarity.LEGENDARY && critChance == 0) {
 				name = LWeapon[(int)(Math.random()*LWeapon.length)];		
 			}
-			if(rarity==Rarity.LEGENDARY&& critChance > 0) {
+			if(rarity == Rarity.LEGENDARY && critChance > 0) {
 				name = LWeapon[(int)(Math.random()*LWeapon.length)] + WNames[(int)(Math.random()*WNames.length)];
 
 			}
 		}
-		if (type == Type.ARMOUR) {
-			if(rarity==Rarity.COMMON) {
-				name = CArmour[(int)(Math.random()*CArmour.length)];
-			}
-			if(rarity==Rarity.RARE && dodgeChance ==0) {
-				name = RArmour[(int)(Math.random()*RArmour.length)] ;
-			}
-			if(rarity==Rarity.RARE && dodgeChance > 0) {
-				name = RArmour[(int)(Math.random()*RArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
-			}
-			if(rarity==Rarity.LEGENDARY&& dodgeChance ==0) {
-				name = LArmour[(int)(Math.random()*LArmour.length)] ;
-			}
-			if(rarity==Rarity.LEGENDARY&& dodgeChance > 0) {
-				name = LArmour[(int)(Math.random()*LArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
-			}
+	
+	public void genArmourName() {
+		
+		if(rarity==Rarity.COMMON) {
+			name = CArmour[(int)(Math.random()*CArmour.length)];
+		}
+		if(rarity==Rarity.RARE && dodgeChance ==0) {
+			name = RArmour[(int)(Math.random()*RArmour.length)] ;
+		}
+		if(rarity==Rarity.RARE && dodgeChance > 0) {
+			name = RArmour[(int)(Math.random()*RArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
+		}
+		if(rarity==Rarity.LEGENDARY&& dodgeChance ==0) {
+			name = LArmour[(int)(Math.random()*LArmour.length)] ;
+		}
+		if(rarity==Rarity.LEGENDARY&& dodgeChance > 0) {
+			name = LArmour[(int)(Math.random()*LArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
+		}
+		
+		
+	}
+	
+	public void genConsumeName() {
+		
+		switch(size){
+			case SMALL:
+				name += "Small ";
+				break;
+
+			case MEDIUM:
+				name += "Medium ";
+				break;
+
+			case VENTI:
+				name += "Venti ";
+				break;
+
+		}
+		
+		switch(con_type) {
+			case HEALTH:
+				name += "Healing ";
+				break;
+				
+			case FORTITUDE:
+				name += "Fortifying ";
+				break;
+
+			case UNKNOWN:
+				name += "Mysterious ";
+				break;
+
+			case STRENGTH:
+				name += "Strengthening ";
+				break;
+
+			case SWIFTNESS:
+				name += "Quickening ";
+				break;
+
+			case RAGE:
+				name += "Enraging ";
+				break;
+
+		}
+		
+		int rand_item = random.nextInt(Container_Names.length);
+		
+		name += Container_Names[rand_item];
+		
+	}
+	
+	public void generateEffect() {
+		
+		int rand_type = random.nextInt(7);
+		
+		ArrayList<ConsumableType> consumabletypes = new ArrayList<ConsumableType>(Arrays.asList(ConsumableType.values()));
+		
+		con_type = consumabletypes.get(rand_type);
+	
+	}
+	
+	public void chooseSize() {
+		
+		double rand_double = random.nextDouble();
+		
+		if(rand_double > 0.5) {
+			size = Size.SMALL;
+		}
+		
+		if(rand_double > 0.2 && rand_double < 0.5) {
+			size = Size.MEDIUM;
+		}
+		
+		if(rand_double < 0.2) {
+			size = Size.VENTI;
 		}
 	}
+	
+	
 
 
 
@@ -163,9 +299,25 @@ public class Item {
 
 	public enum Type {
 		WEAPON,
-		ARMOUR
+		ARMOUR,
+		CONSUMABLE
 	}
 	
+	public enum ConsumableType {
+		HEALTH,
+		FORTITUDE,
+		UNKNOWN,
+		STRENGTH,
+		SWIFTNESS,
+		RAGE
+	}
+	
+	enum Size {
+		SMALL,
+		MEDIUM,
+		VENTI
+				
+	}
 	
 	public String getName() {
 		return this.name;
