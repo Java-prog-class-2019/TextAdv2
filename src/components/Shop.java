@@ -12,7 +12,6 @@ public class Shop {
 	public class Buyable{	//Subclass. Each buyable is an item with an assigned price
 
 		Item item;
-		//		Consumable consumable;
 		int price=0;
 
 		public Buyable(Item item/*, Consumable consumable*/) {	//constructor
@@ -34,13 +33,12 @@ public class Shop {
 	Item armourA = new Item();
 	Item weaponB;
 	Item armourB;
+	Item conA = new Item();
+	Item conB = new Item();
+	Item conC;
+	Item conD;
 
-	//	Consumable a;
-	//	Consumable b;
-	//	if(Bonk.player.getCurrentRoomInt()!=17) {
-	//	Consumable c;
-	//	Consumable d;
-	//	}
+
 	Random random = new Random();
 
 	public Shop(int roomNum) {	//constructor
@@ -108,6 +106,7 @@ public class Shop {
 		weapon.makeName();
 	}
 
+
 	private void setArmour(Item armour) {	//Sets the stats for the armour
 		armour.type = Type.ARMOUR;
 
@@ -141,6 +140,23 @@ public class Shop {
 		armour.makeName();
 	}
 
+
+	public void buy(String s){
+		int index = Integer.parseInt(s) - 1;
+		if(index>=shopItems.size()) {
+			System.out.println("That's not available.");
+		}else {
+			if(Bonk.player.getCoins()>=shopItems.get(index).price) {
+				System.out.println("You bought " + shopItems.get(index).item.name + ". Type \"shop\" to continue shopping.");
+				Bonk.player.setCoins(Bonk.player.getCoins()-shopItems.get(index).price);
+				Bonk.player.inv.add(shopItems.get(index).item);
+				shopItems.remove(index);
+			}else {
+				System.out.println("You can not afford that.");
+			}
+		}
+	}
+
 	public void printShop() {	//Prints out the contents of the shop in a neat grid, line by line
 
 		if(shopItems.size()==0) {
@@ -157,136 +173,102 @@ public class Shop {
 			for(int i=0; i<184; i++) {
 				System.out.print("_");
 			}
-			
-
-			System.out.printf("%n|%-60d|%-60d|%-60d|\n", 1, 2, 3);	//Line 1
-
-
-			//Line 2
-			System.out.printf("| %-59s", shopItems.get(0).item.rarity.toString() + " " + shopItems.get(0).item.type.toString() + ":");	
-			if(shopItems.size()>1) {
-				System.out.printf("| %-59s", shopItems.get(1).item.rarity.toString() + " " + shopItems.get(1).item.type.toString() + ":");
-			}else {
-				System.out.printf("%-61c", '|');
-			}
-			if(shopItems.size()>2) {
-				System.out.printf("| %-59s|\n", shopItems.get(2).item.rarity.toString() + " " + shopItems.get(2).item.type.toString() + ":");
-			}else {
-				System.out.printf("%-61c|\n", '|');
-			}
-			
-			//Line 3
-			System.out.printf("| %-59s", shopItems.get(0).item.name);	
-			if(shopItems.size()>1) {
-				System.out.printf("| %-59s", shopItems.get(1).item.name);
-			}else {
-				System.out.printf("%-61c", '|');
-			}
-			if(shopItems.size()>2) {
-				System.out.printf("| %-59s|\n", shopItems.get(2).item.name);
-			}else {
-				System.out.printf("%-61c|\n", '|');
-			}
-			
-			//Line 4
-			System.out.printf("| %-59s", shopItems.get(0).item.name);	
-			if(shopItems.size()>1) {
-				System.out.printf("| %-59s", shopItems.get(1).item.name);
-			}else {
-				System.out.printf("%-61c", '|');
-			}
-			if(shopItems.size()>2) {
-				System.out.printf("| %-59s|\n", shopItems.get(2).item.name);
-			}else {
-				System.out.printf("%-61c|\n", '|');
-			}
-			
-			if(shopItems.get(0).item!=null) {	
-				if(shopItems.get(0).item.type==Type.WEAPON) {
-					System.out.printf("| Power: " + shopItems.get(0).item.power);
-					for(int i=0; i<52-String.valueOf(shopItems.get(0).item.power).length(); i++) {
-						System.out.print(" ");
-					}
-				}
-				if(shopItems.get(0).item.type==Type.ARMOUR) {
-					System.out.printf("| Defence: " + shopItems.get(0).item.defence);
-					for(int i=0; i<50-String.valueOf(shopItems.get(0).item.defence).length(); i++) {
-						System.out.print(" ");
-					}
-				}
-			}
-			if(shopItems.size()>1) {
-				if(shopItems.get(1).item!=null) {
-					if(shopItems.get(1).item.type==Type.WEAPON) {
-						System.out.printf("| Power: " + shopItems.get(1).item.power);
-						for(int i=0; i<52-String.valueOf(shopItems.get(1).item.power).length(); i++) {
-							System.out.print(" ");
-						}
-					}
-					if(shopItems.get(1).item.type==Type.ARMOUR) {
-						System.out.printf("| Defence: " + shopItems.get(1).item.defence);
-						for(int i=0; i<50-String.valueOf(shopItems.get(1).item.defence).length(); i++) {
-							System.out.print(" ");
-						}
-					}
-				}else {
-					System.out.printf("%-61c", '|');
-				}
-			}else {
-				System.out.printf("%-61c", '|');
-			}
-			if(shopItems.size()>2) {
-				if(shopItems.get(2).item!=null) {
-					if(shopItems.get(2).item.type==Type.WEAPON) {
-						System.out.printf("| Power: " + shopItems.get(2).item.power);
-						for(int i=0; i<52-String.valueOf(shopItems.get(2).item.power).length(); i++) {
-							System.out.print(" ");
-						}
-						System.out.println("|");
-					}
-					if(shopItems.get(2).item.type==Type.ARMOUR) {
-						System.out.printf("| Defence: " + shopItems.get(2).item.defence);
-						for(int i=0; i<50-String.valueOf(shopItems.get(2).item.defence).length(); i++) {
-							System.out.print(" ");
-						}
-						System.out.println("|");
-					}
-				}else {
-					System.out.printf("%-61c|\n", '|');
-				}
-			}else {
-				System.out.printf("%-61c|\n", '|');
-			}
-
-				
-				
-/*				
-			System.out.printf("%n| %s %s:", a.item.rarity, a.item.type);
-			for(int i=0; i<57 - a.item.rarity.toString().length() - a.item.type.toString().length(); i++) {
-				System.out.print(" ");
-			}
-			System.out.printf("| %s %s:", b.item.rarity, b.item.type);
-			for(int i=0; i<57 - b.item.rarity.toString().length() - b.item.type.toString().length(); i++) {
-				System.out.print(" ");
-			}
-			System.out.println("|");
-			//		System.out.printf("| %s %s:", c.item.rarity.toString(), c.item.type.toString());
-			//		for(int i=0; i<60-c.item.rarity.toString().length() + c.item.type.toString().length(); i++) {
-			//			System.out.print(" ");
-			//		}
-
-
-			System.out.printf("%n%s",a.item.getName());
-
 			System.out.println();
-			for(int i=0; i<184; i++) {
-				System.out.print("-");
-			}
 
-			System.out.println();
-			for(int i=0; i<184; i++) {
-				System.out.print("-");
-			}*/
+			for(int j = 0; j < 4; j+=3) {
+				
+				//Line 1
+				System.out.printf("|%-60s|%-60s|%-60s|\n", 1 + j + ".", 2 + j + ".", 3 + j + ".");	
+
+				//Line 2
+				for(int i=0; i<3; i++) {
+					if(shopItems.size() > i + j) {
+						System.out.printf("| %-59s", shopItems.get(i + j).item.rarity.toString() + " " + shopItems.get(i + j).item.type.toString() + ":");
+					}else {
+						System.out.printf("%-61c", '|');
+					}
+					if(i == 2)System.out.println("|");
+				}
+
+
+				//Line 3
+				for(int i=0; i<3; i++) {
+					if(shopItems.size() > i + j) {
+						System.out.printf("| %-59s", shopItems.get(i + j).item.name);
+					}else {
+						System.out.printf("%-61c", '|');
+					}
+					if(i == 2)System.out.println("|");
+				}
+
+				//Line 4
+				for(int i=0; i<3; i++) {
+					if(shopItems.size() > i + j) {
+						if(shopItems.get(i + j).item.type==Type.WEAPON) {
+							System.out.printf("| %-59s", "Power: " + shopItems.get(i + j).item.power);
+						}
+						if(shopItems.get(i + j).item.type==Type.ARMOUR) {
+							System.out.printf("| %-59s", "Defence: " + shopItems.get(i + j).item.defence);
+						}
+					}else {
+						System.out.printf("%-61c", '|');
+					}
+					if(i == 2)System.out.println("|");
+				}
+
+				//Line 5
+				for(int i=0; i<3; i++) {
+					if(shopItems.size() > i + j) {
+						if(shopItems.get(i + j).item.type==Type.WEAPON) {
+							System.out.printf("| %-59s", "Crit Chance: " + shopItems.get(i + j).item.critChance * 100 + "%");
+						}
+						if(shopItems.get(i + j).item.type==Type.ARMOUR) {
+							System.out.printf("| %-59s", "Bonus Health: " + shopItems.get(i + j).item.bonusHealth);
+						}
+					}else {
+						System.out.printf("%-61c", '|');
+					}
+					if(i == 2)System.out.println("|");
+				}
+
+				//Line 6
+				for(int i=0; i<3; i++) {
+					if(shopItems.size() > i + j) {
+						if(shopItems.get(i + j).item.type==Type.WEAPON) {
+							System.out.printf("%-61c", '|');
+						}
+						if(shopItems.get(i + j).item.type==Type.ARMOUR) {
+							System.out.printf("| %-59s", "Dodge Chance: " + shopItems.get(i + j).item.dodgeChance * 100 + "%");
+						}
+					}else {
+						System.out.printf("%-61c", '|');
+					}
+					if(i == 2)System.out.println("|");
+				}
+
+				//Line 7
+				System.out.printf("|%61c%61c%61c\n", '|', '|', '|');
+
+				//Line 8
+				for(int i=0; i<3; i++) {
+					if(shopItems.size() > i + j) {
+						System.out.printf("| %29s%-30s", "Price: ", shopItems.get(i + j).price + " coins");
+					}else {
+						System.out.printf("%-61c", '|');
+					}
+					if(i == 2)System.out.println("|");
+				}
+
+				//Bottom Line
+				for(int i = 0; i<3 ; i++) {
+					System.out.print("|");
+					for(int k=0; k<60; k++) {
+						System.out.print("_");
+					}
+				}
+				System.out.println("|");
+			}
+			System.out.println("Coins: " + Bonk.player.getCoins());
 		}
 	}
 }

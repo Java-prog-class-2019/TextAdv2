@@ -11,7 +11,7 @@ public class Player {
 	String name;
 	private int currentRoom;						//integer value of the current room
 	ArrayList<Item> inv = new ArrayList<Item>();	//inventory
-	private int coins = 0;
+	private int coins = 100;
 	Item currentWeapon;
 	Item currentArmour;
 
@@ -109,6 +109,13 @@ public class Player {
 		case ("equip"):
 			equip(word2);
 		break;
+		case ("buy"):
+			if(getCurrentRoomObj().isShop) {
+				getCurrentRoomObj().shop.buy(word2);
+				break;
+			}else {
+				System.out.println("There is nothing to buy!");
+			}
 		case("n"): case("north"): case("e"): case("east"): case("s"): case("south"): case("w"): case("west"):
 			move(word1);
 		break;
@@ -185,6 +192,9 @@ public class Player {
 
 	public void printInv() {	//prints out inventory as a vertical list
 
+		//Coins
+		System.out.println("\n" + coins + " coins.\n");
+		//Equipped Items
 		if(currentWeapon==null && currentArmour==null) {
 			System.out.println("Nothing Equipped.");
 		}
@@ -195,12 +205,12 @@ public class Player {
 			System.out.println("Current Armour = " + currentArmour.name);
 		}
 		
+		//Other items
 		if(inv.size() == 0) {
 			System.out.println("\nEmpty Inventory.");
 		}else {
 			System.out.println("\nInventory:");
 		}
-
 		for(int i = 0; i < inv.size(); i++) {
 			System.out.printf(i+1 + ". %s (%s)%n", inv.get(i).getName(), inv.get(i).type.toString());
 		}
