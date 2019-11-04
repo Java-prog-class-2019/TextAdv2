@@ -10,7 +10,7 @@ class MobGH extends Mob {
 
 	public void genStats() {
 		power = (int)(Math.random()*2)+1;
-		health = (int)(Math.random()*4)+1;
+		health = (int)(Math.random()*7)+1;
 		armour = (int)(Math.random());
 		critChance = 0;
 		dodgeChance = 0;

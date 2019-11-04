@@ -6,10 +6,6 @@ class Mob {
 	double dodgeChance;
 	double critChance;
 	String type = "";
-	int bleed = 0;
-	int confusion = 0;
-	int poison = 0;
-	
 	
 	public int getPower() {
 		return power;
@@ -48,27 +44,5 @@ class Mob {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public int getBleed() {
-		return bleed;
-	}
-	public void setBleed(int bleed) {
-		this.bleed = bleed;
-	}
-	public int getConfusion() {
-		return confusion;
-	}
-	public void setConfusion(int confusion) {
-		this.confusion = confusion;
-	}
-	public int getPoison() {
-		return poison;
-	}
-	public void setPoison(int poison) {
-		this.poison = poison;
-	}	
-
-	
-	
-
 }
 

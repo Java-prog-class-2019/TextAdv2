@@ -14,9 +14,8 @@ public class Bonk {
 
 	// Global Variables
 	boolean playerTurn;
-	boolean systemTurn;
 	private int currentRoom;	//integer value of the current room
-	boolean alive = true;
+	static boolean alive = true;
 	static boolean win = false;
 	static boolean isMob = true;		//Is there a (living) enemy in the room?
 
@@ -36,25 +35,16 @@ public class Bonk {
 			while(playerTurn) {
 				String command = getCommand();
 				this.parseCommand(command);
-
-			}
-
-			while(systemTurn) {
-
-
-			}
-
-			if(!alive) {	// Death message
-				System.out.println("You died! :(\nGame Over");
-				System.exit(0);
-			}
-
-			if(win) {	// Player 
-				System.out.println("CONGRATULATIONS!\nYou have escaped and won the game!");
-				System.exit(0);
+				if(!alive) {	// Death message
+					System.out.println("You died! :(\nGame Over");
+					System.exit(0);
+				}
+				if(win) {	// Player 
+					System.out.println("CONGRATULATIONS!\nYou have escaped and won the game!");
+					System.exit(0);
+				}
 			}
 		}
-
 	}
 
 
@@ -67,8 +57,6 @@ public class Bonk {
 		enterRoom();
 
 		playerTurn = true;
-		systemTurn = false;
-
 	}
 
 
@@ -215,10 +203,10 @@ public class Bonk {
 			break;
 		}
 		if (rooms.get(currentRoom).mob != null) {
-		isMob = true;
+			isMob = true;
 		}
 	}
-	
+
 	public void searchRoom() {
 
 
@@ -256,7 +244,7 @@ public class Bonk {
 
 	//what calls this method?
 	void enterRoom(){
-		
+
 
 		// Print Title of the entered room.
 		String title = rooms.get(getCurrentRoomInt()).getTitle();
@@ -323,7 +311,7 @@ public class Bonk {
 	public boolean getIsMob() {
 		return isMob;
 	}
-//	public static void setIsMob(boolean isMob) {
-//		isMob = isMob;
-//	}
+	public static void setIsAlive (boolean isAlive) {
+		alive = isAlive;
+	}
 }

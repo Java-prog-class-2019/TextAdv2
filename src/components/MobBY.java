@@ -9,8 +9,8 @@ class MobBY extends Mob{
 	}
 
 	public void genStats() {
-		power = (int)(Math.random()*4)+1;
-		health = (int)(Math.random()*10)+2;
+		power = (int)(Math.random()*4)+3;
+		health = (int)(Math.random()*16)+2;
 		armour = (int)(Math.random()*3);
 		critChance = 0;
 		dodgeChance = 0;
