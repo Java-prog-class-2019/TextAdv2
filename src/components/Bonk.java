@@ -214,7 +214,7 @@ public class Bonk {
 			System.out.println("What?!");	
 			break;
 		}
-		if (Bonk.rooms.get(currentRoom).mob != null) {
+		if (rooms.get(currentRoom).mob != null) {
 		isMob = true;
 		}
 	}
