@@ -5,39 +5,41 @@ import java.util.HashMap;
 public class Room {
 	
 	/***** Instance variables *****/
-	private String title;																	//Title of the room
-	private String description;																//Message that displays when you enter a room
-	private String descrItem=" You spot an item glinting on the ground in front of you.";	//Additional description exclusive to item rooms (this had to be separate from description so it could be removed if need be)
-	private boolean visited = false;														//Checks if the room has been visited (so player can't get more items)
-	private String roomType;																//Type of the room (3 types based on location)
+	public String title;																	//Title of the room
+	public String description;																//Message that displays when you enter a room
+	public String descrItem="\nYou spot an item glinting on the ground in front of you.";	//Additional description exclusive to item rooms (this had to be separate from description so it could be removed if need be)
+	public String roomType;																//Type of the room (3 types based on location)
 	private int number;																		//Distinguishes different rooms on the map. Features are mostly based on number.
 	private boolean isItem=false;															//Is it an item room?
-	private boolean isShop=false;															//Is it a shop room?
+	boolean isShop=false;																	//Is it a shop room?
 	private boolean isEnemy;																//Is it an enemy room?
-	Item item;
+	Item item;																				//Item
+//	Shop shop;
+	public Mob mob;
 	/*******************************/
 	
 	
 	public Room(int number) {		//Constructor
 		
-
+		this.number=number;
 		
 		if(number<=5)roomType = "great hall";
 		if(number>=6 && number<=11)roomType = "kitchen";
 		if(number>=12 && number<=17)roomType = "backyard";
 		if(number==18)roomType = "boss";
-		if(number%6==5)isShop=true;
-    
-		if(isShop) description+=" You spot a wary shopkeeper!";
-
+		if(number%6==5) {
+			isShop=true;
+//			shop = new Shop();
+		}
+//    
+//		makeMob();
 		
 		title = randomTitle();
 		description = randomDescriptor() + exits();
-		
-		
-		
-		
-		
+
+
+		if(isShop) description+=" You spot a wary shopkeeper! Type \"shop\" to see deals.";
+
 	}
 
 	private String randomDescriptor() {		//Creates a random description for each room, based on its pre-set parameters.
@@ -54,7 +56,7 @@ public class Room {
 	private String randomTitle() {		//Creates a random title for each room, based on its location.
 		String[] kRooms = {"Oven Room","Cafe","Pantry","Grease Parlour","Microwave Room","Walk-in Refrigerator","Storage Room","Washroom","Walk-in Freezer","Cleanup Zone","Garbage Disposal","Chef's Pass","Dish Pit","Frying Room"};
 		String[] ghRooms = {"Dining Hall","Closet","Hall of Mirrors","Parlour","Sitting Room","Marble Hallway","Washroom","Bedroom","Guest Room","Coat Room","Storage Room","Jewellery Room","Children's Room","Studio","Hall of Treasure"};
-		String[] byRooms = {"Flower Garden","Vegetable Patch","Shed","Koi Pond","Deck","Patio","Tennis Court","Basketball Court","Pool","Outhouse","Stone Path","Marble Path","Statue","Memorial","Courtyard","Poolhouse"};
+		String[] byRooms = {"Flower Garden","Vegetable Patch","Shed","Koi Pond","Deck","Patio","Tennis Court","Basketball Court","Pool","Outhouse","Stone Path","Marble Path","Statue","Memorial","Courtyard","Poolhouse","Park","Baseball Diamond"};
 		String s="";
 		
 
@@ -71,7 +73,6 @@ public class Room {
 		return s;
 
 	}
-	
 	private String exits() {
 		String s="";
 		
@@ -113,34 +114,9 @@ public class Room {
 			item = null;
 		}
 	}
-	
-	public void setVisited() {
-		visited = true;
-	}
-	
+
 	public boolean getIsItem() {
 		return isItem;
 	}
 /**************************************/
-
-	
-	
-/************For player class***********/
-	
-//	if(number%6==0) {
-//		
-//	}
-//	if(number%6==2) {
-//		
-//	}
-//	if(number==1) {
-//		
-//	}
-//	if(number==17) {
-//		
-//	}
-	
-/***************************************/
-	
-	
 }
