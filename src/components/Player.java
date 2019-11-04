@@ -34,10 +34,13 @@ public class Player {
 	}
 
 	public void pickupItem(Item item) {	//adds item to inventory
+		
 		inv.add(item);
+		
 	}
 
 	public void dropItem(Item item) {	//removes item from inventory
+		
 		inv.remove(item);
 
 	}
@@ -55,11 +58,6 @@ public class Player {
 		power -= item.power;
 		armour -= item.defence;
 
-	}
-
-
-	public void searchRoom() {    	
-		System.out.println("\n" + Bonk.rooms.get(Bonk.player.getCurrentRoomInt()).getDescription());
 	}
 
 	public void printInv() {	//prints out inventory as a vertical list
@@ -90,23 +88,7 @@ public class Player {
 	}
 
 
-	public void pickup() {	//picks up item
-
-
-
-		if ( getCurrentRoomObj().getIsItem() ) {	//makes sure room has an item
-
-			pickupItem(getCurrentRoomObj().item);	//adds item to inventory
-
-			System.out.print("You pick up ");		//pickup message		
-			System.out.println(getCurrentRoomObj().item.name);	
-			getCurrentRoomObj().item.printItem();
-
-			getCurrentRoomObj().setItem(false);		//removes the ite4m from the room	
-		}else {
-			System.out.println("There is nothing to pick up.");
-		}
-	}
+	
 	
 	
 	public void equip(String item){
@@ -127,7 +109,7 @@ public class Player {
 					inv.remove(inv.get(index));
 				}
 			}else{
-				if(currentArmour==null) {
+				if(currentArmour == null) {
 					System.out.println("You equipped " + inv.get(index).name + ".");
 					currentArmour=inv.get(index);
 					applyStats(currentArmour);
@@ -149,10 +131,6 @@ public class Player {
 	/*******getters and setters*************************/ 
 	public void setCurrentRoom(int currentRoom) {
 		this.currentRoom = currentRoom;
-	}
-
-	public Room getCurrentRoomObj() {
-		return Bonk.rooms.get(currentRoom);
 	}
 
 	public int getCurrentRoomInt() {

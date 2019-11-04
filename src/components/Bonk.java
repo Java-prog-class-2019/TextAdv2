@@ -1,7 +1,5 @@
 package components;
 
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -11,8 +9,8 @@ import components.Item.Type;
 public class Bonk {
 
 	//Objects
-	Player player = new Player();
-	public ArrayList<Room> rooms = new ArrayList<Room>();
+	static Player player = new Player();
+	public static ArrayList<Room> rooms = new ArrayList<Room>();
 
 	// Global Variables
 	boolean playerTurn;
@@ -99,11 +97,20 @@ public class Bonk {
 		switch (word1) {
 
 		case ("help"):
-			System.out.println("List of commands: help, move <n, w, e, s>, pickup <item> and search");
+			System.out.println("List of commands: help, move <n, w, e, s>, pickup and search");
 		break;
-		case ("shop"):
-			//	Bonk.player.getCurrentRoomObj().shop.printShop();
+		
+		case("buy"):
+			if (word2 == "") {
+				System.out.println("Lemme know what you wanna buy...");
+				break;
+			}
+			getCurrentRoomObj().shop.buy(word2);
 			break;
+		case ("shop"):
+			getCurrentRoomObj().shop.printShop();
+			break;
+		
 		case ("move"):
 			if(isMob) {
 				System.out.println("Nah. Don't even try that on us, who do you think we are?");
@@ -113,26 +120,36 @@ public class Bonk {
 				move(word2);
 				break;
 			}
+		
 		case ("inv"): case("i"): case("inventory"):
 			printInv();
-		break;
+			break;
+			
 		case ("pickup"):
 			pickup();
+			break;
+			
 		case ("say"):
 			System.out.println(word2);
-		break;
+			break;
+		
 		case ("search"):
 			searchRoom();
-		break;
+			break;
 
 		case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
 			if(isMob) {
+				// If there is still a mob in the room, you arent allowed to move.
 				System.out.println("Nah. Don't even try that on us, who do you think we are?");
+				
 			}
 			else {
+				
 				move(word1);
+				
 			}
-		break;
+			break;
+		
 		case("attack"): case("strike"): case("hit"): case("smash"):
 			if (getCurrentRoomObj().mob.health > 0) {
 				player.attack(playerTurn, rooms.get(getCurrentRoomInt()).mob);
@@ -141,16 +158,62 @@ public class Bonk {
 				System.out.println("There is no mob here to attack");
 			}
 		break;
-
-
+		case("consume"): case("eat"): case("drink"):
+			consume(word2);
+			break;
+		
+		case("equip"):
+			equip(word2);
 		default: 
 			System.out.println("What?!");
 			break;
 		}
 		return false;
 	}
+	
 
-
+	private void consume(String word2) {
+		
+	}
+	
+	public void equip(String item){
+		int index = (int)(item.charAt(0))-49;
+		if(player.inv.size()>index) {
+			if(player.inv.get(index).type==Type.WEAPON) {
+				if(player.currentWeapon==null) {
+					System.out.println("You equipped " + player.inv.get(index).name + ".");
+					player.currentWeapon=player.inv.get(index);
+					player.applyStats(player.currentWeapon);
+					player.inv.remove(player.inv.get(index));
+				}else {
+					System.out.println("You equipped " + player.inv.get(index).name + ".");
+					player.removeStats(player.currentWeapon);
+					player.inv.add(player.currentWeapon);
+					player.currentWeapon=player.inv.get(index);
+					player.applyStats(player.currentWeapon);
+					player.inv.remove(player.inv.get(index));
+				}
+			}
+			
+			if(player.inv.get(index).type == Type.ARMOUR){
+				if(player.currentArmour==null) {
+					System.out.println("You equipped " + player.inv.get(index).name + ".");
+					player.currentArmour = player.inv.get(index);
+					player.applyStats(player.currentArmour);
+					player.inv.remove(player.inv.get(index));
+				}else {
+					System.out.println("You equipped " + player.inv.get(index).name + ".");
+					player.removeStats(player.currentArmour);
+					player.inv.add(player.currentArmour);
+					player.currentArmour=player.inv.get(index);
+					player.applyStats(player.currentArmour);
+					player.inv.remove(player.inv.get(index));
+				}
+			}
+		}else {
+			System.out.println("You can't do that.");
+		}
+	}
 
 	public void move(String dir) {	
 		// moves player. First checks if specified movement direction is possible,
@@ -212,9 +275,10 @@ public class Bonk {
 			isMob = true;
 		}
 	}
+	
 
-	public void searchRoom() {
-
+	public void searchRoom() {   	
+		System.out.println("\n" + rooms.get(player.getCurrentRoomInt()).getDescription());
 	}
 
 	public void printInv() {	//prints out inventory as a vertical list
