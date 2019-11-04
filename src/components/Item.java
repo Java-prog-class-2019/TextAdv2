@@ -1,25 +1,27 @@
 package components;
 
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
 public class Item {
 
-	String CWeapon [] = {"Dull Crayon", "Paper Machet Sword", "Twin Blades", "Scythe of Bad Fortune", "Old Water Bottle","Rusty Sword", "Caveman's Club"};
-	String RWeapon [] = {"Shadow Blade", "Powerful Scythe", "Slightly Glimmering Daggers", "Sir Cashwes Nutty Axe", "Prince Farnsword's Sabre", "Serrated Dirk"};
-	String LWeapon [] = {"Stick", "Sharp Crayon", "Draathar Rapier", "Astoundingly Apt African Assegai", "Spiteful Super Sabre", "Steel Toed Boot", "Havoc-inducing Halberd", "Razor Scooter" };
+	String CWeapon [] = {"A Dull Crayon", "A Paper Machet Sword", "Twin Blades", "A Scythe of Bad Fortune", "An Old Water Bottle","A Rusty Sword", "A Caveman's Club"};
+	String RWeapon [] = {"The Shadow Blade", "The Scythe of Everlasting Power", "Slightly Glimmering Daggers", "A Nutty Axe of Cashews", "Prince Farnsword's Sabre", "A Serrated Dirk"};
+	String LWeapon [] = {"A Stick", "A Sharp Crayon", "The Rapier of Drathaar", "The Astounding Apt Assault Assegai", "The Super Sabre of Spite", "A Steel-Toed Boot", "A Havoc-inducing Halberd", "A Razor Scooter" };
 
-	String CArmour [] = {"Chain Helmet", "Baseball Cap", "Old Hoodie", "Bear Mask", "Broken Chestplate", "Paper Bag"};
-	String RArmour [] = {"Plate Mail", "Jarvan IV's Helm", "Sturdy Helm", "Clunky Boots", "Grayscale Teddy Fresh Colour Block Hoodie" };
-	String LArmour [] = {"Kayle's Shining Armor", "Garens Great Garish Garments", "Crazy Zany Wavy Platey Mail", "Glistening Boots", "Shadow Mail"};
+	String CArmour [] = {"A Chain Helmet", "A Baseball Cap", "An Old Hoodie", "A Bear Mask", "A Broken Chestplate", "A Brown Paper Bag"};
+	String RArmour [] = {"Plate Mail", "Jarvan IV's Helm", "A Sturdy Helm", "Clunky Boots", "A Grayscale Teddy Fresh Colour Block Hoodie" };
+	String LArmour [] = {"Kayle's Shining Armor", "The Legendary Helm of Greatness", "A Crazy Zany Wavy Plate", "Glistening Boots", "Shadow Mail"};
+
 
 	String WNames [] = {"Of Powerful Strikes", "Of Great Strikes", "Of Great Power", "Of Critical Damage" };
 	String ANames [] = {"Of Swiftness", "Of Speed", "With Dodging Capabilities", "Of Great Speed"};
 
 	String Container_Names [] = {"Apple", "Orange", "Mixture", "Elixir", "Brew", "Tupperware Container", "Remedy", "Draught", "Potion"};
-
-	// Stats for weapons.
+  
 	int power;
 	double critChance;
 
@@ -44,6 +46,8 @@ public class Item {
 	ConsumableType con_type;
 
 
+	
+	// Item Constructor
 	public Item() {
 
 		chooseType();
@@ -200,6 +204,7 @@ public class Item {
 		if ( chance >= 0.666  && chance <= 0.333  ) {
 			type = Type.ARMOUR;
 		}
+
 		if ( chance < 0.666) {
 			type = Type.CONSUMABLE;
 		}
@@ -210,15 +215,16 @@ public class Item {
 		double chance = random.nextDouble();
 
 		if(chance < 1) {
-			rarity = Rarity.LEGENDARY;
+			rarity = Rarity.COMMON;
 			if (chance < 0.5) {
 				rarity = Rarity.RARE;
 				if (chance < 0.15) {
-					rarity = Rarity.COMMON;
+					rarity = Rarity.LEGENDARY;
 				}
 			}
 		}
 	}
+
 
 	public void genStats() {
 
@@ -241,13 +247,12 @@ public class Item {
 				power = (int)(Math.random()*7)+3;
 
 				critChance= (Math.random()*0.5) +0.25;
-
 			}
 		}
 
 		if (type == Type.ARMOUR) {
+			
 			if(rarity == Rarity.COMMON) {
-
 				defence = (int)(Math.random()*1)+1;   
 				bonusHealth = (int) (Math.random()*3)+1;
 				dodgeChance = 0;
@@ -261,16 +266,29 @@ public class Item {
 
 				if(Math.random()>=0.5){
 
+				// Defence and Bonus Health random set
+				// Make armour that has a dodge chance to have less of the other stats.
+				defence = (int)(Math.random()*1)+1;   
+				bonusHealth = (int) (Math.random()*3)+1;
+				dodgeChance =0;
+			}
+			
+			if(rarity == Rarity.RARE) {
+				
+				defence = (int)(Math.random()*3)+1;
+				bonusHealth = (int) (Math.random()*5)+2;
+				if(Math.random() >= 0.5){
 					dodgeChance = (Math.random()*0.2)+0.1;
 					defence = defence - 1;
 					bonusHealth = bonusHealth -1;
 
 				}
 			}
-
 			if(rarity == Rarity.LEGENDARY) {
+				
 				defence = (int)(Math.random()*4)+2;
 				bonusHealth = (int) (Math.random()*8)+3;
+				
 				if(Math.random()>=0.5) {
 					dodgeChance = (Math.random()*0.3)+0.2;
 					defence = defence -1;
@@ -402,21 +420,64 @@ public class Item {
 
 		if(rand_double < 0.2) {
 			size = Size.VENTI;
+		
+		if (type == Type.ARMOUR) {
+			if(rarity==Rarity.COMMON) {
+				name = CArmour[(int)(Math.random()*CArmour.length)];
+			}
+			
+			if(rarity == Rarity.RARE && dodgeChance ==0) {
+				name = RArmour[(int)(Math.random()*RArmour.length)] ;
+			}
+			
+			if(rarity==Rarity.RARE&& dodgeChance > 0) {
+				name = RArmour[(int)(Math.random()*RArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
+			}
+			
+			if(rarity==Rarity.LEGENDARY&& dodgeChance ==0) {
+				name = LArmour[(int)(Math.random()*LArmour.length)] ;
+			}
+			
+			if(rarity==Rarity.LEGENDARY&& dodgeChance > 0) {
+				name = LArmour[(int)(Math.random()*LArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
+			}
 		}
 	}
-
-
-
-
-
-
+	
+	public void printItem(){	//Prints out the item name along with important stats
+		String tempNames[] = name.split(" ");
+		ArrayList<String> nameList = new ArrayList<String>(Arrays.asList(tempNames));
+		if(nameList.get(0).equals("A") || nameList.get(0).equals("An") || nameList.get(0).equals("The")) {
+			nameList.remove(0);
+		}
+		
+		System.out.print("\n" + rarity + " " + type + ": ");
+		for(String s:nameList) {
+			System.out.print(s + " ");
+		}
+		System.out.println();
+		
+		if(type == Type.WEAPON) {
+			System.out.printf("Power:\t\t%d\n",power);
+			System.out.printf("Crit Chance:\t%d%%\n",(int)(critChance*100));
+		}
+		if(type == Type.ARMOUR) {
+			System.out.printf("Defence:\t%d\n",defence);
+			System.out.printf("Bonus Health:\t%d\n",bonusHealth);
+			System.out.printf("Dodge chance:\t%d%%\n",(int)(dodgeChance*100));
+		}
+	}
+    
 	public enum Rarity {
+		
 		COMMON,
 		RARE,
 		LEGENDARY
+		
 	}
-
+    
 	public enum Type {
+		
 		WEAPON,
 		ARMOUR,
 		CONSUMABLE
@@ -435,13 +496,13 @@ public class Item {
 		SMALL,
 		MEDIUM,
 		VENTI
-
 	}
 
 	public String getName() {
+		
 		return this.name;
+		
 	}
-
 	public int getPower() {
 		return power;
 	}
@@ -500,11 +561,5 @@ public class Item {
 
 	public Size getSize() {
 		return size;
-	}
-
-
-
-
-
-
+  }
 }
