@@ -104,11 +104,12 @@ public class Bonk {
 		case ("move"):
 			if(isMob) {
 				System.out.println("Nah. Don't even try that on us, who do you think we are?");
+				break;
 			}
 			else {
 				move(word2);
+				break;
 			}
-		break;
 		case ("inv"): case("i"): case("inventory"):
 			printInv();
 		break;
@@ -141,7 +142,7 @@ public class Bonk {
 
 		default: 
 			System.out.println("What?!");
-
+			break;
 		}
 		return false;
 	}
@@ -202,16 +203,13 @@ public class Bonk {
 			System.out.println("What?!");	
 			break;
 		}
-		if (rooms.get(currentRoom).mob != null) {
+		
+		if (rooms.get(currentRoom).mob.health > 0) {
 			isMob = true;
 		}
 	}
 
 	public void searchRoom() {
-
-
-
-
 
 	}
 
@@ -243,7 +241,7 @@ public class Bonk {
 	}
 
 	//what calls this method?
-	void enterRoom(){
+	void enterRoom() {
 
 
 		// Print Title of the entered room.
@@ -263,6 +261,7 @@ public class Bonk {
 		System.out.println("\n"+rooms.get(getCurrentRoomInt()).getDescription());
 
 	}
+	
 	void setupRooms() {
 
 		for(int i=0; i<19;i++) {	//Creates the rooms and adds them to an ArrayList		
@@ -271,22 +270,25 @@ public class Bonk {
 			if(rooms.get(i).roomType.equals("great hall")) {
 				playerTurn = true;
 				rooms.get(i).mob = new MobGH();
-				rooms.get(i).mob.type = MobGH.names[i];				
-				rooms.get(i).description += ("\nA " + rooms.get(i).mob.type + " with " + rooms.get(i).mob.health + " health is out to get you, what will you do?");			
+				rooms.get(i).mob.type = MobGH.names[i];
+				rooms.get(i).isMob = true;
+				rooms.get(i).descrMob = ("\nA " + rooms.get(i).mob.type + " with " + rooms.get(i).mob.health + " health is out to get you, what will you do?");			
 			}
 
 			if(rooms.get(i).roomType.equals("kitchen")) {
 				playerTurn = true;
 				rooms.get(i).mob = new MobK();
 				rooms.get(i).mob.type = MobK.names[i-6];
-				rooms.get(i).description += ("\nA " + rooms.get(i).mob.type + " is out to get you, what will you do?");	
+				rooms.get(i).isMob = true;
+				rooms.get(i).descrMob = ("\nA " + rooms.get(i).mob.type + " is out to get you, what will you do?");	
 			}
 
 			if(rooms.get(i).roomType.equals("backyard")) {
 				playerTurn = true;
 				rooms.get(i).mob = new MobBY();
 				rooms.get(i).mob.type = MobBY.names[i-12];
-				rooms.get(i).description += ("\nA " + rooms.get(i).mob.type + " is out to get you, what will you do?");	
+				rooms.get(i).isMob = true;
+				rooms.get(i).descrMob = ("\nA " + rooms.get(i).mob.type + " is out to get you, what will you do?");	
 			}
 		}
 

@@ -88,7 +88,6 @@ public class Player {
 			if (mob.health <= 0) {
 				Bonk.isMob = false;
 				System.out.println("\nYou have successfully defeated the mob and can now advance to the next room.");
-				mob = null;
 			}
 		}	
 

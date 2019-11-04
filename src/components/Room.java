@@ -7,15 +7,17 @@ public class Room {
 	/***** Instance variables *****/
 	public String title;																	//Title of the room
 	public String description;																//Message that displays when you enter a room
+	public String descrMob = "";
 	public String descrItem="\nYou spot an item glinting on the ground in front of you.";	//Additional description exclusive to item rooms (this had to be separate from description so it could be removed if need be)
 	public String roomType;																//Type of the room (3 types based on location)
 	private int number;																		//Distinguishes different rooms on the map. Features are mostly based on number.
 	private boolean isItem=false;															//Is it an item room?
 	boolean isShop=false;																	//Is it a shop room?
-	private boolean isEnemy;																//Is it an enemy room?
+	public boolean isMob;																//Is it an enemy room?
 	Item item;																				//Item
 //	Shop shop;
 	public Mob mob;
+	
 	/*******************************/
 	
 	
@@ -29,14 +31,10 @@ public class Room {
 		if(number==18)roomType = "boss";
 		if(number%6==5) {
 			isShop=true;
-//			shop = new Shop();
 		}
-//    
-//		makeMob();
 		
 		title = randomTitle();
 		description = randomDescriptor() + exits();
-
 
 		if(isShop) description+=" You spot a wary shopkeeper! Type \"shop\" to see deals.";
 
@@ -76,11 +74,11 @@ public class Room {
 	private String exits() {
 		String s="";
 		
-		if(number%2==0 && number!=0 && number!=18) s=" There are exits to the north, west, and south.";
-		if(number%6==5) s=" There are exits to the east and south.";
-		if(number%6==1) s=" There are exits to the north and east";
-		if(number%6==3) s=" There are exits to the north, east, and south.";
-		if(number==0) s=" There are exits to the north and west.";
+		if(number % 2 == 0 && number!=0 && number!=18) s=" There are exits to the north, west, and south.";
+		if(number % 6 == 5) s=" There are exits to the east and south.";
+		if(number % 6 == 1) s=" There are exits to the north and east";
+		if(number % 6 == 3) s=" There are exits to the north, east, and south.";
+		if(number == 0) s = " There are exits to the north and west.";
 		
 		return s;
 	}
@@ -93,9 +91,19 @@ public class Room {
 
 		
 	public String getDescription() {
+		
+		if(isItem && mob.health > 0) {
+			return description + descrItem + descrMob;
+		}
+		
+		if(mob.health > 0) {
+			return description + descrMob;
+		}
+		
 		if(isItem) {
 			return description + descrItem;
 		}
+		
 		return description;
 	}
 	
@@ -103,7 +111,7 @@ public class Room {
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public void setItem(boolean isItem) {
 		this.isItem = isItem;
 		
