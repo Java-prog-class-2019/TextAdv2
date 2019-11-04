@@ -9,6 +9,7 @@ import components.Item.Type;
 public class Player {
 
 	String name;
+  
 	private int currentRoom;						//integer value of the current room
 	ArrayList<Item> inv = new ArrayList<Item>();	//inventory
 	private int coins = 15;
@@ -46,7 +47,6 @@ public class Player {
 		critChance += item.critChance;
 		power += item.power;
 		armour += item.power;
-
 	}
 
 	public void removeStats(Item item) {
@@ -57,138 +57,6 @@ public class Player {
 
 	}
 
-	public String getCommand() {	//uses scanner to get command
-
-		Scanner sc = new Scanner(System.in);
-		String text = sc.nextLine();
-		if(text.length() == 0) text = "QwErTy";
-		return text;
-
-	}
-
-	public boolean parseCommand(String text) {	//Language parser
-
-		text = text.toLowerCase().trim();
-		text.replace("pick up", "pickup");
-
-		String words[] = text.split(" ");
-
-		ArrayList<String> wordlist = new ArrayList<String>(Arrays.asList(words));
-
-
-		String word1 = wordlist.get(0);
-		String word2 = "";
-
-
-		if (wordlist.size() > 1) {
-			word2 = wordlist.get(1);
-		}
-
-		switch (word1) {
-
-		case ("help"):
-			System.out.println("List of commands: help, pickup, equip <1, 2, 3, etc.>, search, move <n, w, e, s>, etc.");
-		break;
-		case ("shop"):
-			if(currentRoom == 5 || currentRoom == 11 || currentRoom == 17) {
-				Bonk.player.getCurrentRoomObj().shop.printShop();
-			}else {
-				System.out.println("You see no shop.");
-			}
-		break;
-		case ("move"):
-			move(word2);
-		break;
-		case ("inv"): case("i"): case("inventory"):
-			printInv();
-		break;
-		case ("pickup"):
-			pickup();
-		case ("say"):
-			System.out.println(word2);
-		break;
-		case ("search"):
-			searchRoom();
-		break;
-		case ("equip"):
-			equip(word2);
-		break;
-		case ("buy"):
-			if(getCurrentRoomObj().isShop) {
-				getCurrentRoomObj().shop.buy(word2);
-				break;
-			}else {
-				System.out.println("There is nothing to buy!");
-			}
-		case("n"): case("north"): case("e"): case("east"): case("s"): case("south"): case("w"): case("west"):
-			move(word1);
-		break;
-
-		default: 
-			System.out.println("What?!");
-
-		}
-		return false;
-	}
-
-
-
-	public void move(String dir) {	
-		//moves player. First checks if specified movement direction is possible,
-		//then either changes the current room, or prints an error message
-
-		switch(dir) {
-
-		case("n"): case("north"):
-			if(currentRoom==18) {
-				Bonk.win=true;
-				break;
-			}
-		if(currentRoom%6==5) {
-			System.out.println("You can't go that way!");
-			break;
-		}else {
-			currentRoom+=2;
-			Bonk.enterRoom();
-			break;
-		}
-
-		case("e"): case("east"):
-			if(currentRoom%2==0) {
-				System.out.println("You can't go that way!");
-				break;
-			}else {
-				currentRoom--;
-				Bonk.enterRoom();
-				break;
-			}
-
-		case("s"): case("south"):
-			if(currentRoom%6==1 || currentRoom==0) {
-				System.out.println("You can't go that way!");   
-				break; 				
-			}else {
-				currentRoom-=2;
-				Bonk.enterRoom();
-				break;
-			}
-
-		case("w"): case("west"):
-			if(currentRoom%2==1) {
-				System.out.println("You can't go that way!");
-				break;
-			}else {
-				currentRoom++;
-				Bonk.enterRoom();
-				break;
-			}
-
-		default: 
-			System.out.println("What?!");	
-			break;
-		}
-
-	}
 
 	public void searchRoom() {    	
 		System.out.println("\n" + Bonk.rooms.get(Bonk.player.getCurrentRoomInt()).getDescription());
@@ -290,6 +158,51 @@ public class Player {
 	public int getCurrentRoomInt() {
 		return currentRoom;
 	}
+
+	public void attack(boolean playerTurn, Mob mob) {
+		if (playerTurn == true) {
+			System.out.println("You attack a " + mob.type + " with "+ mob.health + " health");
+			if (Math.random() <= critChance) {
+				mob.setHealth(power*2 - mob.armour);
+				System.out.println("YOU CRITICALLY STRIKE THE MOB FOR " +  (power*2 - mob.armour) + " DAMAGE!");
+				System.out.println("The mob's health drops to " + mob.health);
+				playerTurn = false;
+			}
+			else {
+				mob.setHealth(power-mob.armour);
+				System.out.println("You hit the mob for " + (power - mob.armour) + " damage");
+				System.out.println("The mob's health drops to " + mob.health);
+				playerTurn = false;
+			}
+			
+			if (mob.health > 0 && playerTurn == false) {
+				if (armour > mob.power) {
+					if (health <= 0) {
+						health = 0;
+					}
+					System.out.println("Your health drops to " + health );
+					playerTurn = true;
+				}
+				else {	
+					health = health - mob.power + armour;
+					if (health <= 0) {
+						health = 0;
+					}
+					System.out.println("\nYour health drops to " + health);
+					playerTurn = true;
+				}
+				if (health <= 0) {
+					Bonk.setIsAlive(false);
+				}
+			}
+
+			if (mob.health <= 0) {
+				Bonk.isMob = false;
+				System.out.println("\nYou have successfully defeated the mob and can now advance to the next room.");
+			}
+		}	
+
+	} 
 
 	public void setCoins(int coins) {
 		this.coins=coins;

@@ -1,5 +1,6 @@
 package components;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -486,7 +487,7 @@ public class Item {
 			System.out.printf("Dodge chance:\t%d%%\n",(int)(dodgeChance*100));
 		}
 	}
-    
+
 	public enum Rarity {
 		
 		COMMON,
