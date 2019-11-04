@@ -1,12 +1,10 @@
+package components;
 
 
 
 import java.util.ArrayList;
 
-import components.Player;
-import components.Room;
-import items.Item;
-import items.Item.Type;
+import components.Item.Type;
 
 public class Bonk {
 
