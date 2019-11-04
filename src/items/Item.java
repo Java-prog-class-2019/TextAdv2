@@ -27,58 +27,171 @@ public class Item {
 	int bonusHealth;
 	double dodgeChance;
 	
+	// Consumable stats
 	int health_bonus;
 	int power_bonus;
+	int armour_bonus;
 	double crit_bonus;
 	double dodge_bonus;
 
-
 	Random random = new Random();
 
-	String name;
+	String name = "";
 
 	Rarity rarity;
 	Type type;
 	Size size;
 	ConsumableType con_type;
 
+	
 	public Item() {
 		
 		chooseType();
 		chooseRarity();
 		
 		if(type == Type.CONSUMABLE) {
+			
 			chooseSize();
+			generateEffect();
 			genConsumeName();
 			genConsumableStats();
 			
 		}
+		
 		if(type == Type.ARMOUR) {
 			genArmourName();
 			genStats();
 		}
+		
 		if(type == Type.WEAPON) {
 			genWeaponName();
 			genStats();
 		}
+		
+		
+	}
+	
+	// Shop class constuctor! 
+	public Item(Type type, Rarity rarity) {
+		this.type = type;
+		this.rarity = rarity;
+		if(type == Type.CONSUMABLE) {
+			
+			chooseSize();
+			generateEffect();
+			genConsumeName();
+			genConsumableStats();
+			
+		}
+		
+		if(type == Type.ARMOUR) {
+			genArmourName();
+			genStats();
+		}
+		
+		if(type == Type.WEAPON) {
+			genWeaponName();
+			genStats();
+		}
+		
 	}
 	
 	private void genConsumableStats() {
 		
 		if(size == Size.SMALL) {
+			switch(con_type) {
+			case HEALTH:
+				health_bonus += 2;
+				break;
+				
+			case FORTITUDE:
+				armour_bonus += 2;		
+				break;
+
+			case UNKNOWN:
+				health_bonus += -2;
+				break;
+
+			case STRENGTH:
+				power_bonus += 2;
+				break;
+
+			case SWIFTNESS:
+				// 10 percent increase for dodgeChance.
+				dodge_bonus += 0.10;
+				break;
+
+			case RAGE:
+				crit_bonus += 0.10;
+				break;
+			}
 			
 		}
+			
 		if(size == Size.MEDIUM) {
 			
-		}
-		if(size == Size.VENTI) {
+			switch(con_type) {
+			case HEALTH:
+				health_bonus += 2;
+				break;
+				
+			case FORTITUDE:
+				armour_bonus += 2;		
+				break;
+
+			case UNKNOWN:
+				crit_bonus += -0.10;
+				break;
+
+			case STRENGTH:
+				power_bonus += 2;
+				break;
+
+			case SWIFTNESS:
+				// 30 percent increase for dodgeChance.
+				dodge_bonus += 0.30;
+				break;
+
+			case RAGE:
+				crit_bonus += 0.30;
+				break;
+			}
 			
 		}
 		
-		
+		if(size == Size.VENTI) {
+			
+			switch(con_type) {
+			case HEALTH:
+				health_bonus += 2;
+				break;
+				
+			case FORTITUDE:
+				armour_bonus += 2;		
+				break;
+
+			case UNKNOWN:
+				health_bonus += -2;
+				break;
+
+			case STRENGTH:
+				power_bonus += 2;
+				break;
+
+			case SWIFTNESS:
+				// 10 percent increase for dodgeChance.
+				dodge_bonus += 0.10;
+				break;
+
+			case RAGE:
+				crit_bonus += 0.10;
+				break;
+			}
+		}
 	}
 
 	public void chooseType() {
+		
 		double chance = random.nextDouble();
 		
 		if ( chance >= 0.333) {
@@ -211,6 +324,8 @@ public class Item {
 	
 	public void genConsumeName() {
 		
+		
+		
 		switch(size){
 			case SMALL:
 				name += "Small ";
@@ -226,7 +341,13 @@ public class Item {
 
 		}
 		
+		
+		int rand_item = random.nextInt(Container_Names.length);
+		
+		name += Container_Names[rand_item] + " of ";
+		
 		switch(con_type) {
+		
 			case HEALTH:
 				name += "Healing ";
 				break;
@@ -253,15 +374,13 @@ public class Item {
 
 		}
 		
-		int rand_item = random.nextInt(Container_Names.length);
 		
-		name += Container_Names[rand_item];
 		
 	}
 	
 	public void generateEffect() {
 		
-		int rand_type = random.nextInt(7);
+		int rand_type = random.nextInt(6);
 		
 		ArrayList<ConsumableType> consumabletypes = new ArrayList<ConsumableType>(Arrays.asList(ConsumableType.values()));
 		
@@ -378,6 +497,13 @@ public class Item {
 	public void setType(Type type) {
 		this.type = type;
 	}
+
+	public Size getSize() {
+		return size;
+	}
+	
+	
+	
 	
 	
 

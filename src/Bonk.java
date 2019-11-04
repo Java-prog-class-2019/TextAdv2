@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import components.Player;
 import components.Room;
-import items.Consumables;
 import items.Item;
 import items.Item.Type;
 
@@ -56,9 +55,6 @@ public class Bonk {
 		for(Room r:rooms) {
 			System.out.println(r.getDescription());
 		}
-		
-		Consumables thing = new Consumables();
-		System.out.println(thing.name);
 	}
 	
 	public void enterRoom(){
@@ -70,25 +66,10 @@ public class Bonk {
 	  //Item 
 	  	Item item = new Item();
 	  	
-		System.out.println(item.getType().toString());
-		System.out.println(item.getName());
-		System.out.println(item.getRarity().toString());
-		
-		if (item.getType() == Type.WEAPON) {
-      
-		  System.out.println("Power: " + item.getPower());
-		  System.out.println("Crit Chance: " + item.getCritChance());
-      
-		}
-		
-		if (item.getType() == Type.ARMOUR) {
-      
-		  System.out.println("Bonus Health: " + item.getBonusHealth());
-		  System.out.println("Defence: " + item.getDefence());
-		  System.out.println("Dodge Chance: " + item.getDodgeChance());
-		  System.out.println(" Welcome to Bonk! Type 'help' for a list of commands \n");
-      
-		}
+	  	if(item.getType() == Type.CONSUMABLE) {
+	  		System.out.println(item.getSize());
+	  		System.out.println(item.getName());
+	  	}
 		
   	}
 	
