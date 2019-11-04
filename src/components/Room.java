@@ -122,7 +122,7 @@ public class Room {
 		this.isItem = isItem;
 		
 		if(isItem) {
-			item = new Item();
+			item = new Item(number);
 		}
 		if(!isItem) {
 			item = null;

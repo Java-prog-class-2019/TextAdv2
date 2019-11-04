@@ -11,7 +11,7 @@ public class Player {
 	String name;
 	private int currentRoom;						//integer value of the current room
 	ArrayList<Item> inv = new ArrayList<Item>();	//inventory
-	private int coins = 100;
+	private int coins = 15;
 	Item currentWeapon;
 	Item currentArmour;
 
@@ -90,7 +90,11 @@ public class Player {
 			System.out.println("List of commands: help, pickup, equip <1, 2, 3, etc.>, search, move <n, w, e, s>, etc.");
 		break;
 		case ("shop"):
-			Bonk.player.getCurrentRoomObj().shop.printShop();
+			if(currentRoom == 5 || currentRoom == 11 || currentRoom == 17) {
+				Bonk.player.getCurrentRoomObj().shop.printShop();
+			}else {
+				System.out.println("You see no shop.");
+			}
 		break;
 		case ("move"):
 			move(word2);

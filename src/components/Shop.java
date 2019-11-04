@@ -36,12 +36,12 @@ public class Shop {
 
 	ArrayList<Buyable> shopItems = new ArrayList<Buyable>();
 	Buyable a, b, c, d, e, f;
-	Item weaponA = new Item(Type.WEAPON, setRarity());
-	Item armourA = new Item(Type.ARMOUR, setRarity());
+	Item weaponA;
+	Item armourA;
 	Item weaponB;
 	Item armourB;
-	Item conA = new Item(Type.CONSUMABLE, setRarity());
-	Item conB = new Item(Type.CONSUMABLE, setRarity());
+	Item conA;
+	Item conB;
 	Item conC;
 	Item conD;
 
@@ -50,43 +50,47 @@ public class Shop {
 
 	public Shop(int roomNum) {	//constructor
 
+		weaponA = new Item(Type.WEAPON, setRarity(roomNum));
 		a = new Buyable(weaponA);
 		shopItems.add(a);
 
+		armourA = new Item(Type.ARMOUR, setRarity(roomNum));
 		b = new Buyable(armourA);
 		shopItems.add(b);
 
 		if(roomNum>=17) {
-			weaponB = new Item(Type.WEAPON, setRarity());
+			weaponB = new Item(Type.WEAPON, setRarity(roomNum));
 			c = new Buyable(weaponB);
 			shopItems.add(c);
 
-			armourB = new Item(Type.ARMOUR, setRarity());
+			armourB = new Item(Type.ARMOUR, setRarity(roomNum));
 			d = new Buyable(armourB);
 			shopItems.add(d);
 		}else {
-			conC = new Item(Type.CONSUMABLE, setRarity());
+			conC = new Item(Type.CONSUMABLE, setRarity(roomNum));
 			c = new Buyable(conC);
 			shopItems.add(c);
 
-			conD = new Item(Type.CONSUMABLE, setRarity());
+			conD = new Item(Type.CONSUMABLE, setRarity(roomNum));
 			d = new Buyable(conD);
 			shopItems.add(d);
 		}
 		
+		conA = new Item(Type.CONSUMABLE, setRarity(roomNum));
 		e = new Buyable(conA);
 		shopItems.add(e);
 		
+		conB = new Item(Type.CONSUMABLE, setRarity(roomNum));
 		f = new Buyable(conB);
 		shopItems.add(f);
 	}
 
 
-	private Rarity setRarity() {
+	private Rarity setRarity(int roomNum) {
 
 		double chance = Math.random();
 
-		if(Bonk.player.getCurrentRoomInt()==5) {
+		if(roomNum == 5) {
 			if (chance < 0.5) {
 				return Rarity.COMMON;
 			}else {
@@ -94,7 +98,7 @@ public class Shop {
 			}
 		}
 
-		if(Bonk.player.getCurrentRoomInt()==11) {
+		if(roomNum == 11) {
 			if(chance < 0.15) {
 				return Rarity.LEGENDARY;
 			}else if(chance >= 0.15 && chance < 0.65) {
@@ -105,7 +109,7 @@ public class Shop {
 		}
 
 
-		if(Bonk.player.getCurrentRoomInt()==17) {
+		if(roomNum == 17) {
 			if (chance < 0.6) {
 				return Rarity.LEGENDARY;
 			}else {

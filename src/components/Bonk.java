@@ -98,15 +98,4 @@ public class Bonk {
 		
 
 	}
-
-  public void itemStatTest() {
-	  //Item 
-	  	Item item = new Item();
-	  	
-	  	if(item.getType() == Type.CONSUMABLE) {
-	  		System.out.println(item.getSize());
-	  		System.out.println(item.getName());
-	  	}
-		
-  	}
 }

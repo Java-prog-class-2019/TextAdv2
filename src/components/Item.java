@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import components.Item.Rarity;
+
 public class Item {
 
 	String CWeapon [] = {"A Dull Crayon", "A Paper Machet Sword", "Twin Blades", "A Scythe of Bad Fortune", "An Old Water Bottle","A Rusty Sword", "A Caveman's Club"};
@@ -46,10 +48,10 @@ public class Item {
 
 	
 	// Item Constructor
-	public Item() {
+	public Item(int roomNum) {
 
 		chooseType();
-		chooseRarity();
+		chooseRarity(roomNum);
 
 		if(type == Type.CONSUMABLE) {
 
@@ -208,17 +210,34 @@ public class Item {
 		}
 	}
 
-	public void chooseRarity() {
+	public void chooseRarity(int roomNum) {
 
 		double chance = random.nextDouble();
 
-		if(chance < 1) {
-			rarity = Rarity.COMMON;
+		if(roomNum < 6) {
 			if (chance < 0.5) {
+				rarity = Rarity.COMMON;
+			}else {
 				rarity = Rarity.RARE;
-				if (chance < 0.15) {
-					rarity = Rarity.LEGENDARY;
-				}
+			}
+		}
+
+		if(roomNum >=6 && roomNum < 12) {
+			if(chance < 0.15) {
+				rarity = Rarity.LEGENDARY;
+			}else if(chance >= 0.15 && chance < 0.65) {
+				rarity = Rarity.RARE;
+			}else {
+				rarity = Rarity.COMMON;
+			}
+		}
+
+
+		if(roomNum >= 12) {
+			if (chance < 0.6) {
+				rarity = Rarity.LEGENDARY;
+			}else {
+				rarity = Rarity.RARE;
 			}
 		}
 	}
