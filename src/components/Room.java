@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Room {
 	
 	/***** Instance variables *****/
+
 	public String title;																	//Title of the room
 	public String description;																//Message that displays when you enter a room
 	public String descrMob = "";
@@ -15,7 +16,7 @@ public class Room {
 	boolean isShop=false;																	//Is it a shop room?
 	public boolean isMob;																//Is it an enemy room?
 	Item item;																				//Item
-//	Shop shop;
+	Shop shop;
 	public Mob mob;
 	
 	/*******************************/
@@ -31,13 +32,15 @@ public class Room {
 		if(number==18)roomType = "boss";
 		if(number%6==5) {
 			isShop=true;
+
+			shop = new Shop(number);
 		}
+    
 		
 		title = randomTitle();
 		description = randomDescriptor() + exits();
 
 		if(isShop) description+=" You spot a wary shopkeeper! Type \"shop\" to see deals.";
-
 	}
 
 	private String randomDescriptor() {		//Creates a random description for each room, based on its pre-set parameters.
@@ -116,7 +119,7 @@ public class Room {
 		this.isItem = isItem;
 		
 		if(isItem) {
-			item = new Item();
+			item = new Item(number);
 		}
 		if(!isItem) {
 			item = null;

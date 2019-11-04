@@ -1,10 +1,12 @@
 package components;
 
 
-import components.Item.Type;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import components.Item.Type;
 
 public class Bonk {
 
@@ -18,6 +20,7 @@ public class Bonk {
 	static boolean alive = true;
 	static boolean win = false;
 	static boolean isMob = true;		//Is there a (living) enemy in the room?
+
 
 
 	public static void main(String[] args) { 
@@ -204,6 +207,7 @@ public class Bonk {
 			break;
 		}
 		
+
 		if (rooms.get(currentRoom).mob.health > 0) {
 			isMob = true;
 		}
@@ -246,7 +250,6 @@ public class Bonk {
 
 		// Print Title of the entered room.
 		String title = rooms.get(getCurrentRoomInt()).getTitle();
-
 		System.out.println();
 		for(int i=0; i < title.length()+4; i++) {			
 			System.out.print("-");
@@ -303,6 +306,7 @@ public class Bonk {
 		this.currentRoom = currentRoom;
 	}
 
+
 	public Room getCurrentRoomObj() {
 		return rooms.get(currentRoom);
 	}
@@ -316,4 +320,5 @@ public class Bonk {
 	public static void setIsAlive (boolean isAlive) {
 		alive = isAlive;
 	}
+
 }

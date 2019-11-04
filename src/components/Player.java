@@ -4,22 +4,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import components.Item.Type;
+
 public class Player {
 
 	String name;
+  
+	private int currentRoom;						//integer value of the current room
 	ArrayList<Item> inv = new ArrayList<Item>();	//inventory
-	private int coins = 0;
+	private int coins = 15;
+	Item currentWeapon;
+	Item currentArmour;
 
 
 	// Hard Stats
-	int power = 5;
-	int armour;
-	int health = 15;
-	int bonusHealth;
+	int power=3;
+	int armour=0;
+	int health=15;
+	int bonusHealth=0;
 
 	//Soft Stats
-	double dodgeChance;
-	double critChance;
+	double dodgeChance=0.0;
+	double critChance=0.0;
 
 
 
@@ -27,8 +33,13 @@ public class Player {
 
 	}
 
+	public void pickupItem(Item item) {	//adds item to inventory
+		inv.add(item);
+	}
+
 	public void dropItem(Item item) {	//removes item from inventory
 		inv.remove(item);
+
 	}
 
 	public void applyStats(Item item) {
@@ -43,10 +54,110 @@ public class Player {
 		critChance -= item.critChance;
 		power -= item.power;
 		armour -= item.defence;
+
 	}
 
 
+	public void searchRoom() {    	
+		System.out.println("\n" + Bonk.rooms.get(Bonk.player.getCurrentRoomInt()).getDescription());
+	}
 
+	public void printInv() {	//prints out inventory as a vertical list
+
+		//Coins
+		System.out.println("\n" + coins + " coins.\n");
+		//Equipped Items
+		if(currentWeapon==null && currentArmour==null) {
+			System.out.println("Nothing Equipped.");
+		}
+		if(currentWeapon!=null) {
+			System.out.println("Current Weapon = " + currentWeapon.name);
+		}
+		if(currentArmour!=null) {
+			System.out.println("Current Armour = " + currentArmour.name);
+		}
+		
+		//Other items
+		if(inv.size() == 0) {
+			System.out.println("\nEmpty Inventory.");
+		}else {
+			System.out.println("\nInventory:");
+		}
+		for(int i = 0; i < inv.size(); i++) {
+			System.out.printf(i+1 + ". %s (%s)%n", inv.get(i).getName(), inv.get(i).type.toString());
+		}
+
+	}
+
+
+	public void pickup() {	//picks up item
+
+
+
+		if ( getCurrentRoomObj().getIsItem() ) {	//makes sure room has an item
+
+			pickupItem(getCurrentRoomObj().item);	//adds item to inventory
+
+			System.out.print("You pick up ");		//pickup message		
+			System.out.println(getCurrentRoomObj().item.name);	
+			getCurrentRoomObj().item.printItem();
+
+			getCurrentRoomObj().setItem(false);		//removes the ite4m from the room	
+		}else {
+			System.out.println("There is nothing to pick up.");
+		}
+	}
+	
+	
+	public void equip(String item){
+		int index = (int)(item.charAt(0))-49;
+		if(inv.size()>index) {
+			if(inv.get(index).type==Type.WEAPON) {
+				if(currentWeapon==null) {
+					System.out.println("You equipped " + inv.get(index).name + ".");
+					currentWeapon=inv.get(index);
+					applyStats(currentWeapon);
+					inv.remove(inv.get(index));
+				}else {
+					System.out.println("You equipped " + inv.get(index).name + ".");
+					removeStats(currentWeapon);
+					inv.add(currentWeapon);
+					currentWeapon=inv.get(index);
+					applyStats(currentWeapon);
+					inv.remove(inv.get(index));
+				}
+			}else{
+				if(currentArmour==null) {
+					System.out.println("You equipped " + inv.get(index).name + ".");
+					currentArmour=inv.get(index);
+					applyStats(currentArmour);
+					inv.remove(inv.get(index));
+				}else {
+					System.out.println("You equipped " + inv.get(index).name + ".");
+					removeStats(currentArmour);
+					inv.add(currentArmour);
+					currentArmour=inv.get(index);
+					applyStats(currentArmour);
+					inv.remove(inv.get(index));
+				}
+			}
+		}else {
+			System.out.println("You can't do that.");
+		}
+	}
+
+	/*******getters and setters*************************/ 
+	public void setCurrentRoom(int currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+
+	public Room getCurrentRoomObj() {
+		return Bonk.rooms.get(currentRoom);
+	}
+
+	public int getCurrentRoomInt() {
+		return currentRoom;
+	}
 
 	public void attack(boolean playerTurn, Mob mob) {
 		if (playerTurn == true) {
@@ -92,11 +203,6 @@ public class Player {
 		}	
 
 	} 
-
-
-
-
-
 
 	public void setCoins(int coins) {
 		this.coins=coins;
