@@ -134,11 +134,11 @@ public class Item {
 
 			switch(con_type) {
 			case HEALTH:
-				health_bonus += 2;
+				health_bonus += 3;
 				break;
 
 			case FORTITUDE:
-				armour_bonus += 2;		
+				armour_bonus += 3;		
 				break;
 
 			case UNKNOWN:
@@ -146,16 +146,16 @@ public class Item {
 				break;
 
 			case STRENGTH:
-				power_bonus += 2;
+				power_bonus += 3;
 				break;
 
 			case SWIFTNESS:
-				// 30 percent increase for dodgeChance.
-				dodge_bonus += 0.30;
+				// 20 percent increase for dodgeChance.
+				dodge_bonus += 0.20;
 				break;
 
 			case RAGE:
-				crit_bonus += 0.30;
+				crit_bonus += 0.20;
 				break;
 			}
 
@@ -165,11 +165,11 @@ public class Item {
 
 			switch(con_type) {
 			case HEALTH:
-				health_bonus += 2;
+				health_bonus += 4;
 				break;
 
 			case FORTITUDE:
-				armour_bonus += 2;		
+				armour_bonus += 4;		
 				break;
 
 			case UNKNOWN:
@@ -177,16 +177,16 @@ public class Item {
 				break;
 
 			case STRENGTH:
-				power_bonus += 2;
+				power_bonus += 4;
 				break;
 
 			case SWIFTNESS:
 				// 10 percent increase for dodgeChance.
-				dodge_bonus += 0.10;
+				dodge_bonus += 0.30;
 				break;
 
 			case RAGE:
-				crit_bonus += 0.10;
+				crit_bonus += 0.30;
 				break;
 			}
 		}

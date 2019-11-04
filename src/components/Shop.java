@@ -3,7 +3,9 @@ package components;
 import java.util.ArrayList;
 import java.util.Random;
 
+import components.Item.ConsumableType;
 import components.Item.Rarity;
+import components.Item.Size;
 import components.Item.Type;
 
 public class Shop {
@@ -14,7 +16,7 @@ public class Shop {
 		Item item;
 		int price=0;
 
-		public Buyable(Item item/*, Consumable consumable*/) {	//constructor
+		public Buyable(Item item) {	//constructor
 			this.item = item;
 			//			this.consumable = consumable;
 			if(item.type==Type.WEAPON) {
@@ -23,18 +25,23 @@ public class Shop {
 			if(item.type==Type.ARMOUR) {
 				price = item.defence*2 + item.bonusHealth*2 + (int)(item.dodgeChance*10);
 			}
+			if(item.type==Type.CONSUMABLE) {
+				if(item.getSize()==Size.SMALL) price = 4;
+				if(item.getSize()==Size.MEDIUM) price = 6;
+				if(item.getSize()==Size.VENTI) price = 8;
+			}
 		}
 	}
 	/***********************************/
 
 	ArrayList<Buyable> shopItems = new ArrayList<Buyable>();
 	Buyable a, b, c, d, e, f;
-	Item weaponA = new Item();
-	Item armourA = new Item();
+	Item weaponA = new Item(Type.WEAPON, setRarity());
+	Item armourA = new Item(Type.ARMOUR, setRarity());
 	Item weaponB;
 	Item armourB;
-	Item conA = new Item();
-	Item conB = new Item();
+	Item conA = new Item(Type.CONSUMABLE, setRarity());
+	Item conB = new Item(Type.CONSUMABLE, setRarity());
 	Item conC;
 	Item conD;
 
@@ -43,101 +50,70 @@ public class Shop {
 
 	public Shop(int roomNum) {	//constructor
 
-		setWeapon(weaponA);
 		a = new Buyable(weaponA);
 		shopItems.add(a);
 
-		setArmour(armourA);
 		b = new Buyable(armourA);
 		shopItems.add(b);
 
 		if(roomNum>=17) {
-			weaponB = new Item();
-			setWeapon(weaponB);
+			weaponB = new Item(Type.WEAPON, setRarity());
 			c = new Buyable(weaponB);
 			shopItems.add(c);
 
-			armourB = new Item();
-			setArmour(armourB);
+			armourB = new Item(Type.ARMOUR, setRarity());
 			d = new Buyable(armourB);
 			shopItems.add(d);
 		}else {
+			conC = new Item(Type.CONSUMABLE, setRarity());
+			c = new Buyable(conC);
+			shopItems.add(c);
 
+			conD = new Item(Type.CONSUMABLE, setRarity());
+			d = new Buyable(conD);
+			shopItems.add(d);
 		}
-
+		
+		e = new Buyable(conA);
+		shopItems.add(e);
+		
+		f = new Buyable(conB);
+		shopItems.add(f);
 	}
 
 
-	private void setWeapon(Item weapon){	//Sets the stats for the weapon
-		weapon.type = Type.WEAPON;
+	private Rarity setRarity() {
 
-		double chance = random.nextDouble();
+		double chance = Math.random();
 
 		if(Bonk.player.getCurrentRoomInt()==5) {
-			weapon.rarity = Rarity.COMMON;
 			if (chance < 0.5) {
-				weapon.rarity = Rarity.RARE;
-			}
-
-		}
-
-		if(Bonk.player.getCurrentRoomInt()==11) {
-			weapon.rarity = Rarity.COMMON;
-			if (chance < 0.65) {
-				weapon.rarity = Rarity.RARE;
-				if (chance < 0.15) {
-					weapon.rarity = Rarity.LEGENDARY;
-				}
-			}
-
-		}
-
-
-		if(Bonk.player.getCurrentRoomInt()==17) {
-			weapon.rarity = Rarity.RARE;
-			if (chance < 0.4) {
-				weapon.rarity = Rarity.LEGENDARY;
-			}
-
-
-		}
-
-		weapon.genStats();
-		weapon.genWeaponName();
-	}
-
-
-	private void setArmour(Item armour) {	//Sets the stats for the armour
-		armour.type = Type.ARMOUR;
-
-		double chance = random.nextDouble();
-
-		if(Bonk.player.getCurrentRoomInt()==5) {
-			armour.rarity = Rarity.COMMON;
-			if (chance < 0.3) {
-				armour.rarity = Rarity.RARE;
+				return Rarity.COMMON;
+			}else {
+				return Rarity.RARE;
 			}
 		}
 
 		if(Bonk.player.getCurrentRoomInt()==11) {
-			armour.rarity = Rarity.COMMON;
-			if (chance < 0.65) {
-				armour.rarity = Rarity.RARE;
-				if (chance < 0.15) {
-					armour.rarity = Rarity.LEGENDARY;
-				}
+			if(chance < 0.15) {
+				return Rarity.LEGENDARY;
+			}else if(chance >= 0.15 && chance < 0.65) {
+				return Rarity.RARE;
+			}else {
+				return Rarity.COMMON;
 			}
 		}
+
 
 		if(Bonk.player.getCurrentRoomInt()==17) {
-			armour.rarity = Rarity.RARE;
-			if (chance < 0.4) {
-				armour.rarity = Rarity.LEGENDARY;
+			if (chance < 0.6) {
+				return Rarity.LEGENDARY;
+			}else {
+				return Rarity.RARE;
 			}
 		}
 
-		armour.genStats();
-		armour.genArmourName();
+		return null;
 	}
 
 
@@ -157,6 +133,7 @@ public class Shop {
 		}
 	}
 
+	
 	public void printShop() {	//Prints out the contents of the shop in a neat grid, line by line
 
 		if(shopItems.size()==0) {
@@ -210,6 +187,26 @@ public class Shop {
 						if(shopItems.get(i + j).item.type==Type.ARMOUR) {
 							System.out.printf("| %-59s", "Defence: " + shopItems.get(i + j).item.defence);
 						}
+						if(shopItems.get(i + j).item.type==Type.CONSUMABLE) {
+							if(shopItems.get(i + j).item.con_type == ConsumableType.FORTITUDE) {
+								System.out.printf("| %-59s", "Armour Bonus: " + shopItems.get(i + j).item.armour_bonus);
+							}
+							if(shopItems.get(i + j).item.con_type == ConsumableType.HEALTH) {
+								System.out.printf("| %-59s", "Health Bonus: " + shopItems.get(i + j).item.health_bonus);
+							}
+							if(shopItems.get(i + j).item.con_type == ConsumableType.RAGE) {
+								System.out.printf("| %-59s", "Crit Bonus: " + shopItems.get(i + j).item.crit_bonus);
+							}
+							if(shopItems.get(i + j).item.con_type == ConsumableType.STRENGTH) {
+								System.out.printf("| %-59s", "Power Bonus: " + shopItems.get(i + j).item.power_bonus);
+							}
+							if(shopItems.get(i + j).item.con_type == ConsumableType.SWIFTNESS) {
+								System.out.printf("| %-59s", "Dodge Bonus: " + shopItems.get(i + j).item.dodge_bonus);
+							}
+							if(shopItems.get(i + j).item.con_type == ConsumableType.UNKNOWN) {
+								System.out.printf("| %-59s", "Unknown Effects");
+							}
+						}
 					}else {
 						System.out.printf("%-61c", '|');
 					}
@@ -225,6 +222,9 @@ public class Shop {
 						if(shopItems.get(i + j).item.type==Type.ARMOUR) {
 							System.out.printf("| %-59s", "Bonus Health: " + shopItems.get(i + j).item.bonusHealth);
 						}
+						if(shopItems.get(i + j).item.type==Type.CONSUMABLE) {
+							System.out.printf("%-61c", '|');
+						}
 					}else {
 						System.out.printf("%-61c", '|');
 					}
@@ -239,6 +239,9 @@ public class Shop {
 						}
 						if(shopItems.get(i + j).item.type==Type.ARMOUR) {
 							System.out.printf("| %-59s", "Dodge Chance: " + shopItems.get(i + j).item.dodgeChance * 100 + "%");
+						}
+						if(shopItems.get(i + j).item.type==Type.CONSUMABLE) {
+							System.out.printf("%-61c", '|');
 						}
 					}else {
 						System.out.printf("%-61c", '|');
