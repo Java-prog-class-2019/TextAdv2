@@ -1,7 +1,5 @@
 package components;
 
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -295,6 +293,7 @@ public class Item {
 					bonusHealth = bonusHealth -3;
 				}
 			}
+			}
 		}
 	}
 
@@ -440,6 +439,7 @@ public class Item {
 			
 			if(rarity==Rarity.LEGENDARY&& dodgeChance > 0) {
 				name = LArmour[(int)(Math.random()*LArmour.length)] + ANames[(int)(Math.random()*ANames.length)];
+			}
 			}
 		}
 	}

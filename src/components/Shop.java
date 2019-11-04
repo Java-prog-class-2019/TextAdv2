@@ -103,7 +103,7 @@ public class Shop {
 		}
 
 		weapon.genStats();
-		weapon.makeName();
+		weapon.genWeaponName();
 	}
 
 
@@ -137,7 +137,7 @@ public class Shop {
 		}
 
 		armour.genStats();
-		armour.makeName();
+		armour.genArmourName();
 	}
 
 
