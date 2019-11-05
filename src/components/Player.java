@@ -11,7 +11,7 @@ public class Player {
 	String name = "Billy";
   
 	ArrayList<Item> inv = new ArrayList<Item>();	//inventory
-	private int coins = 15;
+	private int coins = 5;
 	Item currentWeapon;
 	Item currentArmour;
 
@@ -138,6 +138,8 @@ public class Player {
 			}
 
 			if (mob.health <= 0) {
+				System.out.println("The mob drops " + mob.power + " coins, and you decide to pick them up. + " + mob.power + " coins.");
+				coins = coins + mob.power;
 				Bonk.isMob = false;
 				System.out.println("\nYou have successfully defeated the mob and can now advance to the next room.");
 			}

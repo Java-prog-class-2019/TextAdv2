@@ -185,7 +185,7 @@ public class Bonk {
 
 
 	private void consume(String word2) {	//Consumes item from inventory
-		
+
 	}
 
 	public void equip(String item){	//Equips item
@@ -199,15 +199,15 @@ public class Bonk {
 		if(player.inv.size() > index && index > -1) {	//Makes sure index is a valid value
 			if(player.inv.get(index).type == Type.WEAPON) {	//Checks item type, and if one is already equipped. Removes old item and equips new one.
 				if(player.currentWeapon == null) {
-					
+
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.currentWeapon = player.inv.get(index);
 					player.applyStats(player.currentWeapon);
 					player.inv.remove(player.inv.get(index));
 					return;
-					
+
 				} else {
-					
+
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.removeStats(player.currentWeapon);
 					player.inv.add(player.currentWeapon);
@@ -215,22 +215,22 @@ public class Bonk {
 					player.applyStats(player.currentWeapon);
 					player.inv.remove(player.inv.get(index));
 					return;
-					
+
 				}
 			}
 
 			if(player.inv.get(index).type == Type.ARMOUR){
-				
+
 				if(player.currentArmour == null) {
-					
+
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.currentArmour = player.inv.get(index);
 					player.applyStats(player.currentArmour);
 					player.inv.remove(player.inv.get(index));
 					return;
-					
+
 				} else {
-					
+
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.removeStats(player.currentArmour);
 					player.inv.add(player.currentArmour);
@@ -238,103 +238,103 @@ public class Bonk {
 					player.applyStats(player.currentArmour);
 					player.inv.remove(player.inv.get(index));
 					return;
-					
+
 				}
 			}
 
 			if(player.inv.get(index).type == Type.CONSUMABLE){
-				
+
 				System.out.println("You can't equip consumables.");
-				
+
 			}
 		}else {
-			
+
 			System.out.println("You can't do that.");
-			
+
 		}
 	}
 
 	public void move(String dir) {	
-		
+
 		/* moves player. First checks if specified movement direction is possible,
 		 then either changes the current room, or prints an error message*/
 
 		switch(dir) {
-		
+
 		case("n"): case("north"):
 			if(currentRoom == 18) {
-				
+
 				Bonk.win=true;
 				break;
-				
+
 			}
 		if(currentRoom % 6 == 5) {
-			
+
 			System.out.println("You can't go that way!");
 			break;
-			
+
 		} else {
-			
+
 			currentRoom += 2;
 			enterRoom();
 			break;
-			
+
 		}
 
 		case("e"): case("east"):
 			if(currentRoom % 2 == 0) {
-				
+
 				System.out.println("You can't go that way!");
 				break;
-				
+
 			} else {
-				
+
 				currentRoom--;
 				enterRoom();
 				break;
-				
+
 			}
 
 		case("s"): case("south"):
 			if(currentRoom % 6 == 1 || currentRoom == 0) {
-				
+
 				System.out.println("You can't go that way!");   
 				break;
-				
+
 			} else {
-				
+
 				currentRoom -= 2;
 				enterRoom();
 				break;
-				
+
 			}
 
 		case("w"): case("west"):
 			if(currentRoom % 2 == 1) {
-				
+
 				System.out.println("You can't go that way!");
 				break;
-				
+
 			} else {
-				
+
 				currentRoom++;
 				enterRoom();
 				break;
-				
+
 			}
 
 		default: 
-			
+
 			System.out.println("You gotta be more specific...");	
 			break;
-			
+
 		}
 
 
 		if (rooms.get(currentRoom).mob.health > 0) {
-			
+
 			isMob = true;
-		
+
 		}
 	}
 
@@ -346,7 +346,7 @@ public class Bonk {
 	public void printInv() {	//prints out inventory as a vertical list
 		//Coins
 		System.out.println("\n" + player.getCoins() + " coins.\n");
-		
+
 		//Equipped Items
 		if(player.currentWeapon == null && player.currentArmour == null) {
 			System.out.println("Nothing Equipped.");
@@ -358,14 +358,26 @@ public class Bonk {
 			System.out.println("Current Armour = " + player.currentArmour.name);
 		}
 
-		//Other items
+		//Coins
+		System.out.println(player.getCoins() + " coins.\n");
+		//stats print
+		System.out.println("Power: " + player.power);
+		System.out.println("Armour: " + player.armour);
+		System.out.println("Health: " + player.health);
+		System.out.println("Dodge Chance: " + player.dodgeChance);
+		System.out.println("Crit Chance: " + player.critChance);
+		//Equipped Items
+		if(player.currentWeapon==null && player.currentArmour==null) {
+			System.out.println("\nNothing Equipped.");
+		}
+
+		//Other Items
 		if(player.inv.size() == 0) {
 			System.out.println("\nEmpty Inventory.");
 		}else {
-			System.out.println("\nInventory:");
-		}
-		for(int i = 0; i < player.inv.size(); i++) {
-			System.out.printf(i+1 + ". %s (%s)%n", player.inv.get(i).getName(), player.inv.get(i).type.toString());
+			for(int i = 0; i < player.inv.size(); i++) {
+				System.out.printf(i+1 + ". %s (%s)%n", player.inv.get(i).getName(), player.inv.get(i).type.toString());
+			}
 		}
 	}
 
@@ -422,7 +434,7 @@ public class Bonk {
 				rooms.get(i).mob = new MobK();
 				rooms.get(i).mob.type = MobK.names[i-6];
 				rooms.get(i).isMob = true;
-				rooms.get(i).descrMob = ("\nA " + rooms.get(i).mob.type + " is out to get you, what will you do?");	
+				rooms.get(i).descrMob = ("\nA " + rooms.get(i).mob.type + " with " + rooms.get(i).mob.health + " health is out to get you, what will you do?");	
 			}
 
 			if(rooms.get(i).roomType.equals("backyard")) {
@@ -430,7 +442,7 @@ public class Bonk {
 				rooms.get(i).mob = new MobBY();
 				rooms.get(i).mob.type = MobBY.names[i-12];
 				rooms.get(i).isMob = true;
-				rooms.get(i).descrMob = ("\nA " + rooms.get(i).mob.type + " is out to get you, what will you do?");	
+				rooms.get(i).descrMob = ("\nA " + rooms.get(i).mob.type + " with " + rooms.get(i).mob.health + " health is out to get you, what will you do?");	
 			}
 		}
 
