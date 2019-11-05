@@ -8,16 +8,16 @@ public class Room {
 
 	public String title;																	//Title of the room
 	public String description;																//Message that displays when you enter a room
-	public String descrMob = "";
+	public String descrMob = "";															//Additional description for mob rooms
 	public String descrItem="\nYou spot an item glinting on the ground in front of you.";	//Additional description exclusive to item rooms (this had to be separate from description so it could be removed if need be)
-	public String roomType;																//Type of the room (3 types based on location)
+	public String roomType;																	//Type of the room (3 types based on location)
 	private int number;																		//Distinguishes different rooms on the map. Features are mostly based on number.
-	private boolean isItem=false;															//Is it an item room?
-	boolean isShop=false;																	//Is it a shop room?
-	public boolean isMob;																//Is it an enemy room?
+	private boolean isItem = false;															//Is it an item room?
+	boolean isShop = false;																	//Is it a shop room?
+	public boolean isMob;																	//Is it an enemy room?
 	Item item;																				//Item
-	Shop shop;
-	public Mob mob;
+	Shop shop;																				//Shop
+	public Mob mob;																			//Mob
 	
 	/*******************************/
 	

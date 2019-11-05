@@ -122,8 +122,14 @@ public class Shop {
 
 
 	public void buy(String s){
+		for(char a : s.toCharArray()) {
+			if(a < 48 || a > 57) {
+				System.out.println("Nuh-uh. You've gotta type buy, then an appropriate number.");
+				return;
+			}
+		}
 		int index = Integer.parseInt(s) - 1;
-		if(index>=shopItems.size()) {
+		if(index>=shopItems.size() || index < 0) {
 			System.out.println("That's not available.");
 		}else {
 			if(Bonk.player.getCoins()>=shopItems.get(index).price) {

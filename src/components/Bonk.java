@@ -10,7 +10,7 @@ public class Bonk {
 
 	//Objects
 	static Player player = new Player();
-	public static ArrayList<Room> rooms = new ArrayList<Room>();
+	public static ArrayList<Room> rooms = new ArrayList<Room>(); //List of all the rooms in the game
 
 	// Global Variables
 	boolean playerTurn;
@@ -50,22 +50,16 @@ public class Bonk {
 
 
 
-	public void init() {
+	public void init() {	//Initialization method. Sets up the game
 
 		setupRooms();
 		setCurrentRoom(0); //starting room
-		System.out.println("You have awoken in the great hall of a haunted mansion. You must explore and fight your way out!\n\nWelcome to Bonk! Type 'help' for a list of commands \n");
+		System.out.println("You have awoken in the great hall of a haunted mansion. You must explore and fight your way out!\n\nWelcome to Bonk! Type 'help' for a list of commands \n");	//Starting text
 		enterRoom();
 
 		playerTurn = true;
 	}
 
-
-	public void chooseAction() {
-		if (playerTurn == true) {
-
-		}
-	}
 
 	public String getCommand() {	//uses scanner to get command
 
@@ -94,24 +88,35 @@ public class Bonk {
 			word2 = wordlist.get(1);
 		}
 
-		switch (word1) {
+		switch (word1) {	//Switch case statement to determine what action to perform based on the first one or two words in the command
 
-		case ("help"):
+		case ("help"):	//Help prints out a list of basic commands
 			System.out.println("List of commands: help, move <n, w, e, s>, pickup and search");
 		break;
-		
-		case("buy"):
-			if (word2 == "") {
-				System.out.println("Lemme know what you wanna buy...");
+
+		case("buy"):	//Buys an item from the shop
+			if(getCurrentRoomObj().isShop) {
+				if (word2 == "") {
+					System.out.println("Lemme know what you wanna buy...");
+					break;
+				}else {
+					getCurrentRoomObj().shop.buy(word2);
+					break;
+				}
+			}else {
+				System.out.println("There's no shop here...");
 				break;
 			}
-			getCurrentRoomObj().shop.buy(word2);
-			break;
-		case ("shop"):
-			getCurrentRoomObj().shop.printShop();
-			break;
-		
-		case ("move"):
+
+		case ("shop"):	//Displays the shop and its contents
+			if(getCurrentRoomObj().isShop) {
+				getCurrentRoomObj().shop.printShop();
+			}else {
+				System.out.println("There's no shop here...");
+			}
+		break;
+
+		case ("move"):	//Moves the player to a different room
 			if(isMob) {
 				System.out.println("Nah. Don't even try that on us, who do you think we are?");
 				break;
@@ -120,37 +125,39 @@ public class Bonk {
 				move(word2);
 				break;
 			}
-		
-		case ("inv"): case("i"): case("inventory"):
-			printInv();
-			break;
-			
-		case ("pickup"):
-			pickup();
-			break;
-			
-		case ("say"):
-			System.out.println(word2);
-			break;
-		
-		case ("search"):
-			searchRoom();
-			break;
 
-		case("n"):case("north"):case("e"):case("east"):case("s"):case("south"):case("w"):case("west"):
+		case ("inv"): case("i"): case("inventory"):	//Displays the player's inventory
+			printInv();
+		break;
+
+		case ("pickup"):	//Picks up the item from the current room, if there is one
+			pickup();
+		break;
+
+		case ("say"):	//Prints whatever the user types
+			for(int i = 1; i < wordlist.size(); i++) {
+				System.out.print(wordlist.get(i) + " ");
+			}
+		break;
+
+		case ("search"):	//Re-prints room description
+			searchRoom();
+		break;
+
+		case("n"): case("north"): case("e"): case("east"): case("s"): case("south"): case("w"): case("west"):	//Moves the player to a different room
 			if(isMob) {
-				// If there is still a mob in the room, you arent allowed to move.
+				// If there is still a mob in the room, you aren't allowed to move.
 				System.out.println("Nah. Don't even try that on us, who do you think we are?");
-				
+				break;
 			}
 			else {
-				
+
 				move(word1);
-				
+				break;
+
 			}
-			break;
-		
-		case("attack"): case("strike"): case("hit"): case("smash"):
+
+		case("attack"): case("strike"): case("hit"): case("smash"):	//Attacks the mob in the player's current room
 			if (getCurrentRoomObj().mob.health > 0) {
 				player.attack(playerTurn, rooms.get(getCurrentRoomInt()).mob);
 			}
@@ -158,33 +165,45 @@ public class Bonk {
 				System.out.println("There is no mob here to attack");
 			}
 		break;
-		case("consume"): case("eat"): case("drink"):
+		case("consume"): case("eat"): case("drink"): case("use"):	//Uses consumable
 			consume(word2);
-			break;
-		
-		case("equip"):
-			equip(word2);
+		break;
+
+		case("equip"):	//equips item from inventory
+			if(word2 == "") {
+				System.out.println("Nuh-uh. You've gotta type equip, then a number.");
+			}else {
+				equip(word2);
+			}
+		break;
 		default: 
-			System.out.println("What?!");
+			System.out.println("What?!");	//Default statement prints any time the command is not recognized or supported
 			break;
 		}
 		return false;
 	}
-	
 
-	private void consume(String word2) {
-		
+
+	private void consume(String word2) {	//Consumes item from inventory
+
 	}
-	
-	public void equip(String item){
-		int index = (int)(item.charAt(0))-49;
-		if(player.inv.size()>index) {
-			if(player.inv.get(index).type==Type.WEAPON) {
+
+	public void equip(String item){	//Equips item
+		for(char a : item.toCharArray()) {	//This loop makes sure the player has entered a number
+			if(a < 48 || a > 57) {
+				System.out.println("Nuh-uh. You've gotta type equip, then an appropriate number.");
+				return;
+			}
+		}
+		int index = Integer.parseInt(item) - 1;	//integer value of the item to be equipped
+		if(player.inv.size() > index && index > -1) {	//Makes sure index is a valid value
+			if(player.inv.get(index).type==Type.WEAPON) {	//Checks item type, and if one is already equipped. Removes old item and equips new one.
 				if(player.currentWeapon==null) {
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.currentWeapon=player.inv.get(index);
 					player.applyStats(player.currentWeapon);
 					player.inv.remove(player.inv.get(index));
+					return;
 				}else {
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.removeStats(player.currentWeapon);
@@ -192,15 +211,17 @@ public class Bonk {
 					player.currentWeapon=player.inv.get(index);
 					player.applyStats(player.currentWeapon);
 					player.inv.remove(player.inv.get(index));
+					return;
 				}
 			}
-			
+
 			if(player.inv.get(index).type == Type.ARMOUR){
 				if(player.currentArmour==null) {
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.currentArmour = player.inv.get(index);
 					player.applyStats(player.currentArmour);
 					player.inv.remove(player.inv.get(index));
+					return;
 				}else {
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.removeStats(player.currentArmour);
@@ -208,7 +229,12 @@ public class Bonk {
 					player.currentArmour=player.inv.get(index);
 					player.applyStats(player.currentArmour);
 					player.inv.remove(player.inv.get(index));
+					return;
 				}
+			}
+
+			if(player.inv.get(index).type == Type.CONSUMABLE){
+				System.out.println("You can't equip consumables.");
 			}
 		}else {
 			System.out.println("You can't do that.");
@@ -216,8 +242,8 @@ public class Bonk {
 	}
 
 	public void move(String dir) {	
-		// moves player. First checks if specified movement direction is possible,
-		// then either changes the current room, or prints an error message
+		/* moves player. First checks if specified movement direction is possible,
+		 then either changes the current room, or prints an error message*/
 
 		switch(dir) {
 
@@ -266,31 +292,45 @@ public class Bonk {
 			}
 
 		default: 
-			System.out.println("What?!");	
+			System.out.println("You gotta be more specific...");	
 			break;
 		}
-		
+
 
 		if (rooms.get(currentRoom).mob.health > 0) {
 			isMob = true;
 		}
 	}
-	
 
-	public void searchRoom() {   	
-		System.out.println("\n" + rooms.get(player.getCurrentRoomInt()).getDescription());
+
+	public void searchRoom() {   //Prints room description
+		System.out.println("\n" + rooms.get(getCurrentRoomInt()).getDescription());
 	}
 
 	public void printInv() {	//prints out inventory as a vertical list
+		//Coins
+		System.out.println("\n" + player.getCoins() + " coins.\n");
+		
+		//Equipped Items
+		if(player.currentWeapon==null && player.currentArmour==null) {
+			System.out.println("Nothing Equipped.");
+		}
+		if(player.currentWeapon!=null) {
+			System.out.println("Current Weapon = " + player.currentWeapon.name);
+		}
+		if(player.currentArmour!=null) {
+			System.out.println("Current Armour = " + player.currentArmour.name);
+		}
 
+		//Other items
 		if(player.inv.size() == 0) {
-			System.out.println("Empty Inventory!");
+			System.out.println("\nEmpty Inventory.");
+		}else {
+			System.out.println("\nInventory:");
 		}
-
 		for(int i = 0; i < player.inv.size(); i++) {
-			System.out.printf("- %s%n", player.inv.get(i).getName());
+			System.out.printf(i+1 + ". %s (%s)%n", player.inv.get(i).getName(), player.inv.get(i).type.toString());
 		}
-
 	}
 
 	public void pickup() {	//picks up item
@@ -302,17 +342,16 @@ public class Bonk {
 			System.out.println(getCurrentRoomObj().item.name);	
 			getCurrentRoomObj().item.printItem();
 
-			getCurrentRoomObj().setItem(false);		//removes the ite4m from the room	
+			getCurrentRoomObj().setItem(false);		//removes the item from the room	
 		}else {
 			System.out.println("There is nothing to pick up.");
 		}
 	}
 
-	//what calls this method?
+
 	void enterRoom() {
 
-
-		// Print Title of the entered room.
+		// Print Title and description of the entered room.
 		String title = rooms.get(getCurrentRoomInt()).getTitle();
 		System.out.println();
 		for(int i=0; i < title.length()+4; i++) {			
@@ -325,10 +364,10 @@ public class Bonk {
 			System.out.print("-");			
 		}
 
-		System.out.println("\n"+rooms.get(getCurrentRoomInt()).getDescription());
+		System.out.println("\n" + rooms.get(getCurrentRoomInt()).getDescription());
 
 	}
-	
+
 	void setupRooms() {
 
 		for(int i=0; i<19;i++) {	//Creates the rooms and adds them to an ArrayList		
@@ -370,7 +409,6 @@ public class Bonk {
 		this.currentRoom = currentRoom;
 	}
 
-
 	public Room getCurrentRoomObj() {
 		return rooms.get(currentRoom);
 	}
@@ -378,9 +416,11 @@ public class Bonk {
 	public int getCurrentRoomInt() {
 		return currentRoom;
 	}
+
 	public boolean getIsMob() {
 		return isMob;
 	}
+
 	public static void setIsAlive (boolean isAlive) {
 		alive = isAlive;
 	}

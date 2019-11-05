@@ -1,11 +1,11 @@
 package components;
 
-class MobBY extends Mob{
+class MobBY extends Mob{	//Subclass of mob. Has floor specific names and stats.
 
 	public static String names [] = {"Old Tire Swing","LawnMower","Rake", "Baseball Bat","Shovel", "Wheelbarrow"};
+	
 	MobBY () {
 		genStats();
-
 	}
 
 	public void genStats() {
@@ -15,5 +15,6 @@ class MobBY extends Mob{
 		critChance = 0;
 		dodgeChance = 0;
 	}
+	
 }
 

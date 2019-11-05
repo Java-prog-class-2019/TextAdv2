@@ -1,12 +1,17 @@
 package components;
-class Mob {
+class Mob {	//Parent class for the subclasses of mobs
+	
+	/***Mob's Stats***/
 	int power;
 	int armour;
 	int health;
 	double dodgeChance;
 	double critChance;
 	String type = "";
+	/*****************/
 	
+	
+	/***Getters and Setters***/
 	public int getPower() {
 		return power;
 	}
@@ -44,5 +49,6 @@ class Mob {
 	public void setType(String type) {
 		this.type = type;
 	}
+	/*************************/
 }
 
