@@ -8,9 +8,8 @@ import components.Item.Type;
 
 public class Player {
 
-	String name;
+	String name = "Billy";
   
-	private int currentRoom;						//integer value of the current room
 	ArrayList<Item> inv = new ArrayList<Item>();	//inventory
 	private int coins = 15;
 	Item currentWeapon;
@@ -45,50 +44,21 @@ public class Player {
 
 	}
 
-	public void applyStats(Item item) {
+	public void applyStats(Item item) {	//changes the player's stats to accommodate for a newly equipped item
 		dodgeChance += item.dodgeChance;
 		critChance += item.critChance;
 		power += item.power;
 		armour += item.power;
+		health += item.bonusHealth;
 	}
 
-	public void removeStats(Item item) {
+	public void removeStats(Item item) {	//changes the player's stats to accommodate for a newly unequipped item
 		dodgeChance -= item.dodgeChance;
 		critChance -= item.critChance;
 		power -= item.power;
 		armour -= item.defence;
-
+		health -= item.bonusHealth;
 	}
-
-	public void printInv() {	//prints out inventory as a vertical list
-
-		//Coins
-		System.out.println("\n" + coins + " coins.\n");
-		//Equipped Items
-		if(currentWeapon==null && currentArmour==null) {
-			System.out.println("Nothing Equipped.");
-		}
-		if(currentWeapon!=null) {
-			System.out.println("Current Weapon = " + currentWeapon.name);
-		}
-		if(currentArmour!=null) {
-			System.out.println("Current Armour = " + currentArmour.name);
-		}
-		
-		//Other items
-		if(inv.size() == 0) {
-			System.out.println("\nEmpty Inventory.");
-		}else {
-			System.out.println("\nInventory:");
-		}
-		for(int i = 0; i < inv.size(); i++) {
-			System.out.printf(i+1 + ". %s (%s)%n", inv.get(i).getName(), inv.get(i).type.toString());
-		}
-
-	}
-
-
-	
 	
 	
 	public void equip(String item){
@@ -129,14 +99,7 @@ public class Player {
 	}
 
 	/*******getters and setters*************************/ 
-	public void setCurrentRoom(int currentRoom) {
-		this.currentRoom = currentRoom;
-	}
-
-	public int getCurrentRoomInt() {
-		return currentRoom;
-	}
-
+	
 	public void attack(boolean playerTurn, Mob mob) {
 		if (playerTurn == true) {
 			System.out.println("You attack a " + mob.type + " with "+ mob.health + " health");

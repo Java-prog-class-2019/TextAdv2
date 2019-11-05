@@ -1,9 +1,9 @@
 package components;
-class MobGH extends Mob {
+
+class MobGH extends Mob {	//Subclass of mob. Has floor specific names and stats.
 
 	public static String names [] = {"Spiderling", "Clothes Hanger", "Dust Bunny", "Old Floorboard", "Cabinet Door", "Carpet"};
 
-	//all mob Great Hall Stats
 	MobGH () {
 		genStats();
 	}
@@ -15,4 +15,5 @@ class MobGH extends Mob {
 		critChance = 0;
 		dodgeChance = 0;
 	}
+	
 }
