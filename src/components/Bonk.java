@@ -185,7 +185,7 @@ public class Bonk {
 
 
 	private void consume(String word2) {	//Consumes item from inventory
-
+		
 	}
 
 	public void equip(String item){	//Equips item
@@ -197,14 +197,17 @@ public class Bonk {
 		}
 		int index = Integer.parseInt(item) - 1;	//integer value of the item to be equipped
 		if(player.inv.size() > index && index > -1) {	//Makes sure index is a valid value
-			if(player.inv.get(index).type==Type.WEAPON) {	//Checks item type, and if one is already equipped. Removes old item and equips new one.
-				if(player.currentWeapon==null) {
+			if(player.inv.get(index).type == Type.WEAPON) {	//Checks item type, and if one is already equipped. Removes old item and equips new one.
+				if(player.currentWeapon == null) {
+					
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
-					player.currentWeapon=player.inv.get(index);
+					player.currentWeapon = player.inv.get(index);
 					player.applyStats(player.currentWeapon);
 					player.inv.remove(player.inv.get(index));
 					return;
-				}else {
+					
+				} else {
+					
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.removeStats(player.currentWeapon);
 					player.inv.add(player.currentWeapon);
@@ -212,17 +215,22 @@ public class Bonk {
 					player.applyStats(player.currentWeapon);
 					player.inv.remove(player.inv.get(index));
 					return;
+					
 				}
 			}
 
 			if(player.inv.get(index).type == Type.ARMOUR){
-				if(player.currentArmour==null) {
+				
+				if(player.currentArmour == null) {
+					
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.currentArmour = player.inv.get(index);
 					player.applyStats(player.currentArmour);
 					player.inv.remove(player.inv.get(index));
 					return;
-				}else {
+					
+				} else {
+					
 					System.out.println("You equipped " + player.inv.get(index).name + ".");
 					player.removeStats(player.currentArmour);
 					player.inv.add(player.currentArmour);
@@ -230,75 +238,103 @@ public class Bonk {
 					player.applyStats(player.currentArmour);
 					player.inv.remove(player.inv.get(index));
 					return;
+					
 				}
 			}
 
 			if(player.inv.get(index).type == Type.CONSUMABLE){
+				
 				System.out.println("You can't equip consumables.");
+				
 			}
 		}else {
+			
 			System.out.println("You can't do that.");
+			
 		}
 	}
 
 	public void move(String dir) {	
+		
 		/* moves player. First checks if specified movement direction is possible,
 		 then either changes the current room, or prints an error message*/
 
 		switch(dir) {
-
+		
 		case("n"): case("north"):
 			if(currentRoom == 18) {
+				
 				Bonk.win=true;
 				break;
+				
 			}
 		if(currentRoom % 6 == 5) {
+			
 			System.out.println("You can't go that way!");
 			break;
-		}else {
+			
+		} else {
+			
 			currentRoom += 2;
 			enterRoom();
 			break;
+			
 		}
 
 		case("e"): case("east"):
 			if(currentRoom % 2 == 0) {
+				
 				System.out.println("You can't go that way!");
 				break;
-			}else {
+				
+			} else {
+				
 				currentRoom--;
 				enterRoom();
 				break;
+				
 			}
 
 		case("s"): case("south"):
 			if(currentRoom % 6 == 1 || currentRoom == 0) {
+				
 				System.out.println("You can't go that way!");   
-				break; 				
-			}else {
+				break;
+				
+			} else {
+				
 				currentRoom -= 2;
 				enterRoom();
 				break;
+				
 			}
 
 		case("w"): case("west"):
 			if(currentRoom % 2 == 1) {
+				
 				System.out.println("You can't go that way!");
 				break;
-			}else {
+				
+			} else {
+				
 				currentRoom++;
 				enterRoom();
 				break;
+				
 			}
 
 		default: 
+			
 			System.out.println("You gotta be more specific...");	
 			break;
+			
 		}
 
 
 		if (rooms.get(currentRoom).mob.health > 0) {
+			
 			isMob = true;
+		
 		}
 	}
 
@@ -312,13 +348,13 @@ public class Bonk {
 		System.out.println("\n" + player.getCoins() + " coins.\n");
 		
 		//Equipped Items
-		if(player.currentWeapon==null && player.currentArmour==null) {
+		if(player.currentWeapon == null && player.currentArmour == null) {
 			System.out.println("Nothing Equipped.");
 		}
-		if(player.currentWeapon!=null) {
+		if(player.currentWeapon != null) {
 			System.out.println("Current Weapon = " + player.currentWeapon.name);
 		}
-		if(player.currentArmour!=null) {
+		if(player.currentArmour != null) {
 			System.out.println("Current Armour = " + player.currentArmour.name);
 		}
 
@@ -370,7 +406,7 @@ public class Bonk {
 
 	void setupRooms() {
 
-		for(int i=0; i<19;i++) {	//Creates the rooms and adds them to an ArrayList		
+		for(int i = 0; i < 19; i++) {	//Creates the rooms and adds them to an ArrayList		
 			rooms.add(new Room(i));		
 
 			if(rooms.get(i).roomType.equals("great hall")) {
