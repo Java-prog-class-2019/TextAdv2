@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import components.Item.ConsumableType;
 import components.Item.Type;
 
 public class Bonk {
@@ -185,7 +186,38 @@ public class Bonk {
 
 
 	private void consume(String word2) {	//Consumes item from inventory
-
+		int index = Integer.parseInt(word2);
+		if(player.inv.get(index).getType() == Type.CONSUMABLE) {
+			ConsumableType consumetype = player.inv.get(index).getConsumeType();
+			switch(consumetype) {
+				case HEALTH:
+					player.health += player.inv.get(index).health_bonus;
+					break;
+					
+				case FORTITUDE:
+					player.armour += player.inv.get(index).armour_bonus;
+					break;
+					
+				case UNKNOWN:
+					player.health += player.inv.get(index).health_bonus;
+					break;
+					
+				case STRENGTH:
+					player.power += player.inv.get(index).power_bonus;
+					break;
+					
+				case RAGE:
+					player.critChance += player.inv.get(index).crit_bonus;
+					break;
+					
+				case SWIFTNESS:
+					player.dodgeChance += player.inv.get(index).dodge_bonus;
+					break;
+					
+				default:
+					System.out.println("Cannot consume that...");
+			}
+		}
 	}
 
 	public void equip(String item){	//Equips item

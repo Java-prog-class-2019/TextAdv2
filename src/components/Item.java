@@ -518,6 +518,10 @@ public class Item {
 		VENTI
 	}
 
+	public ConsumableType getConsumeType() {
+		return this.con_type;
+	}
+	
 	public String getName() {
 		
 		return this.name;
