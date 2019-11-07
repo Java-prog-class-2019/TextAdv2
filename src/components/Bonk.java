@@ -186,32 +186,44 @@ public class Bonk {
 
 
 	private void consume(String word2) {	//Consumes item from inventory
-		int index = Integer.parseInt(word2);
+		int index = Integer.parseInt(word2)-1;
 		if(player.inv.get(index).getType() == Type.CONSUMABLE) {
 			ConsumableType consumetype = player.inv.get(index).getConsumeType();
 			switch(consumetype) {
 				case HEALTH:
 					player.health += player.inv.get(index).health_bonus;
+					System.out.println("You consumed the " + player.inv.get(index).name);
+					player.inv.remove(index);
 					break;
 					
 				case FORTITUDE:
 					player.armour += player.inv.get(index).armour_bonus;
+					System.out.println("You consumed the " + player.inv.get(index).name);
+					player.inv.remove(index);
 					break;
 					
 				case UNKNOWN:
 					player.health += player.inv.get(index).health_bonus;
+					System.out.println("You consumed the " + player.inv.get(index).name);
+					player.inv.remove(index);
 					break;
 					
 				case STRENGTH:
 					player.power += player.inv.get(index).power_bonus;
+					System.out.println("You consumed the " + player.inv.get(index).name);
+					player.inv.remove(index);
 					break;
 					
 				case RAGE:
 					player.critChance += player.inv.get(index).crit_bonus;
+					System.out.println("You consumed the " + player.inv.get(index).name);
+					player.inv.remove(index);
 					break;
 					
 				case SWIFTNESS:
 					player.dodgeChance += player.inv.get(index).dodge_bonus;
+					System.out.println("You consumed the " + player.inv.get(index).name);
+					player.inv.remove(index);
 					break;
 					
 				default:
@@ -389,9 +401,6 @@ public class Bonk {
 		if(player.currentArmour != null) {
 			System.out.println("Current Armour = " + player.currentArmour.name);
 		}
-
-		//Coins
-		System.out.println(player.getCoins() + " coins.\n");
 		//stats print
 		System.out.println("Power: " + player.power);
 		System.out.println("Armour: " + player.armour);

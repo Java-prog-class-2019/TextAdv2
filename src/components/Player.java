@@ -48,7 +48,7 @@ public class Player {
 		dodgeChance += item.dodgeChance;
 		critChance += item.critChance;
 		power += item.power;
-		armour += item.power;
+		armour += item.defence;
 		health += item.bonusHealth;
 	}
 
