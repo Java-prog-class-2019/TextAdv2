@@ -74,7 +74,6 @@ public class Bonk {
 	public boolean parseCommand(String text) {	//Language parser
 
 		text = text.toLowerCase().trim();
-		text.replace("pick up", "pickup");
 
 		String words[] = text.split(" ");
 
@@ -83,11 +82,14 @@ public class Bonk {
 
 		String word1 = wordlist.get(0);
 		String word2 = "";
+		
 
 
 		if (wordlist.size() > 1) {
 			word2 = wordlist.get(1);
 		}
+		
+		if(word1.equals("pick") && word2.equals("up")) word1 = "pickup";
 
 		switch (word1) {	//Switch case statement to determine what action to perform based on the first one or two words in the command
 
