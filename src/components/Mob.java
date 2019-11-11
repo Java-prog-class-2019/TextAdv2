@@ -7,6 +7,7 @@ class Mob {	//Parent class for the subclasses of mobs
 	int health;
 	double dodgeChance;
 	double critChance;
+	int bleed;
 	String type = "";
 	/*****************/
 	

@@ -487,6 +487,11 @@ public class Bonk {
 				rooms.get(i).isMob = true;
 				rooms.get(i).descrMob = ("\nA " + rooms.get(i).mob.type + " with " + rooms.get(i).mob.health + " health is out to get you, what will you do?");	
 			}
+			if (rooms.get(i).roomType.equals("boss")) {
+				playerTurn = true;
+				rooms.get(i).mob = new MobBoss();
+				rooms.get(i).isMob = true;
+			}
 		}
 
 		rooms.get((int)(Math.random()*5)).setItem(true);
